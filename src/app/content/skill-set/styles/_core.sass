@@ -10,7 +10,7 @@
   @include flex-d-j-a-g(row, center, center)
   @include boxsize-w-h-minw-minh-maxw-maxh(100%, auto)
   margin: 0
-  background: linear-gradient(128.94deg, #5988FF -33.96%, #5988FF 36.71%, #0043F0 112.25%)
+  background: var(--gradient-accent)
   overflow: hidden
   padding: 1rem
 
@@ -27,7 +27,7 @@
       .header-txt
         @include flex-d-j-a-g(row, center, center)
         @include boxsize-w-h-minw-minh-maxw-maxh(100%, 110px)
-        @include font-f-s-c-w-lh-ls-a('Baloo 2', clamp(3rem, 4vw + 2rem, 6rem), #FFFFFF, bold, 141%, 0, center)
+        @include font-f-s-c-w-lh-ls-a('Baloo 2', clamp(3rem, 4vw + 2rem, 6rem), var(--text-inverse), bold, 141%, 0, center)
         text-align: center
         padding: 1rem
         margin-top: 2rem
