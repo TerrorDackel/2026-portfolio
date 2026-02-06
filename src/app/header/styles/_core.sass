@@ -7,10 +7,10 @@
 
 a
   text-decoration: none
-  @include font-f-s-c-w-lh-ls-a('Montserrat', 26px, #5988FF, 400, 120%, null, null)
+  @include font-f-s-c-w-lh-ls-a('Montserrat', 26px, var(--link), 400, 120%, null, null)
 
 a:hover
-  @include font-f-s-c-w-lh-ls-a('Montserrat', 26px, #5988FF, bold, 120%, null, null)
+  @include font-f-s-c-w-lh-ls-a('Montserrat', 26px, var(--link-hover), bold, 120%, null, null)
 
 .header-section
   @include flex-d-j-a-g(row, center, center)
@@ -20,7 +20,7 @@ a:hover
   right: 0
   left: 0
   backdrop-filter: blur(3px)
-  background-color: rgba(223, 223, 223, 0.7)
+  background-color: var(--glass-bg)
   z-index: 100
 
   .header-container
@@ -71,13 +71,13 @@ a:hover
             display: inline-block
             padding: 0.5rem 0.5rem
             text-align: center
-            @include font-f-s-c-w-lh-ls-a('Montserrat', 23px, #5988FF, 400, 120%, 0)
+            @include font-f-s-c-w-lh-ls-a('Montserrat', 23px, var(--primary), 400, 120%, 0)
             transition: transform 0.1s ease
             will-change: transform
             white-space: nowrap
 
             &:hover
-              text-shadow: 0 0 0.6px #5988FF, 0 0 0.6px #5988FF
+              text-shadow: 0 0 0.6px var(--primary), 0 0 0.6px var(--primary)
               cursor: pointer
               transform: scale(1.1)
 
@@ -88,7 +88,7 @@ a:hover
               .en
                 width: 35px
                 text-align: center
-                @include font-f-s-c-w-lh-ls-a('Montserrat', 23px, #5988FF, 400, 120%, null, null)
+                @include font-f-s-c-w-lh-ls-a('Montserrat', 23px, var(--primary), 400, 120%, null, null)
                 transition: transform 0.1s ease, font-weight 0.2s ease
                 transform-origin: center
                 border: none
@@ -97,7 +97,7 @@ a:hover
                 cursor: pointer
 
                 &:hover
-                  text-shadow: 0 0 0.6px #5988FF, 0 0 0.6px #5988FF
+                  text-shadow: 0 0 0.6px var(--primary), 0 0 0.6px var(--primary)
                   transform: scale(1.15)
 
                 &.active
@@ -110,7 +110,7 @@ a:hover
               .cut
                 width: 10px
                 text-align: center
-                @include font-f-s-c-w-lh-ls-a('Montserrat', 23px, #5988FF, 400, 120%, null, null)
+                @include font-f-s-c-w-lh-ls-a('Montserrat', 23px, var(--primary), 400, 120%, null, null)
                 pointer-events: none
 
       .navbar-mobile
@@ -146,8 +146,8 @@ a:hover
           right: 0px
           @include flex-d-j-a-g(column, center, center)
           backdrop-filter: blur(1rem)
-          background-color: rgba(223, 223, 223, 0.95)
-          color: #5988FF
+          background-color: var(--surface)
+          color: var(--primary)
           border-radius: 0 0 0 10px
           padding: 1rem
           opacity: 0
@@ -182,7 +182,7 @@ a:hover
             .en
               width: 35px
               text-align: center
-              @include font-f-s-c-w-lh-ls-a('Montserrat', 23px, #5988FF, 400, 120%, null, null)
+              @include font-f-s-c-w-lh-ls-a('Montserrat', 23px, var(--primary), 400, 120%, null, null)
               transition: transform 0.1s ease, font-weight 0.1s ease
               transform-origin: center
               border: none
@@ -191,15 +191,15 @@ a:hover
               cursor: pointer
 
               &:hover
-                text-shadow: 0 0 0.6px #5988FF, 0 0 0.6px #5988FF
+                text-shadow: 0 0 0.6px var(--primary), 0 0 0.6px var(--primary)
                 transform: scale(1.15)
 
               &.active
-                text-shadow: 0 0 0.6px #5988FF, 0 0 0.6px #5988FF
+                text-shadow: 0 0 0.6px var(--primary), 0 0 0.6px var(--primary)
                 transform: scale(1.15)
 
             .cut
               width: 10px
               text-align: center
-              @include font-f-s-c-w-lh-ls-a('Montserrat', 23px, #5988FF, 400, 120%, null, null)
+              @include font-f-s-c-w-lh-ls-a('Montserrat', 23px, var(--primary), 400, 120%, null, null)
               pointer-events: none
