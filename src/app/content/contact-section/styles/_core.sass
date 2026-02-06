@@ -5,7 +5,7 @@
     width: 100dvw
     margin-left: 0
     margin-right: 0
-    background: linear-gradient(179.99deg, #FFFFFF 12.89%, #EAF0FF 91.39%)
+    background: var(--gradient-section)
 
 #contact
     scroll-margin-top: -117px
@@ -33,7 +33,7 @@ form
                 display: flex
                 @include circle-size(130px)
                 margin-left: 1%
-                @include brandradial-size-x-y-c1-c2-c3()
+                @include brandradial-size-x-y-c1-c2-c3($c1: var(--primary), $c2: var(--primary), $c3: var(--primary-active))
 
         .contact-title-and-container-left-right
             @include flex-d-j-a-g(column, center, center)
@@ -47,7 +47,7 @@ form
 
                 .title-txt
                     @include boxsize-w-h-minw-minh-maxw-maxh(null, auto, null, null, null, 1920px)
-                    @include font-f-s-c-w-lh-ls-a('Baloo 2', 90px, #5988FF, bold, 120%, 0)
+                    @include font-f-s-c-w-lh-ls-a('Baloo 2', 90px, var(--primary), bold, 120%, 0)
 
             .container-left-and-right
                 @include flex-d-j-a-g(row, space-between, stretch)
@@ -70,7 +70,7 @@ form
                             align-items: center
                             @include boxsize-w-h-minw-minh-maxw-maxh(100%)
                             @include minsize-w-h(null, 150px)
-                            @include font-f-s-c-w-lh-ls-a('Montserrat', 32px, #5988FF, 960, 120%, 0)
+                            @include font-f-s-c-w-lh-ls-a('Montserrat', 32px, var(--primary), 960, 120%, 0)
                             margin: 0
 
                     .got-a-problem-title-description-container
@@ -91,7 +91,7 @@ form
                         .need-a-contact-me-txt
                             @include flex-d-j-a-g($justify: flex-start)
                             @include boxsize-w-h-minw-minh-maxw-maxh(100%)
-                            @include font-f-s-c-w-lh-ls-a('Poppins', 0.9rem, #5988FF, 400, 120%, 0)
+                            @include font-f-s-c-w-lh-ls-a('Poppins', 0.9rem, var(--primary), 400, 120%, 0)
                             margin: 0
 
                             .need-a-contact-me-question
@@ -111,7 +111,7 @@ form
                                 .circle-11
                                     display: flex
                                     @include circle-size(204px)
-                                    @include brandradial-size-x-y-c1-c2-c3()
+                                    @include brandradial-size-x-y-c1-c2-c3($c1: var(--primary), $c2: var(--primary), $c3: var(--primary-active))
 
                 .container-right
                     @include flex-d-j-a-g(column, center, flex-start)
@@ -130,9 +130,9 @@ form
                         .message-textfield
                             display: flex
                             @include boxsize-w-h-minw-minh-maxw-maxh(100%)
-                            @include border-w-s-c-r(1px, solid, #5988FF, 0.5rem)
+                            @include border-w-s-c-r(1px, solid, var(--border), 0.5rem)
                             padding: 1rem 0 1rem 1rem
-                            background-color: #ffffff
+                            background-color: var(--surface)
                             font-family: 'Poppins'
 
                         .message-textfield
@@ -148,7 +148,7 @@ form
                             @include minsize-w-h(null, 1.25rem)
 
                         .error-msg
-                            @include font-f-s-c-w-lh-ls-a('Poppins', 1rem, red, null, null, null, left)
+                            @include font-f-s-c-w-lh-ls-a('Poppins', 1rem, var(--danger), null, null, null, left)
                             margin-top: 0.5rem
 
                     .your-email-container
@@ -161,7 +161,7 @@ form
                             @include minsize-w-h(null, 1.25rem)
 
                         .error-msg
-                            @include font-f-s-c-w-lh-ls-a('Poppins', 1rem, red, null, null, null, left)
+                            @include font-f-s-c-w-lh-ls-a('Poppins', 1rem, var(--danger), null, null, null, left)
                             margin-top: 0.5rem
 
                     .your-message-container
@@ -174,7 +174,7 @@ form
                             @include minsize-w-h(null, 1.25rem)
 
                         .error-msg
-                            @include font-f-s-c-w-lh-ls-a('Poppins', 1rem, red, null, null, null, left)
+                            @include font-f-s-c-w-lh-ls-a('Poppins', 1rem, var(--danger), null, null, null, left)
                             margin-top: 0.5rem
 
                     .agree-privacy-police-check
@@ -211,7 +211,7 @@ form
 
                                 .privacy-link
                                     display: inline-block
-                                    color: #5988FF
+                                    color: var(--link)
                                     text-decoration: none
                                     margin: 0 3px
                                     &:hover
@@ -228,7 +228,7 @@ form
                             @include minsize-w-h(null, 1.25rem)
 
                         .error-msg
-                            @include font-f-s-c-w-lh-ls-a('Poppins', 1rem, red, null, null, null, left)
+                            @include font-f-s-c-w-lh-ls-a('Poppins', 1rem, var(--danger), null, null, null, left)
                             margin-top: 0.5rem
 
                     .agree-privacy-police-check-mobile
@@ -240,11 +240,11 @@ form
                             @include boxsize-w-h-minw-minh-maxw-maxh(100%, null, null, 1.25rem, null, null)
 
                         .error-msg
-                            @include font-f-s-c-w-lh-ls-a('Poppins', 1rem, red, null, null, null, left)
+                            @include font-f-s-c-w-lh-ls-a('Poppins', 1rem, var(--danger), null, null, null, left)
                             margin-top: 0.5rem
 
                     .success-msg
-                        @include font-f-s-c-w-lh-ls-a('Poppins', 1rem, green)
+                        @include font-f-s-c-w-lh-ls-a('Poppins', 1rem, var(--success))
                         margin-top: 0.5rem
 
                     .button-container
@@ -254,10 +254,10 @@ form
                         .btn-contact
                             z-index: 0
                             @include boxsize-w-h-minw-minh-maxw-maxh(auto, 58px, null, null, null, 181px)
-                            @include border-w-s-c-r(2px, solid, #BBBBBB, 10px)
-                            @include font-f-s-c-w-lh-ls-a('Poppins', 1rem, white, 500)
+                            @include border-w-s-c-r(2px, solid, var(--border-muted), 10px)
+                            @include font-f-s-c-w-lh-ls-a('Poppins', 1rem, var(--text-inverse), 500)
                             padding: 15px 30px
-                            background-color: #BBBBBB
+                            background-color: var(--surface-muted)
                             @include clickable-prop-dur-ease(all, 0.1s)
                             @include elevation-y-blur-spread-alpha(5px, 15px, 0px, 0.15)
 
@@ -267,7 +267,7 @@ form
                                 content: ''
                                 position: absolute
                                 @include boxsize-w-h-minw-minh-maxw-maxh(100%, 100%)
-                                background-color: #0043F0
+                                background-color: var(--primary-active)
                                 transform: scale(0)
                                 transition: transform 0.1s ease
 
@@ -282,16 +282,16 @@ form
                                 transform-origin: bottom right
 
                             &:disabled
-                                background-color: #ccc
-                                border-color: #ccc
+                                background-color: var(--surface-muted)
+                                border-color: var(--border-muted)
                                 cursor: not-allowed
 
                             &.btn-valid
-                                border-color: #0043F0
+                                border-color: var(--primary-active)
                                 cursor: pointer
 
                                 &:hover
-                                    color: #FFFFFF
+                                    color: var(--on-primary)
                                     transform: scale(1.15)
 
                                 &:hover::before,
@@ -301,14 +301,14 @@ form
                     .name-textfield.inline-error-active::placeholder,
                     .email-textfield.inline-error-active::placeholder,
                     .message-textfield.inline-error-active::placeholder
-                        color: #E53935
+                        color: var(--danger)
                         opacity: 1
 
                     .name-textfield:-webkit-autofill,
                     .email-textfield:-webkit-autofill,
                     .message-textfield:-webkit-autofill
                         -webkit-text-fill-color: inherit
-                        -webkit-box-shadow: 0 0 0px 1000px #FFFFFF inset
+                        -webkit-box-shadow: 0 0 0px 1000px var(--surface) inset
                         transition: background-color 9999s ease-out 0s
 
             .circle-14-container
@@ -319,7 +319,7 @@ form
                 .circle-14
                     display: flex
                     @include circle-size(73px)
-                    @include brandradial-size-x-y-c1-c2-c3()
+                    @include brandradial-size-x-y-c1-c2-c3($c1: var(--primary), $c2: var(--primary), $c3: var(--primary-active))
 
             .back-to-top
                 @include flex-d-j-a-g(row)
@@ -330,7 +330,7 @@ form
                 cursor: pointer
 
                 &:focus-visible
-                    outline: 2px solid #0043F0
+                    outline: 2px solid var(--focus-ring)
                     outline-offset: 4px
 
                 .back-to-top-btn
