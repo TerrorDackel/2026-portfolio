@@ -33,7 +33,7 @@
           .circle-7
             display: flex
             @include circle-size(108px)
-            @include brandradial-size-x-y-c1-c2-c3()
+            @include brandradial-size-x-y-c1-c2-c3($c1: var(--primary), $c2: var(--primary), $c3: var(--primary-active))
 
         .header-and-description-container
           .header-container
@@ -43,7 +43,7 @@
             .header-txt
               @include flex-d-j-a-g(row, flex-start, stretch)
               margin: 0
-              @include font-f-s-c-w-lh-ls-a('Baloo 2', clamp(4rem, 4vw + 2rem, 6rem), #5988FF, bold, 100%, 1%)
+              @include font-f-s-c-w-lh-ls-a('Baloo 2', clamp(4rem, 4vw + 2rem, 6rem), var(--primary), bold, 100%, 1%)
 
           .description-container
             @include flex-d-j-a-g(row, flex-start, center)
@@ -52,7 +52,7 @@
             .description-txt
               @include flex-d-j-a-g(row, flex-start, stretch)
               margin: 0
-              @include font-f-s-c-w-lh-ls-a('Montserrat', clamp(1rem, 1.5vw + 0.5rem, 1.5rem), #000000, 400, 120%, 0%)
+              @include font-f-s-c-w-lh-ls-a('Montserrat', clamp(1rem, 1.5vw + 0.5rem, 1.5rem), var(--text), 400, 120%, 0%)
 
       .container-right
         @include flex-d-j-a-g(row, flex-start, stretch)
@@ -65,7 +65,7 @@
           .circle-8
             display: flex
             @include circle-size(183px)
-            @include brandradial-size-x-y-c1-c2-c3()
+            @include brandradial-size-x-y-c1-c2-c3($c1: var(--primary), $c2: var(--primary), $c3: var(--primary-active))
 
 @keyframes zoomIn
   from
