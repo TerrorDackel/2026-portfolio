@@ -7,7 +7,7 @@
   height: auto
   margin: 0
   padding: 0
-  background: linear-gradient(179.99deg, #FFFFFF 12.89%, #EAF0FF 91.39%)
+  background: var(--gradient-section)
 
 .privacy-policy
   @include flex-d-j-a-g(column, center, center)
@@ -28,7 +28,7 @@
     .privacy-policy-header
       @include flex-d-j-a-g(column, null, flex-start)
       @include boxsize-w-h-minw-minh-maxw-maxh(100%, auto, null, null, 1000px, null)
-      @include font-f-s-c-w-lh-ls-a('Baloo 2', 90px, #5988FF, bold, 120%, 0%, left)
+      @include font-f-s-c-w-lh-ls-a('Baloo 2', 90px, var(--primary), bold, 120%, 0%, left)
       margin-bottom: 10px
       padding: 0 1rem
 
@@ -41,13 +41,13 @@
       margin-bottom: 15px
 
       h4
-        @include font-f-s-c-w-lh-ls-a('Open Sans', 33px, #5988FF, bold, 120%, 0%, left)
+        @include font-f-s-c-w-lh-ls-a('Open Sans', 33px, var(--primary), bold, 120%, 0%, left)
         padding: 0
 
       span
         @include flex-d-j-a-g(column, flex-start, stretch)
         @include boxsize-w-h-minw-minh-maxw-maxh(100%, auto)
-        @include font-f-s-c-w-lh-ls-a('Open Sans', 1rem, black, 400, 120%, 0%, left)
+        @include font-f-s-c-w-lh-ls-a('Open Sans', 1rem, var(--text), 400, 120%, 0%, left)
 
 @keyframes zoomIn
   from
