@@ -10,7 +10,7 @@
 .hero-section
   @include flex-d-j-a-g(row, center, stretch)
   @include size-w-h(100%, 100vh)
-  background: linear-gradient(0deg, rgba(234,240,255,1) 0%, rgba(245,248,255,1) 35%, rgba(255,255,255,1) 100%)
+  background: var(--gradient-hero)
 
   .hero-container-desktop
     display: none
@@ -34,7 +34,7 @@
 
         .circle-3
           @include circle-size(50rem)
-          @include brandradial-size-x-y-c1-c2-c3()
+          @include brandradial-size-x-y-c1-c2-c3($c1: var(--primary), $c2: var(--primary), $c3: var(--primary-active))
           z-index: 1
 
     .hero-header-scroll
@@ -64,14 +64,14 @@
                 @include flex-d-j-a-g(row, flex-start, stretch)
                 padding: 0
                 margin: 0
-                @include font-f-s-c-w-lh-ls-a('Montserrat', clamp(2rem, 1.5rem + 2vw, 3.8125rem), white, 400, 1, 0)
+                @include font-f-s-c-w-lh-ls-a('Montserrat', clamp(2rem, 1.5rem + 2vw, 3.8125rem), var(--text), 400, 1, 0)
 
               .hero-text-frontend,
               .hero-text-developer
                 @include flex-d-j-a-g(row, flex-start, stretch)
                 padding: 0
                 margin: 0
-                @include font-f-s-c-w-lh-ls-a('Baloo 2', clamp(4rem, 2.5rem + 3vw, 9rem), white, 700, 1, -0.125rem)
+                @include font-f-s-c-w-lh-ls-a('Baloo 2', clamp(4rem, 2.5rem + 3vw, 9rem), var(--text), 700, 1, -0.125rem)
 
         .scroll-container
           @include flex-d-j-a-g(row, center, stretch)
@@ -86,15 +86,15 @@
 
             .scroll-responsive-txt
               @include flex-d-j-a-g(row, center, stretch)
-              @include font-f-s-c-w-lh-ls-a('Poppins', clamp(0.1rem, 2.4vw, 1.4rem), #d2cef8, 400, 120%, 0)
+              @include font-f-s-c-w-lh-ls-a('Poppins', clamp(0.1rem, 2.4vw, 1.4rem), var(--on-primary), 400, 120%, 0)
               width: max-content
               max-width: min(100%, 16rem)
               padding: 0.3rem 0.3rem
               transform: rotate(90deg)
               transform-origin: center
-              background-color: rgba(39, 42, 252, 0.95)
+              background-color: var(--primary-active)
               border-radius: 15rem
-              border: solid 0.1rem #272afc
+              border: solid 0.1rem var(--primary-active)
               white-space: nowrap
               box-sizing: border-box
 
