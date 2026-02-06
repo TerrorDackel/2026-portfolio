@@ -13,14 +13,17 @@ import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 export class HeaderComponent {
     private readonly translate = inject(TranslateService);
     private readonly router = inject(Router);
+    private readonly availableAccents = ['blue', 'emerald', 'purple', 'pink', 'black', 'white'] as const;
 
     menuValue = false;
     menuIcon = 'bi bi-list';
     currentLanguage: 'en' | 'de';
+    currentAccent = 'blue';
 
     constructor() {
         const lang = this.translate.currentLang as 'en' | 'de' | undefined;
         this.currentLanguage = lang === 'de' ? 'de' : 'en';
+        this.setAccent(this.readStoredAccent());
     }
 
     openMenu(): void {
@@ -47,6 +50,28 @@ export class HeaderComponent {
         this.currentLanguage = lang;
         this.translate.use(lang);
         localStorage.setItem('lang', lang);
+    }
+
+    onAccentChange(event: Event): void {
+        const target = event.target as HTMLSelectElement | null;
+        if (!target) {
+            return;
+        }
+        this.setAccent(target.value);
+    }
+
+    private setAccent(accent: string): void {
+        const normalizedAccent = this.availableAccents.includes(accent as typeof this.availableAccents[number])
+            ? accent
+            : 'blue';
+        this.currentAccent = normalizedAccent;
+        document.documentElement.dataset['accent'] = normalizedAccent;
+        localStorage.setItem('accent', normalizedAccent);
+    }
+
+    private readStoredAccent(): string {
+        const storedAccent = localStorage.getItem('accent');
+        return storedAccent ?? 'blue';
     }
 
     scrollUp(): void {
