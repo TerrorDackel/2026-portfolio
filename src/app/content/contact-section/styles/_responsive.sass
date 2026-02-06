@@ -88,10 +88,10 @@
                             .name-textfield
                                 @include flex-d-j-a-g($dir: row, $justify: center, $align: center)
                                 @include boxsize-w-h-minw-minh-maxw-maxh($w: 95%, $h: auto, $maxw: null)
-                                @include border-w-s-c-r($w: 1px, $style: solid, $color: #5988FF, $radius: 10px)
+                                @include border-w-s-c-r($w: 1px, $style: solid, $color: var(--border), $radius: 10px)
                                 box-sizing: border-box
                                 padding: 15px 25px
-                                background-color: #FFFFFF
+                                background-color: var(--surface)
 
                             .error-slot
                                 display: block
@@ -100,7 +100,7 @@
 
                             .error-msg
                                 width: 95%
-                                @include font-f-s-c-w-lh-ls-a($family: null, $size: 1rem, $color: red, $weight: null, $lineHeight: null, $letterSpacing: null, $align: left)
+                                @include font-f-s-c-w-lh-ls-a($family: null, $size: 1rem, $color: var(--danger), $weight: null, $lineHeight: null, $letterSpacing: null, $align: left)
                                 margin: 5px 0 0 1rem
 
                         .your-email-container
@@ -111,10 +111,10 @@
                             .email-textfield
                                 @include flex-d-j-a-g($dir: row, $justify: center, $align: center)
                                 @include boxsize-w-h-minw-minh-maxw-maxh($w: 95%, $h: auto, $maxw: null)
-                                @include border-w-s-c-r($w: 1px, $style: solid, $color: #5988FF, $radius: 10px)
+                                @include border-w-s-c-r($w: 1px, $style: solid, $color: var(--border), $radius: 10px)
                                 box-sizing: border-box
                                 padding: 15px 25px
-                                background-color: #FFFFFF
+                                background-color: var(--surface)
 
                             .error-slot
                                 @include  boxsize-w-h-minw-minh-maxw-maxh($w: 95%, $minh: 1.25rem)
@@ -123,7 +123,7 @@
 
                             .error-msg
                                 width: 95%
-                                @include font-f-s-c-w-lh-ls-a($family: null, $size: 1rem, $color: red, $weight: null, $lineHeight: null, $letterSpacing: null, $align: left)
+                                @include font-f-s-c-w-lh-ls-a($family: null, $size: 1rem, $color: var(--danger), $weight: null, $lineHeight: null, $letterSpacing: null, $align: left)
                                 margin: 5px 0 0 1rem
 
                         .your-message-container
@@ -134,10 +134,10 @@
                             .message-textfield
                                 @include flex-d-j-a-g($dir: row, $justify: center, $align: center)
                                 @include boxsize-w-h-minw-minh-maxw-maxh($w: 95%, $h: 202px, $maxw: null)
-                                @include border-w-s-c-r($w: 1px, $style: solid, $color: #5988FF, $radius: 10px)
+                                @include border-w-s-c-r($w: 1px, $style: solid, $color: var(--border), $radius: 10px)
                                 box-sizing: border-box
                                 padding: 15px 25px
-                                background-color: #FFFFFF
+                                background-color: var(--surface)
 
                             .error-slot
                                 @include  boxsize-w-h-minw-minh-maxw-maxh($w: 95%, $minh: 1.25rem)
@@ -146,7 +146,7 @@
 
                             .error-msg
                                 width: 95%
-                                @include font-f-s-c-w-lh-ls-a($family: null, $size: 1rem, $color: red, $weight: null, $lineHeight: null, $letterSpacing: null, $align: left)
+                                @include font-f-s-c-w-lh-ls-a($family: null, $size: 1rem, $color: var(--danger), $weight: null, $lineHeight: null, $letterSpacing: null, $align: left)
                                 margin: 5px 0 0 1rem
 
                         .agree-privacy-police-check
@@ -171,7 +171,7 @@
                                         white-space: nowrap
                                         overflow: hidden
                                         margin: 0
-                                        color: #5988FF
+                                        color: var(--link)
                                         text-decoration: underline
                                         margin-bottom: -0.2rem
 
@@ -182,7 +182,7 @@
 
                             .error-msg
                                 width: 95%
-                                @include font-f-s-c-w-lh-ls-a($family: null, $size: 1rem, $color: red, $weight: null, $lineHeight: null, $letterSpacing: null, $align: flex-start)
+                                @include font-f-s-c-w-lh-ls-a($family: null, $size: 1rem, $color: var(--danger), $weight: null, $lineHeight: null, $letterSpacing: null, $align: flex-start)
                                 margin: 0 0 1rem 0
 
                         .button-container
@@ -190,17 +190,17 @@
                             width: 100%
 
                             .btn-contact
-                                @include font-f-s-c-w-lh-ls-a($family: null, $size: 1rem, $color: white, $weight: null, $lineHeight: null, $letterSpacing: null, $align: null)
+                                @include font-f-s-c-w-lh-ls-a($family: null, $size: 1rem, $color: var(--on-primary), $weight: null, $lineHeight: null, $letterSpacing: null, $align: null)
                                 @include border-w-s-c-r($w: none, $radius: 8px)
-                                background-color: #5988FF
+                                background-color: var(--primary)
                                 cursor: pointer
                                 padding: 12px 20px
 
                             .btn-valid
-                                background-color: #3366cc
+                                background-color: var(--primary-hover)
 
                         .success-msg
-                            @include font-f-s-c-w-lh-ls-a($family: null, $size: 1.5rem, $color: green, $weight: null, $lineHeight: null, $letterSpacing: null, $align: center)
+                            @include font-f-s-c-w-lh-ls-a($family: null, $size: 1.5rem, $color: var(--success), $weight: null, $lineHeight: null, $letterSpacing: null, $align: center)
                             margin-top: 20px
 
                         .back-to-top
@@ -267,7 +267,7 @@
 
                             .error-msg
                                 width: 220px
-                                @include font-f-s-c-w-lh-ls-a($size: 1rem, $color: red, $align: left)
+                                @include font-f-s-c-w-lh-ls-a($size: 1rem, $color: var(--danger), $align: left)
                                 margin-top: 5px
 
                         .your-email-container
@@ -283,7 +283,7 @@
 
                             .error-msg
                                 width: 220px
-                                @include font-f-s-c-w-lh-ls-a($size: 1rem, $color: red, $align: left)
+                                @include font-f-s-c-w-lh-ls-a($size: 1rem, $color: var(--danger), $align: left)
                                 margin-top: 5px
 
                         .your-message-container
@@ -299,7 +299,7 @@
 
                             .error-msg
                                 width: 220px
-                                @include font-f-s-c-w-lh-ls-a($size: 1rem, $color: red, $align: left)
+                                @include font-f-s-c-w-lh-ls-a($size: 1rem, $color: var(--danger), $align: left)
                                 margin-top: 5px
 
                         .agree-privacy-police-check
@@ -336,7 +336,7 @@
                                         font-size: 1rem!important
 
                                     .privacy-link
-                                        color: #5988FF
+                                        color: var(--link)
                                         text-decoration: underline
                                         font-size: 1rem!important
 
@@ -347,7 +347,7 @@
 
                             .error-msg
                                 width: 220px
-                                @include font-f-s-c-w-lh-ls-a($size: 1rem, $color: red, $align: center)
+                                @include font-f-s-c-w-lh-ls-a($size: 1rem, $color: var(--danger), $align: center)
                                 margin: 5px 0 1rem 0
 
                         .button-container
@@ -355,17 +355,17 @@
                             width: 100%
 
                             .btn-contact
-                                @include font-f-s-c-w-lh-ls-a($size: 1rem, $color: white)
+                                @include font-f-s-c-w-lh-ls-a($size: 1rem, $color: var(--on-primary))
                                 @include border-w-s-c-r($w: none, $radius: 8px)
                                 padding: 12px 20px
-                                background-color: #5988FF
+                                background-color: var(--primary)
                                 cursor: pointer
 
                             .btn-valid
-                                background-color: #3366cc
+                                background-color: var(--primary-hover)
 
                         .success-msg
-                            @include font-f-s-c-w-lh-ls-a($size: 1rem, $color: green, $align: center)
+                            @include font-f-s-c-w-lh-ls-a($size: 1rem, $color: var(--success), $align: center)
                             margin-top: 20px
 
                         .back-to-top
