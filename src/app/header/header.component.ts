@@ -10,10 +10,11 @@ import { TranslatePipe, TranslateService } from '@ngx-translate/core';
     templateUrl: './header.component.html',
     styleUrl: './header.component.sass'
 })
-export class HeaderComponent {
+  export class HeaderComponent {
     private readonly translate = inject(TranslateService);
     private readonly router = inject(Router);
     private readonly availableAccents = ['blue', 'emerald', 'purple', 'pink', 'black', 'white'] as const;
+    private readonly prefersDarkMedia = window.matchMedia('(prefers-color-scheme: dark)');
 
     menuValue = false;
     menuIcon = 'bi bi-list';
@@ -24,6 +25,16 @@ export class HeaderComponent {
         const lang = this.translate.currentLang as 'en' | 'de' | undefined;
         this.currentLanguage = lang === 'de' ? 'de' : 'en';
         this.setAccent(this.readStoredAccent());
+        this.applyAccentAvailability(this.prefersDarkMedia.matches);
+        if (typeof this.prefersDarkMedia.addEventListener === 'function') {
+            this.prefersDarkMedia.addEventListener('change', (event) => {
+                this.applyAccentAvailability(event.matches);
+            });
+        } else if (typeof this.prefersDarkMedia.addListener === 'function') {
+            this.prefersDarkMedia.addListener((event) => {
+                this.applyAccentAvailability(event.matches);
+            });
+        }
     }
 
     openMenu(): void {
@@ -72,6 +83,28 @@ export class HeaderComponent {
     private readStoredAccent(): string {
         const storedAccent = localStorage.getItem('accent');
         return storedAccent ?? 'blue';
+    }
+
+    private applyAccentAvailability(prefersDark: boolean): void {
+        const unavailableAccent = prefersDark ? 'black' : 'white';
+        const optionNodes = document.querySelectorAll<HTMLSelectElement>(
+            `select.accent-select option[value="${unavailableAccent}"]`
+        );
+        optionNodes.forEach((option) => {
+            option.disabled = true;
+            option.hidden = true;
+        });
+        const allowedAccent = prefersDark ? 'white' : 'black';
+        const allowedOptionNodes = document.querySelectorAll<HTMLSelectElement>(
+            `select.accent-select option[value="${allowedAccent}"]`
+        );
+        allowedOptionNodes.forEach((option) => {
+            option.disabled = false;
+            option.hidden = false;
+        });
+        if (this.currentAccent === unavailableAccent) {
+            this.setAccent('blue');
+        }
     }
 
     scrollUp(): void {
