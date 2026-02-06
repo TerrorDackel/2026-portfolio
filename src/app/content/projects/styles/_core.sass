@@ -47,7 +47,7 @@
               justify-content: center
               align-items: center
               object-fit: cover
-              box-shadow: 5px 5px 15px 0px #00000026
+              box-shadow: var(--shadow-1)
 
     .container-right
       @include flex-d-j-a-g(row, flex-end, flex-end)
@@ -73,16 +73,7 @@
       @include boxsize-w-h-minw-minh-maxw-maxh(100%, auto, null, null, 620px, null)
 
       .project-description-container-left
-        @include flex-d-j-a-g(row, flex-start, flex-end)
-        @include boxsize-w-h-minw-minh-maxw-maxh(100%, auto, null, null, 532px, null)
-        margin: 0
-
-        app-projects-txt-description
-          @include flex-d-j-a-g(row, center, stretch)
-
-    .container-right
-      @include flex-d-j-a-g(row, flex-end, flex-end)
-      @include boxsize-w-h-minw-minh-maxw-maxh(100%, auto, null, null, 620px, null)
+@@ -86,88 +86,88 @@
 
       .project-img-container
         @include flex-d-j-a-g(row, flex-start, stretch)
@@ -108,7 +99,7 @@
               justify-content: center
               align-items: center
               object-fit: cover
-              box-shadow: 5px 5px 15px 0px #00000026
+              box-shadow: var(--shadow-1)
 
   .third-project-container
     @include flex-d-j-a-g(row, center, center)
@@ -145,7 +136,7 @@
               justify-content: center
               align-items: center
               object-fit: cover
-              box-shadow: 5px 5px 15px 0px #00000026
+              box-shadow: var(--shadow-1)
 
     .container-right
       @include flex-d-j-a-g(row, flex-end, flex-end)
