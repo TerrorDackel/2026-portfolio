@@ -30,7 +30,7 @@
       @include size-w-h(65px, 38px)
 
       .programm-txt
-        @include font-f-s-c-w-lh-ls-a('Montserrat', 16px, #FFFFFF, 400, 120%, 0, center)
+        @include font-f-s-c-w-lh-ls-a('Montserrat', 16px, var(--text-inverse), 400, 120%, 0, center)
         display: inline-block
         transition: transform 0.1s ease
         @include hover-scale-f(1.15)
@@ -41,7 +41,7 @@
 @keyframes text-pulse
   0%, 100%
     transform: scale(1)
-    color: #FFFFFF
+    color: var(--text-inverse)
   50%
     transform: scale(1.5)
-    color: #C2E6FF
+    color: var(--text-muted)
