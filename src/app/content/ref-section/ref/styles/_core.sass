@@ -4,12 +4,12 @@
   @include flex-d-j-a-g(column, flex-start, flex-start)
   @include boxsize-w-h-minw-minh-maxw-maxh(100%, auto, null, null, 340px, null)
   margin: 0
-  @include font-f-s-c-w-lh-ls-a(null, null, #FFFFFF, null, null, null, null)
-  @include border-w-s-c-r(1px, solid, rgba(255, 255, 255, 0.1), 1rem)
+  @include font-f-s-c-w-lh-ls-a(null, null, var(--text-inverse), null, null, null, null)
+  @include border-w-s-c-r(1px, solid, var(--glass-border), 1rem)
   gap: 1rem
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2)
+  box-shadow: var(--shadow-2)
   padding: 1rem
-  background-color: rgba(255, 255, 255, 0.1)
+  background-color: var(--glass-bg)
   backdrop-filter: blur(1px)
   transition: transform 0.1s ease, box-shadow 0.1s ease
   position: relative
@@ -21,13 +21,13 @@
     top: 0
     left: -100%
     @include boxsize-w-h-minw-minh-maxw-maxh(50%, 100%, null, null, null, null)
-    background: linear-gradient(120deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.05) 100%)
+    background: var(--gradient-card)
     transform: skewX(-20deg)
     transition: left 0.1s ease
 
   &:hover
     transform: translateY(-4px)
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3)
+    box-shadow: var(--shadow-strong)
 
     &::after
       left: 150%
@@ -39,14 +39,14 @@
     .name
       @include flex-d-j-a-g(row, center, stretch)
       @include font-f-s-c-w-lh-ls-a('Montserrat', clamp(1.25rem, 1.5vw + 0.5rem, 2rem), transparent, 700, 120%, 0, null)
-      background: linear-gradient(179.99deg, #FFFFFF 12.89%, #EAF0FF 91.39%)
+      background: var(--gradient-section)
       -webkit-background-clip: text
       background-clip: text
 
     .project
       @include flex-d-j-a-g(row, center, stretch)
-      @include font-f-s-c-w-lh-ls-a('Montserrat', 16px, #EAF0FF, 400, 140%, 0, null)
-      background-color: linear-gradient(179.99deg, #FFFFFF 12.89%, #EAF0FF 91.39%)
+      @include font-f-s-c-w-lh-ls-a('Montserrat', 16px, var(--text-muted), 400, 140%, 0, null)
+      background: var(--gradient-section)
       padding: 0.5rem 0 0.5rem
 
   .ref-description-container
@@ -57,5 +57,5 @@
     .description
       @include flex-d-j-a-g(row, center, stretch)
       @include boxsize-w-h-minw-minh-maxw-maxh(100%, auto, null, null, 340px, null)
-      @include font-f-s-c-w-lh-ls-a('Montserrat', 18px, #FFFFFF, 400, 120%, null, center)
-      background-color: linear-gradient(179.99deg, #FFFFFF 12.89%, #EAF0FF 91.39%)
+      @include font-f-s-c-w-lh-ls-a('Montserrat', 18px, var(--text-inverse), 400, 120%, null, center)
+      background: var(--gradient-section)
