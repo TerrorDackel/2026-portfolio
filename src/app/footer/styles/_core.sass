@@ -10,7 +10,7 @@
   @include flex-d-j-a-g(row, center, center)
   @include boxsize-w-h-minw-minh-maxw-maxh(100%, 100%, null, null, null, 390px)
   margin: 0
-  @include brandradial-size-x-y-c1-c2-c3(71.18% 335.57%, 28.82%, -124.4%, #5988FF, #5988FF, #0043F0)
+  @include brandradial-size-x-y-c1-c2-c3(71.18% 335.57%, 28.82%, -124.4%, var(--primary), var(--primary), var(--primary-active))
   bottom: 0
   right: 0
   left: 0
@@ -23,7 +23,7 @@
       @include flex-d-j-a-g(row, flex-start, center)
       @include boxsize-w-h-minw-minh-maxw-maxh(25%, 70px)
       padding: 2rem
-      color: white
+      color: var(--text-inverse)
 
       .logo-img
         @include flex-d-j-a-g(row, center, center)
@@ -35,13 +35,13 @@
     .created-copyright-impressum-container
       @include flex-d-j-a-g(column, center, center)
       @include boxsize-w-h-minw-minh-maxw-maxh(50%, 210px)
-      color: white
+      color: var(--text-inverse)
 
       .over-copyright-container
         @include flex-d-j-a-g(row, center, center)
         @include boxsize-w-h-minw-minh-maxw-maxh(100%, 50px)
         padding: 1rem
-        color: white
+        color: var(--text-inverse)
 
       .copyright-container
         @include flex-d-j-a-g(row, center, center)
@@ -65,7 +65,7 @@
           &:link,
           &:visited
             text-decoration: none
-            color: white
+            color: var(--text-inverse)
             display: inline-block
             position: relative
 
