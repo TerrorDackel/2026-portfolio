@@ -81,6 +81,28 @@ a:hover
               cursor: pointer
               transform: scale(1.1)
 
+            .accent-switcher
+              display: inline-flex
+              align-items: center
+              gap: 0.35rem
+
+              .accent-label
+                font-size: 0.85rem
+                color: var(--text-muted)
+
+              .accent-select
+                background-color: var(--surface)
+                color: var(--text)
+                border: 1px solid var(--border)
+                border-radius: 0.4rem
+                padding: 0.2rem 0.4rem
+                font-size: 0.85rem
+                line-height: 1
+
+                &:focus-visible
+                  outline: 2px solid var(--focus-ring)
+                  outline-offset: 2px
+
             .navbar-desktop-de-en-container
               @include flex-d-j-a-g(row, center, center)
 
@@ -174,6 +196,29 @@ a:hover
             width: 180px
             height: 40px
             padding: 1rem 2rem
+
+            .accent-switcher
+              display: inline-flex
+              align-items: center
+              gap: 0.5rem
+
+              .accent-label
+                font-size: 0.9rem
+                color: var(--text-muted)
+
+              .accent-select
+                background-color: var(--surface)
+                color: var(--text)
+                border: 1px solid var(--border)
+                border-radius: 0.4rem
+                padding: 0.2rem 0.5rem
+                font-size: 0.9rem
+                line-height: 1
+
+                &:focus-visible
+                  outline: 2px solid var(--focus-ring)
+                  outline-offset: 2px
+
 
           .navbar-mobile-de-en-container
             @include flex-d-j-a-g(row, flex-start, center, 4px)
