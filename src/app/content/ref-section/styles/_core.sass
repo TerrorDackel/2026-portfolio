@@ -10,13 +10,13 @@
   @include flex-d-j-a-g(column, flex-start, center)
   @include boxsize-w-h-minw-minh-maxw-maxh(100%, auto)
   margin: 0
-  background: linear-gradient(128.94deg, #5988FF -33.96%, #5988FF 36.71%, #0043F0 112.25%)
+  background: var(--gradient-accent)
   backdrop-filter: blur(4px)
 
   .ref-container
     @include flex-d-j-a-g(column, flex-start, center)
     @include boxsize-w-h-minw-minh-maxw-maxh(100%, auto, null, null, 1920px)
-    @include font-f-s-c-w-lh-ls-a(null, null, #FFFFFF)
+    @include font-f-s-c-w-lh-ls-a(null, null, var(--text-inverse))
     padding: 1rem
 
     .header-and-text-container
@@ -30,7 +30,7 @@
 
         .header-txt
           @include boxsize-w-h-minw-minh-maxw-maxh(100%, auto, null, null, 1920px)
-          @include font-f-s-c-w-lh-ls-a('Baloo 2', clamp(3rem, 4vw + 2rem, 6rem), #FFFFFF, bold, 141%, 0, center)
+          @include font-f-s-c-w-lh-ls-a('Baloo 2', clamp(3rem, 4vw + 2rem, 6rem), var(--text-inverse), bold, 141%, 0, center)
           margin: 0
           padding-top: 2rem
 
@@ -41,7 +41,7 @@
 
         .second-header-txt
           @include boxsize-w-h-minw-minh-maxw-maxh(100%, auto, null, null, 1920px)
-          @include font-f-s-c-w-lh-ls-a('Montserrat', clamp(1rem, 4vw + 0.2rem, 2rem), #FFFFFF, normal, 141%, 0, center)
+          @include font-f-s-c-w-lh-ls-a('Montserrat', clamp(1rem, 4vw + 0.2rem, 2rem), var(--text-inverse), normal, 141%, 0, center)
           margin: 0
           padding: 1rem
 
