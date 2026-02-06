@@ -1,14 +1,29 @@
 @use 'styles/mixins' as m
+@use 'styles/themes'
 
 html,
 body
   margin: 0
   scroll-behavior: smooth
   @include m.hide-scrollbar
+  background-color: var(--bg)
+  color: var(--text)
+  color-scheme: dark light
 
 a
   text-decoration: none
-  color: #5988FF
+  color: var(--link)
+
+  &:hover
+    color: var(--link-hover)
+
+  &:visited
+    color: var(--link-visited)
+
+:focus-visible
+  outline: 2px solid var(--focus-ring)
+  outline-offset: 2px
+  box-shadow: 0 0 0 4px var(--focus-ring-offset)
 
 .montserrat
   font-family: "Montserrat"
