@@ -23,7 +23,7 @@
       .header-txt
         @include flex-d-j-a-g(row, flex-start, center)
         @include boxsize-w-h-minw-minh-maxw-maxh(100%, auto)
-        @include font-f-s-c-w-lh-ls-a('Baloo 2', 2.8125rem, #5988FF, bold, 120%, 0)
+        @include font-f-s-c-w-lh-ls-a('Baloo 2', 2.8125rem, var(--primary), bold, 120%, 0)
 
     .programms-container
       @include flex-d-j-a-g(row, flex-start, center)
@@ -31,7 +31,7 @@
 
       .programms-txt
         @include flex-d-j-a-g(row, flex-start, center)
-        @include font-f-s-c-w-lh-ls-a('Montserrat', 1.4375rem, #5988FF, 400, 120%, 0)
+        @include font-f-s-c-w-lh-ls-a('Montserrat', 1.4375rem, var(--primary), 400, 120%, 0)
 
     .project-description-container
       @include flex-d-j-a-g(row, flex-start, center)
@@ -41,7 +41,7 @@
       .project-description-txt
         @include flex-d-j-a-g(row, flex-start, center)
         @include boxsize-w-h-minw-minh-maxw-maxh(100%, auto)
-        @include font-f-s-c-w-lh-ls-a('Montserrat', 1rem, #000000, 400, 120%, 0)
+        @include font-f-s-c-w-lh-ls-a('Montserrat', 1rem, var(--text), 400, 120%, 0)
         gap: 1rem
         padding: 2rem 0
 
@@ -58,14 +58,14 @@
         @include boxsize-w-h-minw-minh-maxw-maxh(auto, auto)
         margin: 0
         padding: 1rem
-        @include border-w-s-c-r(2px, solid, #5988FF, 10px)
-        background-color: #5988FF
+        @include border-w-s-c-r(2px, solid, var(--primary), 10px)
+        background-color: var(--primary)
         transition: transform 0.1s ease, color 0.1s ease
 
         .livetest-btn
           @include flex-d-j-a-g(row, center, center)
           @include boxsize-w-h-minw-minh-maxw-maxh(100%, auto)
-          @include font-f-s-c-w-lh-ls-a('Poppins', 1.4375rem, #FFFFFF, 400, 120%, 0)
+          @include font-f-s-c-w-lh-ls-a('Poppins', 1.4375rem, var(--on-primary), 400, 120%, 0)
 
           a
             color: inherit
@@ -76,7 +76,7 @@
             outline: none
 
           a:focus-visible
-            outline: 3px solid #FFFFFF
+            outline: 3px solid var(--focus-ring)
             outline-offset: 3px
             text-decoration: underline
 
@@ -85,7 +85,7 @@
           content: ''
           position: absolute
           @include boxsize-w-h-minw-minh-maxw-maxh(100%, 100%)
-          background-color: #0043F0
+          background-color: var(--primary-active)
           z-index: 1
           transform: scale(0)
           transition: transform 0.1s ease
@@ -106,7 +106,7 @@
           transform: scale(1)
 
         &:hover
-          color: #FFFFFF
+          color: var(--on-primary)
           transform: scale(1.08)
 
     .project-github-btn-container-alignment
@@ -119,8 +119,8 @@
         overflow: hidden
         @include boxsize-w-h-minw-minh-maxw-maxh(auto, auto)
         padding: 15px 30px
-        @include border-w-s-c-r(2px, solid, #5988FF, 10px)
-        @include font-f-s-c-w-lh-ls-a('Poppins', 1.4375rem, #5988FF, 400, 120%, 0)
+        @include border-w-s-c-r(2px, solid, var(--primary), 10px)
+        @include font-f-s-c-w-lh-ls-a('Poppins', 1.4375rem, var(--primary), 400, 120%, 0)
         cursor: pointer
         transition: transform 0.1s ease, color 0.1s ease
         will-change: transform
@@ -154,7 +154,7 @@
           content: ''
           position: absolute
           @include boxsize-w-h-minw-minh-maxw-maxh(100%, 100%)
-          background-color: #0043F0
+          background-color: var(--primary-active)
           z-index: 1
           transform: scale(0)
           transition: transform 0.1s ease
@@ -175,5 +175,5 @@
           transform: scale(1)
 
         &:hover
-          color: #FFFFFF
+          color: var(--on-primary)
           transform: scale(1.08)
