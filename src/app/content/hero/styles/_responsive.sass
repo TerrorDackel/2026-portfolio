@@ -119,7 +119,7 @@
           .scroll-container
             .scroll-responsive
               .scroll-responsive-txt
-                @include font-f-s-c-w-lh-ls-a($family: 'Poppins', $size: 1rem, $color: #d2cef8, $weight: 400, $lineHeight: 120%, $letterSpacing: 0)
+                @include font-f-s-c-w-lh-ls-a($family: 'Poppins', $size: 1rem, $color: var(--on-primary), $weight: 400, $lineHeight: 120%, $letterSpacing: 0)
 
           .header-alignment
             .header-txt-container
@@ -144,7 +144,7 @@
   .hero-section
     @include flex-d-j-a-g($dir: row, $justify: center, $align: center, $gap: null)
     @include boxsize-w-h-minw-minh-maxw-maxh($w: 100%, $h: 100%, $minw: null, $minh: null, $maxw: null, $maxh: null)
-    background: linear-gradient(0deg, rgba(234,240,255,1) 0%, rgba(245,248,255,1) 35%, rgba(255,255,255,1) 100%)
+    background: var(--gradient-hero)
     overflow: hidden
 
     .hero-container-desktop
@@ -166,7 +166,7 @@
 
           .circle-3
             @include circle-size(50rem)
-            @include brandradial-size-x-y-c1-c2-c3()
+            @include brandradial-size-x-y-c1-c2-c3($c1: var(--primary), $c2: var(--primary), $c3: var(--primary-active))
 
       .hero-img-header-scroll-iconlist
         @include flex-d-j-a-g($dir: row, $justify: space-around, $align: flex-start, $gap: null)
@@ -210,7 +210,7 @@
 
                 .hero-txt-hallo
                   @include flex-d-j-a-g($dir: row, $justify: flex-start, $align: stretch, $gap: null)
-                  @include font-f-s-c-w-lh-ls-a($family: 'Montserrat', $size: clamp(2.25rem, 1.5rem + 2vw, 3.8125rem), $color: #5988FF, $weight: 400, $lineHeight: 1, $letterSpacing: 0, $align: null)
+                  @include font-f-s-c-w-lh-ls-a($family: 'Montserrat', $size: clamp(2.25rem, 1.5rem + 2vw, 3.8125rem), $color: var(--primary), $weight: 400, $lineHeight: 1, $letterSpacing: 0, $align: null)
                   padding: 0
                   margin: 0
                   white-space: nowrap
@@ -218,7 +218,7 @@
                 .hero-text-frontend,
                 .hero-text-developer
                   @include flex-d-j-a-g($dir: row, $justify: flex-start, $align: stretch, $gap: null)
-                  @include font-f-s-c-w-lh-ls-a($family: 'Baloo 2', $size: clamp(4.5625rem, 2.5rem + 3vw, 9rem), $color: #5988FF, $weight: 700, $lineHeight: 1, $letterSpacing: -0.125rem, $align: null)
+                  @include font-f-s-c-w-lh-ls-a($family: 'Baloo 2', $size: clamp(4.5625rem, 2.5rem + 3vw, 9rem), $color: var(--primary), $weight: 700, $lineHeight: 1, $letterSpacing: -0.125rem, $align: null)
                   padding: 0
                   margin: 0
 
@@ -234,7 +234,7 @@
               .scroll-txt
                 @include flex-d-j-a-g($dir: row, $justify: center, $align: stretch, $gap: null)
                 @include size-w-h($w: 10rem, $h: auto)
-                @include font-f-s-c-w-lh-ls-a($family: 'Montserrat', $size: 1.4375rem, $color: #5988FF, $weight: 500, $lineHeight: 1.2, $letterSpacing: 0, $align: null)
+                @include font-f-s-c-w-lh-ls-a($family: 'Montserrat', $size: 1.4375rem, $color: var(--primary), $weight: 500, $lineHeight: 1.2, $letterSpacing: 0, $align: null)
                 padding: 0.75rem
                 position: absolute
                 bottom: 12rem
@@ -247,7 +247,7 @@
 
                 .line
                   @include size-w-h($w: 0.1rem, $h: 12rem)
-                  background-color: #5988FF
+                  background-color: var(--primary)
 
     .hero-container-mobile
       display: none
@@ -267,7 +267,7 @@
         .circle-3-container
           .circle-3
             @include circle-size(50rem)
-            @include brandradial-size-x-y-c1-c2-c3()
+            @include brandradial-size-x-y-c1-c2-c3($c1: var(--primary), $c2: var(--primary), $c3: var(--primary-active))
 
       .hero-img-header-scroll-iconlist
         height: 100%
