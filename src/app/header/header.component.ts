@@ -19,7 +19,7 @@ import { TranslatePipe, TranslateService } from '@ngx-translate/core';
     menuValue = false;
     menuIcon = 'bi bi-list';
     currentLanguage: 'en' | 'de';
-    currentAccent = 'blue';
+    currentAccent = 'purple';
 
     constructor() {
         const lang = this.translate.currentLang as 'en' | 'de' | undefined;

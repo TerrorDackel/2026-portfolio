@@ -1,5 +1,144 @@
 @use '../../../styles/mixins' as *
 
+.header-section
+  .header-container
+    .header-navbar-container
+      .navbar-mobile
+        display: none
+        flex-direction: column
+        width: 100%
+        height: 60px
+        margin-top: 0px
+        z-index: 10
+
+        .navbar-mobile-burger-icon
+          @include flex-d-j-a-g(row, flex-end, flex-start)
+          width: 100%
+          height: auto
+          cursor: pointer
+          border: none
+          background: transparent
+          padding: 0
+
+          .burger-menu-img
+            position: fixed
+            top: 44px
+            right: 0px
+            display: flex
+            justify-content: flex-end
+            align-content: center
+            @include size-w-h(32px, 28px)
+            margin-right: 30px
+            background-color: rgb(0, 0, 0, 0.8)
+            padding: 1rem
+            border-radius: 0.5rem
+
+        .navbar-mobile-links-container
+          position: fixed
+          top: 117px
+          right: 0px
+          @include flex-d-j-a-g(column, center, center)
+          backdrop-filter: blur(1rem)
+          background-color: var(--surface)
+          color: var(--primary)
+          opacity: 0
+          transform: translateY(-20px)
+          transition: all 0.1s ease
+          z-index: 100
+          width: 100%
+          height: calc( 100vh - 117px )
+          white-space: nowrap
+
+          &.show
+            opacity: 1
+            transform: translateY(0)
+            @include flex-d-j-a-g(column, center, center)
+
+          &.hide
+            opacity: 0
+            transform: translateY(-50px)
+            pointer-events: none
+
+          .navbar-mobile-links-container-alignment
+            @include flex-d-j-a-g($dir: column, $justify: center, $align: center, $gap: 1rem)
+
+            .navbar-mobile-link
+              @include boxsize-w-h-minw-minh-maxw-maxh($w: 100%, $h: 100%, $minw: 240px, $minh: 40px, $maxw: 250px, $maxh: 50px)
+              @include font-f-s-c-w-lh-ls-a('Montserrat', 23px, var(--primary), 400, 120%, 0, start)
+              display: flex
+              align-items: center
+
+              .accent-switcher
+                display: inline-flex
+                align-items: center
+                gap: 0.5rem
+
+                .accent-label
+                  font-size: 0.9rem
+                  color: var(--text-muted)
+                  @include font-f-s-c-w-lh-ls-a('Montserrat', 23px, var(--primary), 400, 120%, 0)
+
+                .accent-select
+                  background-color: var(--surface)
+                  color: var(--text)
+                  border: 1px solid var(--border)
+                  border-radius: 0.4rem
+                  margin: 0 0 0 0.5rem
+                  padding: 0.2rem 1rem
+                  font-size: 0.9rem
+                  line-height: 1
+                  @include font-f-s-c-w-lh-ls-a('Montserrat', 23px, var(--primary), 400, 120%, 0)
+
+                  &:focus-visible
+                    outline: 2px solid var(--focus-ring)
+                    outline-offset: 2px
+
+            .navbar-mobile-de-en-container
+              @include flex-d-j-a-g(row, flex-start, center, 4px)
+
+              .de,
+              .en
+                width: 35px
+                text-align: center
+                @include font-f-s-c-w-lh-ls-a('Montserrat', 23px, var(--primary), 400, 120%, null, null)
+                transition: transform 0.1s ease, font-weight 0.1s ease
+                transform-origin: center
+                border: none
+                background: transparent
+                padding: 0
+                cursor: pointer
+
+                &:hover
+                  text-shadow: 0 0 0.6px var(--primary), 0 0 0.6px var(--primary)
+                  transform: scale(1.15)
+
+                &.active
+                  text-shadow: 0 0 0.6px var(--primary), 0 0 0.6px var(--primary)
+                  transform: scale(1.15)
+
+              .cut
+                width: 10px
+                text-align: center
+                @include font-f-s-c-w-lh-ls-a('Montserrat', 23px, var(--primary), 400, 120%, null, null)
+                pointer-events: none
+
+
+@media (prefers-color-scheme: dark)
+  .accent-select
+    option[value="black"]
+      display: none
+
+@media (prefers-color-scheme: light)
+  .accent-select
+    option[value="white"]
+      display: none
+
+
+
+
+
+
+
 @media (max-width: 800px)
   .header-section
     .header-container

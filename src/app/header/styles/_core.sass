@@ -2,6 +2,7 @@
 
 :host
   @include boxsize-w-h-minw-minh-maxw-maxh(100dvw)
+  @include flex-d-j-a-g(row, center, center)
   margin-left: 0
   margin-right: 0
 
@@ -25,8 +26,8 @@ a:hover
 
   .header-container
     @include flex-d-j-a-g(row, space-between, center)
-    @include boxsize-w-h-minw-minh-maxw-maxh(100%, auto, null, null, 1920px)
-    padding-left: 1rem
+    @include boxsize-w-h-minw-minh-maxw-maxh(100%, 60px, null, null, 1920px)
+    padding: 0 1rem
     z-index: 6
 
     .header-logo-container
@@ -52,7 +53,7 @@ a:hover
             cursor: pointer
 
     .header-navbar-container
-      @include flex-d-j-a-g(row, flex-end, center)
+      @include flex-d-j-a-g(row, center, center)
       width: auto
       height: auto
 
@@ -66,6 +67,9 @@ a:hover
           align-items: center
           gap: 0.5rem
           width: 100%
+          background-color: rgb(0, 0, 0, 0.8)
+          padding: 0.5rem
+          border-radius: 0.5rem
 
           .navbar-desktop-link
             display: inline-block
@@ -135,116 +139,12 @@ a:hover
                 @include font-f-s-c-w-lh-ls-a('Montserrat', 23px, var(--primary), 400, 120%, null, null)
                 pointer-events: none
 
-      .navbar-mobile
-        display: none
-        flex-direction: column
-        width: 100%
-        height: 60px
-        margin-top: 0px
-        z-index: 10
+@media (prefers-color-scheme: dark)
+  .accent-select
+    option[value="black"]
+      display: none
 
-        .navbar-mobile-burger-icon
-          @include flex-d-j-a-g(row, flex-end, flex-start)
-          width: 100%
-          height: auto
-          cursor: pointer
-          border: none
-          background: transparent
-          padding: 0
-
-          .burger-menu-img
-            position: fixed
-            top: 44px
-            right: 0px
-            display: flex
-            justify-content: flex-end
-            align-content: center
-            @include size-w-h(32px, 28px)
-            margin-right: 30px
-
-        .navbar-mobile-links-container
-          position: fixed
-          top: 117px
-          right: 0px
-          @include flex-d-j-a-g(column, center, center)
-          backdrop-filter: blur(1rem)
-          background-color: var(--surface)
-          color: var(--primary)
-          border-radius: 0 0 0 10px
-          padding: 1rem
-          opacity: 0
-          transform: translateY(-20px)
-          transition: all 0.1s ease
-          z-index: 100
-          width: 100%
-          height: calc( 100vh - 117px )
-          white-space: nowrap
-
-          &.show
-            opacity: 1
-            transform: translateY(0)
-            @include flex-d-j-a-g(column, center, center)
-            margin: 0 -1rem 0 0
-
-          &.hide
-            opacity: 0
-            transform: translateY(-50px)
-            pointer-events: none
-
-          .navbar-mobile-link
-            @include flex-d-j-a-g(column, flex-start, center)
-            width: 180px
-            height: 40px
-            padding: 1rem 2rem
-
-            .accent-switcher
-              display: inline-flex
-              align-items: center
-              gap: 0.5rem
-
-              .accent-label
-                font-size: 0.9rem
-                color: var(--text-muted)
-
-              .accent-select
-                background-color: var(--surface)
-                color: var(--text)
-                border: 1px solid var(--border)
-                border-radius: 0.4rem
-                padding: 0.2rem 0.5rem
-                font-size: 0.9rem
-                line-height: 1
-
-                &:focus-visible
-                  outline: 2px solid var(--focus-ring)
-                  outline-offset: 2px
-
-
-          .navbar-mobile-de-en-container
-            @include flex-d-j-a-g(row, flex-start, center, 4px)
-
-            .de,
-            .en
-              width: 35px
-              text-align: center
-              @include font-f-s-c-w-lh-ls-a('Montserrat', 23px, var(--primary), 400, 120%, null, null)
-              transition: transform 0.1s ease, font-weight 0.1s ease
-              transform-origin: center
-              border: none
-              background: transparent
-              padding: 0
-              cursor: pointer
-
-              &:hover
-                text-shadow: 0 0 0.6px var(--primary), 0 0 0.6px var(--primary)
-                transform: scale(1.15)
-
-              &.active
-                text-shadow: 0 0 0.6px var(--primary), 0 0 0.6px var(--primary)
-                transform: scale(1.15)
-
-            .cut
-              width: 10px
-              text-align: center
-              @include font-f-s-c-w-lh-ls-a('Montserrat', 23px, var(--primary), 400, 120%, null, null)
-              pointer-events: none
+@media (prefers-color-scheme: light)
+  .accent-select
+    option[value="white"]
+      display: none

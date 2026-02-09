@@ -96,81 +96,83 @@
           [class.show]="menuValue"
           [class.hide]="!menuValue"
         >
-          <a
-            class="navbar-mobile-link"
-            href="#aboutMe"
-            (click)="closeMenu()"
-            (keydown.enter)="closeMenu()"
-          >
-            {{ 'NAV.ABOUT_ME' | translate }}
-          </a>
-          <a
-            class="navbar-mobile-link"
-            href="#skillSet"
-            (click)="closeMenu()"
-            (keydown.enter)="closeMenu()"
-          >
-            {{ 'NAV.SKILL_SET' | translate }}
-          </a>
-          <a
-            class="navbar-mobile-link"
-            href="#myWork"
-            (click)="closeMenu()"
-            (keydown.enter)="closeMenu()"
-          >
-            {{ 'NAV.MY_WORK' | translate }}
-          </a>
-          <a
-            class="navbar-mobile-link"
-            href="#contact"
-            (click)="closeMenu()"
-            (keydown.enter)="closeMenu()"
-          >
-            {{ 'NAV.CONTACT' | translate }}
-          </a>
-          <div class="navbar-mobile-link">
-            <label class="accent-switcher">
-              <span class="accent-label">Accent</span>
-              <select
-                class="accent-select"
-                aria-label="Accent auswählen"
-                [value]="currentAccent"
-                (change)="onAccentChange($event)"
-              >
-                <option value="blue">Blue</option>
-                <option value="emerald">Emerald</option>
-                <option value="purple">Purple</option>
-                <option value="pink">Pink</option>
-                <option value="black">Black</option>
-                <option value="white">White</option>
-              </select>
-            </label>
-          </div>
-          <div class="navbar-mobile-link">
-            <div class="navbar-mobile-de-en-container">
-              <button
-                type="button"
-                class="de"
-                [ngClass]="{ 'active': currentLanguage === 'de' }"
-                [attr.aria-pressed]="currentLanguage === 'de'"
-                (click)="switchToGerman()"
-                (keydown)="onLanguageKeydown($event, 'de')"
-              >
-                De
-              </button>
-              <span class="cut">
-                /
-              </span>
-              <button
-                type="button"
-                class="en"
-                [ngClass]="{ 'active': currentLanguage === 'en' }"
-                [attr.aria-pressed]="currentLanguage === 'en'"
-                (click)="switchToEnglish()"
-                (keydown)="onLanguageKeydown($event, 'en')"
-              >
-                En
-              </button>
+          <div class="navbar-mobile-links-container-alignment">
+            <a
+              class="navbar-mobile-link"
+              href="#aboutMe"
+              (click)="closeMenu()"
+              (keydown.enter)="closeMenu()"
+            >
+              {{ 'NAV.ABOUT_ME' | translate }}
+            </a>
+            <a
+              class="navbar-mobile-link"
+              href="#skillSet"
+              (click)="closeMenu()"
+              (keydown.enter)="closeMenu()"
+            >
+              {{ 'NAV.SKILL_SET' | translate }}
+            </a>
+            <a
+              class="navbar-mobile-link"
+              href="#myWork"
+              (click)="closeMenu()"
+              (keydown.enter)="closeMenu()"
+            >
+              {{ 'NAV.MY_WORK' | translate }}
+            </a>
+            <a
+              class="navbar-mobile-link"
+              href="#contact"
+              (click)="closeMenu()"
+              (keydown.enter)="closeMenu()"
+            >
+              {{ 'NAV.CONTACT' | translate }}
+            </a>
+            <div class="navbar-mobile-link">
+              <label class="accent-switcher">
+                <span class="accent-label">Accent</span>
+                <select
+                  class="accent-select"
+                  aria-label="Accent auswählen"
+                  [value]="currentAccent"
+                  (change)="onAccentChange($event)"
+                >
+                  <option value="blue">Blue</option>
+                  <option value="emerald">Emerald</option>
+                  <option value="purple">Purple</option>
+                  <option value="pink">Pink</option>
+                  <option value="black">Black</option>
+                  <option value="white">White</option>
+                </select>
+              </label>
+            </div>
+            <div class="navbar-mobile-link">
+              <div class="navbar-mobile-de-en-container">
+                <button
+                  type="button"
+                  class="de"
+                  [ngClass]="{ 'active': currentLanguage === 'de' }"
+                  [attr.aria-pressed]="currentLanguage === 'de'"
+                  (click)="switchToGerman()"
+                  (keydown)="onLanguageKeydown($event, 'de')"
+                >
+                  De
+                </button>
+                <span class="cut">
+                  /
+                </span>
+                <button
+                  type="button"
+                  class="en"
+                  [ngClass]="{ 'active': currentLanguage === 'en' }"
+                  [attr.aria-pressed]="currentLanguage === 'en'"
+                  (click)="switchToEnglish()"
+                  (keydown)="onLanguageKeydown($event, 'en')"
+                >
+                  En
+                </button>
+              </div>
             </div>
           </div>
         </div>
