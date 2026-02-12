@@ -19,7 +19,7 @@ export function observeAnimationReveal(
         const el = entry.target as HTMLElement;
         el.classList.add('in-view');
         el.style.setProperty('--reveal-delay', `${delay}ms`);
-        observer.unobserve(el); // nur einmalig
+        observer.unobserve(el);
       });
     },
     { threshold: 0.3 }

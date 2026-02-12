@@ -7,7 +7,11 @@ import { observeAnimationReveal } from '../../utils/scroll-animations';
 @Component({
   selector: 'app-ref-section',
   standalone: true,
-  imports: [RefComponent, TranslatePipe, DragScrollXDirective],
+  imports: [
+    RefComponent, 
+    TranslatePipe, 
+    DragScrollXDirective
+  ],
   templateUrl: './ref-section.component.html',
   styleUrl: './ref-section.component.sass'
 })
@@ -15,11 +19,31 @@ export class RefSectionComponent implements AfterViewInit {
   private platformId = inject(PLATFORM_ID);
 
   ref = [
-    { name: 'Catalina Acosta', project: 'Project Kochwelt', commit: 'REF_SECTION.CATALINA.COMMIT' },
-    { name: 'Caryen Song', project: 'Project Kochwelt', commit: 'REF_SECTION.CARYEN.COMMIT' },
-    { name: 'Patrick Frey', project: 'Project Join', commit: 'REF_SECTION.PATRICK.COMMIT' },
-    { name: 'Stephanie Englberger', project: 'Project Join', commit: 'REF_SECTION.STEPHIE.COMMIT' },
-    { name: 'Jonathan Michutta', project: 'Project Join', commit: 'REF_SECTION.JON.COMMIT' }
+    { 
+      name: 'Catalina Acosta', 
+      project: 'Project Kochwelt', 
+      commit: 'REF_SECTION.CATALINA.COMMIT' 
+    },
+    { 
+      name: 'Caryen Song', 
+      project: 'Project Kochwelt', 
+      commit: 'REF_SECTION.CARYEN.COMMIT' 
+    },
+    { 
+      name: 'Patrick Frey', 
+      project: 'Project Join', 
+      commit: 'REF_SECTION.PATRICK.COMMIT' 
+    },
+    { 
+      name: 'Stephanie Englberger', 
+      project: 'Project Join', 
+      commit: 'REF_SECTION.STEPHIE.COMMIT' 
+    },
+    { 
+      name: 'Jonathan Michutta', 
+      project: 'Project Join', 
+      commit: 'REF_SECTION.JON.COMMIT' 
+    }
   ];
 
   ngAfterViewInit(): void {
