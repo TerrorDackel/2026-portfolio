@@ -71,7 +71,134 @@
                 @include flex-d-j-a-g(row, flex-start, stretch)
                 padding: 0
                 margin: 0
-                @include font-f-s-c-w-lh-ls-a('Baloo 2', clamp(4rem, 2.5rem + 3vw, 9rem), var(--text), 700, 1, -0.125rem)
+                @include font-f-s-c-w-lh-ls-a('baloo', clamp(4rem, 2.5rem + 3vw, 9rem), var(--text), 700, 1, -0.125rem)
+
+        .scroll-container
+          @include flex-d-j-a-g(row, center, stretch)
+
+          .scroll-responsive
+            @include size-w-h(auto, null)
+            position: absolute
+            bottom: 1rem
+            right: 1rem
+            display: block
+            z-index: 3
+
+            .scroll-responsive-txt
+              @include flex-d-j-a-g(row, center, stretch)
+              @include font-f-s-c-w-lh-ls-a('Poppins', clamp(0.1rem, 2.4vw, 1.4rem), var(--on-primary), 400, 120%, 0)
+              width: max-content
+              max-width: min(100%, 16rem)
+              padding: 0.3rem 0.3rem
+              transform: rotate(90deg)
+              transform-origin: center
+              background-color: var(--primary-active)
+              border-radius: 15rem
+              border: solid 0.1rem var(--primary-active)
+              white-space: nowrap
+              box-sizing: border-box
+
+    .hero-img-container
+      @include flex-d-j-a-g(row, center, stretch)
+
+      .hero-img
+        @include flex-d-j-a-g(row, center, stretch)
+        @include maxsize-w-h(95%, 60%)
+        position: absolute
+        bottom: -1px
+        z-index: 2
+
+      img
+        max-height: 600px !important
+
+  .hero-container-mobile
+    .hero-img-container
+      img
+        right: 25%
+
+@keyframes zoomIn
+  from
+    opacity: 0
+    transform: scale(0.7)
+  to
+    opacity: 1
+    transform: scale(1)
+
+.reveal-zoom
+  opacity: 0@use '../../../../styles/mixins' as *
+
+:host
+  @include flex-d-j-a-g(row, center, stretch)
+  @include size-w-h(100dvw, 100dvh)
+  margin-left: 0
+  margin-right: 0
+  margin-top: 0
+
+.hero-section
+  @include flex-d-j-a-g(row, center, stretch)
+  @include size-w-h(100%, 100vh)
+  background: var(--gradient-hero)
+
+  .hero-container-desktop
+    display: none
+
+  .hero-container-mobile
+    @include flex-d-j-a-g(row, center, stretch)
+    margin: 0
+
+    .hero-top-circle-container
+      @include flex-d-j-a-g(row, space-between, center)
+      @include size-w-h(auto, 100%)
+      padding: 1rem
+      margin-right: 1rem
+      position: absolute
+      top: -15%
+      right: 10%
+      z-index: 1
+
+      .circle-3-container
+        @include size-w-h(auto, null)
+
+        .circle-3
+          @include circle-size(50rem)
+          @include brandradial-size-x-y-c1-c2-c3($c1: var(--primary), $c2: var(--primary), $c3: var(--primary-active))
+          z-index: 1
+
+    .hero-header-scroll
+      @include flex-d-j-a-g(column, flex-start, center)
+
+      .hero-header-scroll-container
+        @include flex-d-j-a-g(row, center, stretch)
+        @include size-w-h(100%, 100%)
+
+        .header-alignment
+          @include flex-d-j-a-g(row, center, stretch)
+          @include size-w-h(100%, null)
+          padding: 0 1rem
+          margin-top: 115px
+          border-radius: 5rem
+
+          .header-txt-container
+            @include flex-d-j-a-g(column, flex-start, stretch)
+            @include boxsize-w-h-minw-minh-maxw-maxh(100%, auto)
+            padding: 2rem 1rem
+            z-index: 3
+
+            .header-txt-alignment
+              @include flex-d-j-a-g(column, flex-start, stretch)
+
+              .hero-txt-hallo
+                @include flex-d-j-a-g(row, flex-start, stretch)
+                padding: 0
+                margin: 0
+                @include font-f-s-c-w-lh-ls-a('Montserrat', clamp(2rem, 1.5rem + 2vw, 3.8125rem), var(--text), 400, 1, 0)
+
+              .hero-text-frontend,
+              .hero-text-developer
+                @include flex-d-j-a-g(row, flex-start, stretch)
+                padding: 0
+                margin: 0
+                @include font-f-s-c-w-lh-ls-a('baloo', clamp(4rem, 2.5rem + 3vw, 9rem), var(--text), 700, 1, -0.125rem)
 
         .scroll-container
           @include flex-d-j-a-g(row, center, stretch)
@@ -126,6 +253,11 @@
 
 .reveal-zoom
   opacity: 0
+  will-change: transform, opacity
+
+.reveal-zoom.in-view
+  animation: zoomIn 1s cubic-bezier(.2,.8,.2,1) var(--reveal-delay, 0ms) both
+
   will-change: transform, opacity
 
 .reveal-zoom.in-view
