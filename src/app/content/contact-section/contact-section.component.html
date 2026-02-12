@@ -37,9 +37,6 @@
                 </span>
               </div>
             </div>
-            <div class="circle-11-container">
-              <div class="circle-11"></div>
-            </div>
           </div>
           <div class="container-right">
             <div class="your-name-container">
@@ -129,18 +126,18 @@
                 }
               </div>
             </div>
-            <div class="agree-privacy-policy-check">
-              <label for="privacyDesktop" class="agree-privacy-policy-check-label">
-                <div class="agree-privacy-policy-check-div">
+            <div class="agree-privacy-policy-check-desktop">
+              <label for="privacyDesktop" class="agree-privacy-policy-check-label-desktop">
+                <div class="agree-privacy-policy-check-container-desktop">
                   <input
-                    class="checkbox"
+                    class="agree-privacy-checkbox"
                     type="checkbox"
                     id="privacyDesktop"
                     formControlName="privacy"
                     (click)="onPrivacyClick()"
                   />
                 </div>
-                <div class="agree-privacy-police-check-txt">
+                <div class="agree-privacy-policy-check-txt">
                   <p>
                     {{ 'CONTACT.PRIVACY_I' | translate }}
                     <a
@@ -169,31 +166,34 @@
                 }
               </div>
             </div>
-            <div class="agree-privacy-police-check-mobile">
-              <label for="privacyMobile" class="agree-privacy-police-check-label">
-                <div class="agree-privacy-police-check-div">
+            <div class="agree-privacy-policy-check-mobile">
+              <label 
+                for="privacyMobile" 
+                class="agree-privacy-policy-check-label-mobile"
+              >
+                <div class="agree-privacy-policy-check-container-mobile">
                   <input
-                    class="checkbox"
+                    class="agree-privacy-checkbox"
                     type="checkbox"
                     id="privacyMobile"
                     formControlName="privacy"
                     (click)="onPrivacyClick()"
                   />
                 </div>
-                <div class="agree-privacy-police-check-txt">
-                  <p class="first-line">
+                <div class="agree-privacy-policy-check-txt">
+                  <p>
                     {{ 'CONTACT.PRIVACY_I' | translate }}
+                    <a
+                      class="privacy-link"                     
+                      href="/privacy-policy"
+                      tabindex="0"
+                      (click)="onPrivacyLinkClick($event)"
+                      (keydown)="onPrivacyLinkKeydown($event)"
+                    >
+                      {{ 'CONTACT.PRIVACY_POLICY' | translate }}
+                    </a>
                   </p>
-                  <a
-                    class="privacy-link"
-                    href="privacy-policy"
-                    tabindex="0"
-                    (click)="onPrivacyLinkClick($event)"
-                    (keydown)="onPrivacyLinkKeydown($event)"
-                  >
-                    {{ 'CONTACT.PRIVACY_POLICY' | translate }}
-                  </a>
-                  <p class="second-line">
+                  <p>
                     {{ 'CONTACT.PRIVACY_AND' | translate }}
                   </p>
                 </div>

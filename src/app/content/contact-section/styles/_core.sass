@@ -1,358 +1,351 @@
 @use '../../../../styles/mixins' as *
 
 :host
-    display: block
-    width: 100dvw
-    margin-left: 0
-    margin-right: 0
-    background: var(--gradient-section)
+  display: block
+  width: 100dvw
+  margin-left: 0
+  margin-right: 0
+  background: var(--gradient-section)
 
 #contact
-    scroll-margin-top: -117px
+  scroll-margin-top: -117px
 
 form
-    display: flex
-    justify-content: center
+  display: flex
+  justify-content: center
 
 .contact-section
-    @include flex-d-j-a-g(row, center, center)
-    max-width: 1920px
-    @include boxsize-w-h-minw-minh-maxw-maxh(100%, auto)
-    overflow: hidden
+  @include flex-d-j-a-g($dir: row, $justify: center, $align: center, $gap: null)
+  max-width: 1920px
+  @include boxsize-w-h-minw-minh-maxw-maxh($w: 100%, $h: auto, $minw: null, $minh: null, $maxw: null, $maxh: null)
+  overflow: hidden
 
-    .contact-container
-        @include flex-d-j-a-g(column, center, center)
-        @include boxsize-w-h-minw-minh-maxw-maxh(100%, auto, null, null, null, 1920px)
-        padding: 0 2rem
+  .contact-container
+    @include flex-d-j-a-g($dir: column, $justify: center, $align: center, $gap: null)
+    @include boxsize-w-h-minw-minh-maxw-maxh($w: 100%, $h: auto, $minw: null, $minh: null, $maxw: null, $maxh: 1920px)
+    padding: 0 2rem
 
-        .circle-13-container
-            @include flex-d-j-a-g(row, center, center)
-            margin-top: 30px
+    .circle-13-container
+      @include flex-d-j-a-g($dir: row, $justify: center, $align: center, $gap: null)
+      margin-top: 30px
 
-            .circle-13
+      .circle-13
+        display: flex
+        @include circle-size($size: 130px)
+        margin-left: 1%
+        @include brandradial-size-x-y-c1-c2-c3($c1: var(--primary), $c2: var(--primary), $c3: var(--primary-active))
+
+    .contact-title-and-container-left-right
+      @include flex-d-j-a-g($dir: column, $justify: center, $align: center, $gap: null)
+      @include boxsize-w-h-minw-minh-maxw-maxh($w: 100%, $h: auto, $minw: null, $minh: null, $maxw: null, $maxh: 1920px)
+
+      .title-contact-container
+        @include flex-d-j-a-g($dir: column, $justify: flex-start, $align: flex-start, $gap: null)
+        @include boxsize-w-h-minw-minh-maxw-maxh($w: 95%, $h: 180px, $minw: null, $minh: null, $maxw: 1920px, $maxh: null)
+        @include minsize-w-h($w: null, $h: 180px)
+        padding: 0 1rem
+
+        .title-txt
+          @include boxsize-w-h-minw-minh-maxw-maxh($w: null, $h: auto, $minw: null, $minh: null, $maxw: null, $maxh: 1920px)
+          @include font-f-s-c-w-lh-ls-a($family: 'Baloo 2', $size: 90px, $color: var(--primary), $weight: bold, $lineHeight: 120%, $letterSpacing: 0, $align: null)
+
+      .container-left-and-right
+        @include flex-d-j-a-g($dir: row, $justify: space-between, $align: stretch, $gap: null)
+        @include boxsize-w-h-minw-minh-maxw-maxh($w: 95%, $h: auto, $minw: null, $minh: null, $maxw: null, $maxh: 1700px)
+        margin: 0
+        padding: 0 1rem
+
+        .container-left
+          @include flex-d-j-a-g($dir: column, $justify: flex-start, $align: flex-start, $gap: null)
+          @include boxsize-w-h-minw-minh-maxw-maxh($w: 49%, $h: auto, $minw: null, $minh: null, $maxw: null, $maxh: 800px)
+          padding: 0 1rem 0 0
+
+          .got-a-problem-title-container
+            @include flex-d-j_a-g($dir: row, $justify: flex-start, $align: flex-start, $gap: null)
+            @include boxsize-w-h-minw-minh-maxw-maxh($w: 100%, $h: auto, $minw: null, $minh: null, $maxw: null, $maxh: 960px)
+            padding: 0
+
+            .got-a-problem-txt
+              display: flex
+              align-items: center
+              @include boxsize-w-h-minw-minh-maxw-maxh($w: 100%, $h: null, $minw: null, $minh: null, $maxw: null, $maxh: null)
+              @include minsize-w-h($w: null, $h: 150px)
+              @include font-f-s-c-w-lh-ls-a($family: 'Montserrat', $size: 32px, $color: var(--primary), $weight: 960, $lineHeight: 120%, $letterSpacing: 0, $align: null)
+              margin: 0
+
+          .got-a-problem-title-description-container
+            @include flex-d-j-a-g($dir: row, $justify: flex-start, $align: center, $gap: null)
+            @include boxsize-w-h-minw-minh-maxw-maxh($w: 97%, $h: auto, $minw: null, $minh: null, $maxw: null, $maxh: null)
+            @include minsize-w-h($w: null, $h: 150px)
+            padding: 0.2rem 0
+
+            .got-a-problem-title-description-txt
+              display: flex
+              @include font-f-s-c-w-lh-ls-a($family: 'Montserrat', $size: 1rem, $color: null, $weight: 400, $lineHeight: 120%, $letterSpacing: 0, $align: null)
+
+          .need-a-contact-me-container
+            @include flex-d-j-a-g($dir: row, $justify: flex-start, $align: center, $gap: null)
+            @include boxsize-w-h-minw-minh-maxw-maxh($w: 100%, $h: auto, $minw: null, $minh: null, $maxw: null, $maxh: null)
+            overflow: hidden
+            padding: 0.2rem 0
+
+            .need-a-contact-me-txt
+              @include flex-d-j-a-g($dir: row, $justify: flex-start, $align: stretch, $gap: null)
+              @include boxsize-w-h-minw-minh-maxw-maxh($w: 100%, $h: null, $minw: null, $minh: null, $maxw: null, $maxh: null)
+              @include font-f-s-c-w-lh-ls-a($family: 'Poppins', $size: 0.9rem, $color: var(--primary), $weight: 400, $lineHeight: 120%, $letterSpacing: 0, $align: null)
+              margin: 0
+
+              .need-a-contact-me-question
                 display: flex
-                @include circle-size(130px)
-                margin-left: 1%
-                @include brandradial-size-x-y-c1-c2-c3($c1: var(--primary), $c2: var(--primary), $c3: var(--primary-active))
+                white-space: nowrap
 
-        .contact-title-and-container-left-right
-            @include flex-d-j-a-g(column, center, center)
-            @include boxsize-w-h-minw-minh-maxw-maxh(100%, auto, null, null, null, 1920px)
+              .need-a-contact-me-answer
+                display: flex
+                white-space: nowrap
+                font-weight: bold
 
-            .title-contact-container
-                @include flex-d-j-a-g(column, flex-start, flex-start)
-                @include boxsize-w-h-minw-minh-maxw-maxh(95%, 200px, null, null, null, 1920px)
-                @include minsize-w-h(null, 180px)
-                padding: 0 1rem
+        .container-right
+          @include flex-d-j-a-g($dir: column, $justify: center, $align: flex-start, $gap: null)
+          @include boxsize-w-h-minw-minh-maxw-maxh($w: 49%, $h: auto, $minw: null, $minh: null, $maxw: null, $maxh: 800px)
+          padding: 0 1rem 0 0
 
-                .title-txt
-                    @include boxsize-w-h-minw-minh-maxw-maxh(null, auto, null, null, null, 1920px)
-                    @include font-f-s-c-w-lh-ls-a('Baloo 2', 90px, var(--primary), bold, 120%, 0)
+          .your-name-container,
+          .your-email-container,
+          .your-message-container
+            @include flex-d-j-a-g($dir: column, $justify: flex-start, $align: stretch, $gap: null)
+            @include boxsize-w-h-minw-minh-maxw-maxh($w: 100%, $h: auto, $minw: null, $minh: null, $maxw: null, $maxh: null)
+            padding: 1rem 0
 
-            .container-left-and-right
-                @include flex-d-j-a-g(row, space-between, stretch)
-                @include boxsize-w-h-minw-minh-maxw-maxh(95%, auto, null, null, null, 1700px)
+            .name-textfield,
+            .email-textfield,
+            .message-textfield
+              display: flex
+              @include boxsize-w-h-minw-minh-maxw-maxh($w: 100%, $h: null, $minw: null, $minh: null, $maxw: null, $maxh: null)
+              @include border-w-s-c-r($w: 1px, $style: solid, $color: var(--border), $radius: 0.5rem)
+              padding: 1rem 0 1rem 1rem
+              background-color: var(--surface)
+              font-family: 'Poppins'
+
+            .message-textfield
+              @include boxsize-w-h-minw-minh-maxw-maxh($w: 100%, $h: null, $minw: null, $minh: 100px, $maxw: null, $maxh: 144px)
+
+          .your-name-container
+            height: 80px
+
+            .error-slot
+              display: block
+              align-self: stretch
+              @include boxsize-w-h-minw-minh-maxw-maxh($w: 100%, $h: null, $minw: null, $minh: null, $maxw: null, $maxh: null)
+              @include minsize-w-h($w: null, $h: 1.25rem)
+
+            .error-msg
+              @include font-f-s-c-w-lh-ls-a($family: 'Poppins', $size: 1rem, $color: var(--danger), $weight: null, $lineHeight: null, $letterSpacing: null, $align: start)
+              margin-top: 0.5rem
+
+          .your-email-container
+            height: 80px
+
+            .error-slot
+              display: block
+              align-self: stretch
+              @include boxsize-w-h-minw-minh-maxw-maxh($w: 100%, $h: null, $minw: null, $minh: null, $maxw: null, $maxh: null)
+              @include minsize-w-h($w: null, $h: 1.25rem)
+
+            .error-msg
+              @include font-f-s-c-w-lh-ls-a($family: 'Poppins', $size: 1rem, $color: var(--danger), $weight: null, $lineHeight: null, $letterSpacing: null, $align: start)
+              margin-top: 0.5rem
+
+          .your-message-container
+            height: 200px
+
+            .error-slot
+              display: block
+              align-self: stretch
+              @include boxsize-w-h-minw-minh-maxw-maxh($w: 100%, $h: null, $minw: null, $minh: null, $maxw: null, $maxh: null)
+              @include minsize-w-h($w: null, $h: 1.25rem)
+
+            .error-msg
+              @include font-f-s-c-w-lh-ls-a($family: 'Poppins', $size: 1rem, $color: var(--danger), $weight: null, $lineHeight: null, $letterSpacing: null, $align: start)
+              margin-top: 0.5rem
+
+          .agree-privacy-policy-check-desktop
+            @include flex-d-j-a-g($dir: column, $justify: flex-start, $align: flex-start, $gap: null)
+            @include boxsize-w-h-minw-minh-maxw-maxh($w: auto, $h: 70px, $minw: null, $minh: null, $maxw: null, $maxh: null)
+            @include minsize-w-h($w: null, $h: 20px)
+            padding: 0 1rem 0 0
+
+            .agree-privacy-policy-check-label-desktop
+              @include flex-d-j-a-g($dir: row, $justify: flex-start, $align: flex-start, $gap: null)
+              @include boxsize-w-h-minw-minh-maxw-maxh($w: 100%, $h: 100%, $minw: null, $minh: 20px, $maxw: 360px, $maxh: 60px)
+              padding: 0
+
+              .agree-privacy-policy-check-container-desktop
+                @include flex-d-j-a-g($dir: row, $justify: flex-start, $align: flex-start, $gap: null)
+                @include boxsize-w-h-minw-minh-maxw-maxh($w: 25px, $h: 80px, $minw: null, $minh: null, $maxw: null, $maxh: null)
+                margin-left: -0.3rem
+
+                .agree-privacy-checkbox
+                  display: flex
+                  @include size-w-h($w: 24px, $h: null)
+
+                  &:hover
+                    cursor: pointer
+
+              .agree-privacy-policy-check-txt
+                @include flex-d-j-a-g($dir: row, $justify: flex-start, $align: flex-start, $gap: null)
+                @include boxsize-w-h-minw-minh-maxw-maxh($w: null, $h: 50px, $minw: null, $minh: null, $maxw: null, $maxh: null)
+                @include font-f-s-c-w-lh-ls-a($family: 'Montserrat', $size: 1rem, $color: null, $weight: null, $lineHeight: null, $letterSpacing: null, $align: null)
+                overflow-wrap: break-word
                 margin: 0
-                padding: 0 1rem
 
-                .container-left
-                    @include flex-d-j-a-g(column, flex-start, flex-start)
-                    @include boxsize-w-h-minw-minh-maxw-maxh(49%, auto, null, null, null, 800px)
-                    padding: 0 1rem 0 0
+                p
+                  display: flex
+                  align-items: center
+                  white-space: nowrap
+                  overflow: hidden
+                  margin: 0 !important
 
-                    .got-a-problem-title-container
-                        @include flex-d-j-a-g(row, flex-start, flex-start)
-                        @include boxsize-w-h-minw-minh-maxw-maxh(100%, auto, null, null, null, 960px)
-                        padding: 0
-
-                        .got-a-problem-txt
-                            display: flex
-                            align-items: center
-                            @include boxsize-w-h-minw-minh-maxw-maxh(100%)
-                            @include minsize-w-h(null, 150px)
-                            @include font-f-s-c-w-lh-ls-a('Montserrat', 32px, var(--primary), 960, 120%, 0)
-                            margin: 0
-
-                    .got-a-problem-title-description-container
-                        @include flex-d-j-a-g(row, flex-start, center)
-                        @include boxsize-w-h-minw-minh-maxw-maxh(97%, auto)
-                        @include minsize-w-h(null, 150px)
-                        padding: 0
-
-                        .got-a-problem-title-description-txt
-                            display: flex
-                            @include font-f-s-c-w-lh-ls-a('Montserrat', 1rem, null, 400, 120%, 0)
-
-                    .need-a-contact-me-container
-                        @include flex-d-j-a-g(row, flex-start, center)
-                        @include boxsize-w-h-minw-minh-maxw-maxh(100%, auto)
-                        overflow: hidden
-
-                        .need-a-contact-me-txt
-                            @include flex-d-j-a-g($justify: flex-start)
-                            @include boxsize-w-h-minw-minh-maxw-maxh(100%)
-                            @include font-f-s-c-w-lh-ls-a('Poppins', 0.9rem, var(--primary), 400, 120%, 0)
-                            margin: 0
-
-                            .need-a-contact-me-question
-                                display: flex
-                                white-space: nowrap
-
-                            .need-a-contact-me-answer
-                                display: flex
-                                white-space: nowrap
-                                font-weight: bold
-
-                            .circle-11-container
-                                @include flex-d-j-a-g(row, center, stretch)
-                                @include boxsize-w-h-minw-minh-maxw-maxh(100%, auto)
-                                left: 242px
-
-                                .circle-11
-                                    display: flex
-                                    @include circle-size(204px)
-                                    @include brandradial-size-x-y-c1-c2-c3($c1: var(--primary), $c2: var(--primary), $c3: var(--primary-active))
-
-                .container-right
-                    @include flex-d-j-a-g(column, center, flex-start)
-                    @include boxsize-w-h-minw-minh-maxw-maxh(49%, auto, null, null, null, 800px)
-                    padding: 0 1rem 0 0
-
-                    .your-name-container,
-                    .your-email-container,
-                    .your-message-container
-                        @include flex-d-j-a-g(column, flex-start, stretch)
-                        @include boxsize-w-h-minw-minh-maxw-maxh(100%, auto)
-                        padding: 1rem 0
-
-                        .name-textfield,
-                        .email-textfield,
-                        .message-textfield
-                            display: flex
-                            @include boxsize-w-h-minw-minh-maxw-maxh(100%)
-                            @include border-w-s-c-r(1px, solid, var(--border), 0.5rem)
-                            padding: 1rem 0 1rem 1rem
-                            background-color: var(--surface)
-                            font-family: 'Poppins'
-
-                        .message-textfield
-                            @include size-w-h(null, 7rem)
-
-                    .your-name-container
-                        height: 80px
-
-                        .error-slot
-                            display: block
-                            align-self: stretch
-                            @include boxsize-w-h-minw-minh-maxw-maxh(100%)
-                            @include minsize-w-h(null, 1.25rem)
-
-                        .error-msg
-                            @include font-f-s-c-w-lh-ls-a('Poppins', 1rem, var(--danger), null, null, null, left)
-                            margin-top: 0.5rem
-
-                    .your-email-container
-                        height: 80px
-
-                        .error-slot
-                            display: block
-                            align-self: stretch
-                            @include boxsize-w-h-minw-minh-maxw-maxh(100%)
-                            @include minsize-w-h(null, 1.25rem)
-
-                        .error-msg
-                            @include font-f-s-c-w-lh-ls-a('Poppins', 1rem, var(--danger), null, null, null, left)
-                            margin-top: 0.5rem
-
-                    .your-message-container
-                        height: 200px
-
-                        .error-slot
-                            display: block
-                            align-self: stretch
-                            @include boxsize-w-h-minw-minh-maxw-maxh(100%)
-                            @include minsize-w-h(null, 1.25rem)
-
-                        .error-msg
-                            @include font-f-s-c-w-lh-ls-a('Poppins', 1rem, var(--danger), null, null, null, left)
-                            margin-top: 0.5rem
-
-                    .agree-privacy-police-check
-                        @include flex-d-j-a-g(column, flex-start, flex-start)
-                        @include boxsize-w-h-minw-minh-maxw-maxh(auto, 100px)
-                        @include minsize-w-h(null, 20px)
-                        padding: 0 1rem 0 0
-
-                        .agree-privacy-police-check-label
-                            @include flex-d-j-a-g(row, flex-start, center)
-                            padding: 0
-
-                            .agree-privacy-police-check-div
-                                @include flex-d-j-a-g(row, flex-start, flex-start)
-                                @include boxsize-w-h-minw-minh-maxw-maxh(20px, 50px)
-                                margin-left: -0.3rem
-
-                                .checkbox
-                                    display: flex
-                                    @include size-w-h(24px)
-                                    &:hover
-                                        cursor: pointer
-
-                            .agree-privacy-police-check-txt
-                                display: flex
-                                @include boxsize-w-h-minw-minh-maxw-maxh(null, 50px)
-                                @include font-f-s-c-w-lh-ls-a('Montserrat', 1rem)
-                                margin: 0
-
-                                p
-                                    white-space: nowrap
-                                    overflow: hidden
-                                    margin: 0 !important
-
-                                .privacy-link
-                                    display: inline-block
-                                    color: var(--link)
-                                    text-decoration: none
-                                    margin: 0 3px
-                                    &:hover
-                                        cursor: pointer
-
-                            .agree-privacy-police-check-txt
-                                @include font-f-s-c-w-lh-ls-a('Montserrat', 1rem, null, null, 120%)
-                                overflow-wrap: break-word
-
-                        .error-slot
-                            display: block
-                            align-self: stretch
-                            @include boxsize-w-h-minw-minh-maxw-maxh(100%)
-                            @include minsize-w-h(null, 1.25rem)
-
-                        .error-msg
-                            @include font-f-s-c-w-lh-ls-a('Poppins', 1rem, var(--danger), null, null, null, left)
-                            margin-top: 0.5rem
-
-                    .agree-privacy-police-check-mobile
-                        display: none
-
-                        .error-slot
-                            display: block
-                            align-self: stretch
-                            @include boxsize-w-h-minw-minh-maxw-maxh(100%, null, null, 1.25rem, null, null)
-
-                        .error-msg
-                            @include font-f-s-c-w-lh-ls-a('Poppins', 1rem, var(--danger), null, null, null, left)
-                            margin-top: 0.5rem
-
-                    .success-msg
-                        @include font-f-s-c-w-lh-ls-a('Poppins', 1rem, var(--success))
-                        margin-top: 0.5rem
-
-                    .button-container
-                        @include flex-d-j-a-g(row, center, flex-end)
-                        @include boxsize-w-h-minw-minh-maxw-maxh(100%, 80px)
-
-                        .btn-contact
-                            z-index: 0
-                            @include boxsize-w-h-minw-minh-maxw-maxh(auto, 58px, null, null, null, 181px)
-                            @include border-w-s-c-r(2px, solid, var(--border-muted), 10px)
-                            @include font-f-s-c-w-lh-ls-a('Poppins', 1rem, var(--text-inverse), 500)
-                            padding: 15px 30px
-                            background-color: var(--surface-muted)
-                            @include clickable-prop-dur-ease(all, 0.1s)
-                            @include elevation-y-blur-spread-alpha(5px, 15px, 0px, 0.15)
-
-                            &::before,
-                            &::after
-                                z-index: -1
-                                content: ''
-                                position: absolute
-                                @include boxsize-w-h-minw-minh-maxw-maxh(100%, 100%)
-                                background-color: var(--primary-active)
-                                transform: scale(0)
-                                transition: transform 0.1s ease
-
-                            &::before
-                                top: 0
-                                left: 0
-                                transform-origin: top left
-
-                            &::after
-                                bottom: 0
-                                right: 0
-                                transform-origin: bottom right
-
-                            &:disabled
-                                background-color: var(--surface-muted)
-                                border-color: var(--border-muted)
-                                cursor: not-allowed
-
-                            &.btn-valid
-                                border-color: var(--primary-active)
-                                cursor: pointer
-
-                                &:hover
-                                    color: var(--on-primary)
-                                    transform: scale(1.15)
-
-                                &:hover::before,
-                                &:hover::after
-                                    transform: scale(1)
-
-                    .name-textfield.inline-error-active::placeholder,
-                    .email-textfield.inline-error-active::placeholder,
-                    .message-textfield.inline-error-active::placeholder
-                        color: var(--danger)
-                        opacity: 1
-
-                    .name-textfield:-webkit-autofill,
-                    .email-textfield:-webkit-autofill,
-                    .message-textfield:-webkit-autofill
-                        -webkit-text-fill-color: inherit
-                        -webkit-box-shadow: 0 0 0px 1000px var(--surface) inset
-                        transition: background-color 9999s ease-out 0s
-
-            .circle-14-container
-                @include flex-d-j-a-g(row, flex-end, stretch)
-                @include boxsize-w-h-minw-minh-maxw-maxh(100%)
-                padding: 1rem
-
-                .circle-14
-                    display: flex
-                    @include circle-size(73px)
-                    @include brandradial-size-x-y-c1-c2-c3($c1: var(--primary), $c2: var(--primary), $c3: var(--primary-active))
-
-            .back-to-top
-                @include flex-d-j-a-g(row)
-                @include boxsize-w-h-minw-minh-maxw-maxh(100%)
-                padding: 1rem
-                border: none
-                background: transparent
-                cursor: pointer
-
-                &:focus-visible
-                    outline: 2px solid var(--focus-ring)
-                    outline-offset: 4px
-
-                .back-to-top-btn
-                    display: flex
-                    @include size-w-h(40px, 40px)
-                    @include bg-url-repeat-pos-size('/assets/img/icon/arrowup.png')
-                    @include clickable-prop-dur-ease(background-image, 0.1s)
+                  .privacy-link
+                    display: inline-block
+                    color: var(--link)
+                    text-decoration: none
+                    margin: 0 3px
 
                     &:hover
-                        @include bg-url-repeat-pos-size('/assets/img/icon/arrowup-hover.png')
+                      cursor: pointer
+
+            .error-slot
+              display: block
+              align-self: stretch
+              @include boxsize-w-h-minw-minh-maxw-maxh($w: 100%, $h: null, $minw: null, $minh: null, $maxw: null, $maxh: null)
+              @include minsize-w-h($w: null, $h: 1.25rem)
+
+            .error-msg
+              @include font-f-s-c-w-lh-ls-a($family: 'Poppins', $size: 1rem, $color: var(--danger), $weight: null, $lineHeight: null, $letterSpacing: null, $align: start)
+              margin-top: 0.5rem
+
+          .agree-privacy-policy-check-mobile
+            display: none
+
+            .error-slot
+              display: block
+              align-self: stretch
+              @include boxsize-w-h-minw-minh-maxw-maxh($w: 100%, $h: null, $minw: null, $minh: 1.25rem, $maxw: null, $maxh: null)
+
+            .error-msg
+              @include font-f-s-c-w-lh-ls-a($family: 'Poppins', $size: 1rem, $color: var(--danger), $weight: null, $lineHeight: null, $letterSpacing: null, $align: start)
+              margin-top: 0.5rem
+
+          .success-msg
+            @include font-f-s-c-w-lh-ls-a($family: 'Poppins', $size: 1rem, $color: var(--success), $weight: null, $lineHeight: null, $letterSpacing: null, $align: null)
+            margin-top: 0.5rem
+
+          .button-container
+            @include flex-d-j-a-g($dir: row, $justify: center, $align: flex-end, $gap: null)
+            @include boxsize-w-h-minw-minh-maxw-maxh($w: 100%, $h: 75px, $minw: null, $minh: null, $maxw: null, $maxh: null)
+
+            .btn-contact
+              z-index: 0
+              @include boxsize-w-h-minw-minh-maxw-maxh($w: auto, $h: 58px, $minw: null, $minh: null, $maxw: null, $maxh: 181px)
+              @include border-w-s-c-r($w: 2px, $style: solid, $color: var(--border-muted), $radius: 10px)
+              @include font-f-s-c-w-lh-ls-a($family: 'Poppins', $size: 1rem, $color: var(--text-inverse), $weight: 500, $lineHeight: null, $letterSpacing: null, $align: null)
+              padding: 15px 30px
+              background-color: var(--surface-muted)
+              @include clickable-prop-dur-ease($prop: all, $dur: 0.1s, $ease: ease-in-out)
+              @include elevation-y-blur-spread-alpha($y: 5px, $blur: 15px, $spread: 0px, $alpha: 0.15)
+
+              &::before,
+              &::after
+                z-index: -1
+                content: ''
+                position: absolute
+                @include boxsize-w-h-minw-minh-maxw-maxh($w: 100%, $h: 100%, $minw: null, $minh: null, $maxw: null, $maxh: null)
+                background-color: var(--primary-active)
+                transform: scale(0)
+                transition: transform 0.1s ease
+
+              &::before
+                top: 0
+                left: 0
+                transform-origin: top left
+
+              &::after
+                bottom: 0
+                right: 0
+                transform-origin: bottom right
+
+              &:disabled
+                background-color: var(--surface-muted)
+                border-color: var(--border-muted)
+                cursor: not-allowed
+
+              &.btn-valid
+                border-color: var(--primary-active)
+                cursor: pointer
+
+                &:hover
+                  color: var(--on-primary)
+                  transform: scale(1.15)
+
+                &:hover::before,
+                &:hover::after
+                  transform: scale(1)
+
+          .name-textfield.inline-error-active::placeholder,
+          .email-textfield.inline-error-active::placeholder,
+          .message-textfield.inline-error-active::placeholder
+            color: var(--danger)
+            opacity: 1
+
+          .name-textfield:-webkit-autofill,
+          .email-textfield:-webkit-autofill,
+          .message-textfield:-webkit-autofill
+            -webkit-text-fill-color: inherit
+            -webkit-box-shadow: 0 0 0px 1000px var(--surface) inset
+            transition: background-color 9999s ease-out 0s
+
+      .circle-14-container
+        @include flex-d-j-a-g($dir: row, $justify: flex-end, $align: stretch, $gap: 1rem)
+        @include boxsize-w-h-minw-minh-maxw-maxh($w: 100%, $h: null, $minw: null, $minh: null, $maxw: null, $maxh: null)
+        padding: 1rem
+
+        .circle-14
+          display: flex
+          @include circle-size($size: 73px)
+          @include brandradial-size-x-y-c1-c2-c3($c1: var(--primary), $c2: var(--primary), $c3: var(--primary-active))
+
+      .back-to-top
+        @include flex-d-j-a-g($dir: row, $justify: flex-start, $align: stretch, $gap: null)
+        @include boxsize-w-h-minw-minh-maxw-maxh($w: 100%, $h: null, $minw: null, $minh: null, $maxw: null, $maxh: null)
+        padding: 1rem
+        border: none
+        background: transparent
+        cursor: pointer
+
+        &:focus-visible
+          outline: 2px solid var(--focus-ring)
+          outline-offset: 4px
+
+        .back-to-top-btn
+          display: flex
+          @include size-w-h($w: 40px, $h: 40px)
+          @include bg-url-repeat-pos-size($url: '/assets/img/icon/arrowup.png', $repeat: no-repeat, $position: center, $size: contain)
+          @include clickable-prop-dur-ease($prop: background-image, $dur: 0.1s, $ease: ease-in-out)
+
+          &:hover
+            @include bg-url-repeat-pos-size($url: '/assets/img/icon/arrowup-hover.png', $repeat: no-repeat, $position: center, $size: contain)
 
 @keyframes zoomIn
-    from
-        opacity: 0
-        transform: scale(0.7)
-    to
-        opacity: 1
-        transform: scale(1)
+  from
+    opacity: 0
+    transform: scale(0.7)
+  to
+    opacity: 1
+    transform: scale(1)
 
 .reveal-zoom
-    opacity: 0
-    will-change: transform, opacity
+  opacity: 0
+  will-change: transform, opacity
 
 .reveal-zoom.in-view
-    animation: zoomIn 0.5s cubic-bezier(.2,.8,.2,1) var(--reveal-delay, 0ms) both
+  animation: zoomIn 0.5s cubic-bezier(.2,.8,.2,1) var(--reveal-delay, 0ms) both

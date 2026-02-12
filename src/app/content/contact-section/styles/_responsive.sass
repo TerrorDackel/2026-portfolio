@@ -1,452 +1,384 @@
 @use '../../../../styles/mixins' as *
 
 @media (max-width: 1440px)
-    .agree-privacy-police-check-txt
-        flex-direction: column
+  .agree-privacy-policy-check-txt
+    flex-direction: column
 
 @media (max-width: 920px)
-    .agree-privacy-police-check-txt
-        overflow-wrap: break-word
+  .agree-privacy-policy-check-txt
+    overflow-wrap: break-word
 
 @media (max-width: 760px)
-    #contact
-        scroll-margin-top: 50px
+  #contact
+    scroll-margin-top: 50px
 
-    .contact-section
-        width: 390px
-        margin: 0 auto
+  .contact-section
+    width: 390px
+    margin: 0 auto
+    flex-direction: column
+    overflow: visible
+
+    .contact-container
+      flex-direction: column
+      padding: 0 1rem
+
+      .circle-13-container
+        margin-left: 50%
+
+        .circle-13
+          @include size-w-h($w: 70px, $h: 70px)
+
+      .contact-title-and-container-left-right
         flex-direction: column
-        overflow: visible
 
-        .contact-container
-            flex-direction: column
+        .title-contact-container
+          @include flex-d-j-a-g($dir: row, $justify: flex-start, $align: center, $gap: null)
+          @include boxsize-w-h-minw-minh-maxw-maxh($w: null, $h: null, $minw: null, $minh: 100px, $maxw: null, $maxh: 150px)
+          margin: 0
+
+          .title-txt
+            @include flex-d-j-a-g($dir: row, $justify: flex-start, $align: center, $gap: null)
+            @include boxsize-w-h-minw-minh-maxw-maxh($w: 100%, $h: 140px, $minw: null, $minh: null, $maxw: 350px, $maxh: null)
+            @include font-f-s-c-w-lh-ls-a($family: null, $size: 64px, $color: null, $weight: bold, $lineHeight: null, $letterSpacing: null, $align: center)
+            margin: 0
             padding: 0 1rem
 
-            .circle-13-container
-                margin-left: 50%
-
-                .circle-13
-                    @include size-w-h($w: 70px, $h: 70px)
-
-            .contact-title-and-container-left-right
-                flex-direction: column
-
-                .title-contact-container
-                    @include flex-d-j-a-g( $align: center)
-                    @include boxsize-w-h-minw-minh-maxw-maxh($minh: 100px, $maxh: 150px)
-                    margin: 0
-
-                    .title-txt
-                        @include flex-d-j-a-g($dir: row, $justify: flex-start, $align: center, $gap: null)
-                        @include boxsize-w-h-minw-minh-maxw-maxh($w: 100%, $h: 140px, $maxw: 350px)
-                        @include font-f-s-c-w-lh-ls-a($size: 64px, $weight: bold, $align: center)
-                        margin: 0
-                        padding: 0 1rem
-
-                .container-left-and-right
-                    @include flex-d-j-a-g($dir: column, $align: center)
-                    margin: 1rem 0 0 0 
-                    padding: 0 0 0 0
-
-                    .container-left
-                        @include boxsize-w-h-minw-minh-maxw-maxh($w: 100%, $h: auto, $maxw: 340px)
-                        padding: 0 0 0 0
-
-                        .got-a-problem-title-container
-                            height: 100px
-                            align-items: center
-
-                            .got-a-problem-txt
-                                @include minsize-w-h(null, 100px)
-                                @include font-f-s-c-w-lh-ls-a($size: 1.5rem, $weight: 700)
-                                margin-top: 1rem
-
-                        .got-a-problem-title-description-container
-                            .got-a-problem-title-description-txt
-                                margin: 0
-
-                        .need-a-contact-me-container
-                            .need-a-contact-me-txt
-                                width: 100%
-
-                                .need-a-contact-me-question,
-                                .need-a-contact-me-answer
-                                    white-space: nowrap
-
-                        .circle-11-container
-                            display: none
-
-                    .container-right
-                        @include boxsize-w-h-minw-minh-maxw-maxh($w: 100%, $maxh: null)
-                        padding: 0
-
-                        .your-name-container
-                            @include flex-d-j-a-g($dir: column, $justify: center, $align: center)
-                            width: 100%
-                            padding: 1rem 0
-
-                            .name-textfield
-                                @include flex-d-j-a-g($dir: row, $justify: center, $align: center)
-                                @include boxsize-w-h-minw-minh-maxw-maxh($w: 95%, $h: auto, $maxw: null)
-                                @include border-w-s-c-r($w: 1px, $style: solid, $color: var(--border), $radius: 10px)
-                                box-sizing: border-box
-                                padding: 15px 25px
-                                background-color: var(--surface)
-
-                            .error-slot
-                                display: block
-                                align-self: flex-start
-                                @include boxsize-w-h-minw-minh-maxw-maxh($w: 95%, $minh: 1.25rem)
-
-                            .error-msg
-                                width: 95%
-                                @include font-f-s-c-w-lh-ls-a($family: null, $size: 1rem, $color: var(--danger), $weight: null, $lineHeight: null, $letterSpacing: null, $align: left)
-                                margin: 5px 0 0 1rem
-
-                        .your-email-container
-                            @include flex-d-j-a-g($dir: column, $justify: center, $align: center)
-                            width: 100%
-                            padding: 0 0 1rem 0
-
-                            .email-textfield
-                                @include flex-d-j-a-g($dir: row, $justify: center, $align: center)
-                                @include boxsize-w-h-minw-minh-maxw-maxh($w: 95%, $h: auto, $maxw: null)
-                                @include border-w-s-c-r($w: 1px, $style: solid, $color: var(--border), $radius: 10px)
-                                box-sizing: border-box
-                                padding: 15px 25px
-                                background-color: var(--surface)
-
-                            .error-slot
-                                @include  boxsize-w-h-minw-minh-maxw-maxh($w: 95%, $minh: 1.25rem)
-                                display: block
-                                align-self: flex-start
-
-                            .error-msg
-                                width: 95%
-                                @include font-f-s-c-w-lh-ls-a($family: null, $size: 1rem, $color: var(--danger), $weight: null, $lineHeight: null, $letterSpacing: null, $align: left)
-                                margin: 5px 0 0 1rem
-
-                        .your-message-container
-                            @include flex-d-j-a-g($dir: column, $justify: center, $align: center)
-                            width: 100%
-                            padding: 0 0 1rem 0
-
-                            .message-textfield
-                                @include flex-d-j-a-g($dir: row, $justify: center, $align: center)
-                                @include boxsize-w-h-minw-minh-maxw-maxh($w: 95%, $h: 202px, $maxw: null)
-                                @include border-w-s-c-r($w: 1px, $style: solid, $color: var(--border), $radius: 10px)
-                                box-sizing: border-box
-                                padding: 15px 25px
-                                background-color: var(--surface)
-
-                            .error-slot
-                                @include  boxsize-w-h-minw-minh-maxw-maxh($w: 95%, $minh: 1.25rem)
-                                display: block
-                                align-self: flex-start
-
-                            .error-msg
-                                width: 95%
-                                @include font-f-s-c-w-lh-ls-a($family: null, $size: 1rem, $color: var(--danger), $weight: null, $lineHeight: null, $letterSpacing: null, $align: left)
-                                margin: 5px 0 0 1rem
-
-                        .agree-privacy-police-check
-                            @include flex-d-j-a-g($dir: column, $justify: center, $align: flex-start, $gap: null)
-                            @include boxsize-w-h-minw-minh-maxw-maxh($w: 95%, $h: null, $minw: null, $minh: null, $maxw: none, $maxh: null)
-                            padding: 0 1rem
-
-                            .agree-privacy-police-check-label
-                                @include boxsize-w-h-minw-minh-maxw-maxh($w: 95%, $h: auto, $minw: null, $minh: null, $maxw: none, $maxh: null)
-
-                                .agree-privacy-police-check-div
-                                    @include flex-d-j-a-g($dir: row, $justify: flex-start, $align: flex-start)
-                                    @include boxsize-w-h-minw-minh-maxw-maxh($w: 20px, $h: 50px)
-                                    margin-top: 0.1rem
-
-                                .agree-privacy-police-check-txt
-                                    @include boxsize-w-h-minw-minh-maxw-maxh($w: null, $h: 50px, $minw: null, $minh: null, $maxw: null, $maxh: 320px)
-                                    @include flex-d-j-a-g($dir: column)
-                                    word-break: break-word
-
-                                    .privacy-link
-                                        white-space: nowrap
-                                        overflow: hidden
-                                        margin: 0
-                                        color: var(--link)
-                                        text-decoration: underline
-                                        margin-bottom: -0.2rem
-
-                            .error-slot
-                                @include  boxsize-w-h-minw-minh-maxw-maxh($w: 95%, $minh: 1.25rem)
-                                display: block
-                                align-self: flex-start
-
-                            .error-msg
-                                width: 95%
-                                @include font-f-s-c-w-lh-ls-a($family: null, $size: 1rem, $color: var(--danger), $weight: null, $lineHeight: null, $letterSpacing: null, $align: flex-start)
-                                margin: 0 0 1rem 0
-
-                        .button-container
-                            @include flex-d-j-a-g($justify: center)
-                            width: 100%
-
-                            .btn-contact
-                                @include font-f-s-c-w-lh-ls-a($family: null, $size: 1rem, $color: var(--on-primary), $weight: null, $lineHeight: null, $letterSpacing: null, $align: null)
-                                @include border-w-s-c-r($w: none, $radius: 8px)
-                                background-color: var(--primary)
-                                cursor: pointer
-                                padding: 12px 20px
-
-                            .btn-valid
-                                background-color: var(--primary-hover)
-
-                        .success-msg
-                            @include font-f-s-c-w-lh-ls-a($family: null, $size: 1.5rem, $color: var(--success), $weight: null, $lineHeight: null, $letterSpacing: null, $align: center)
-                            margin-top: 20px
-
-                        .back-to-top
-                            display: block
-                            width: 100%
-
-                        .circle-14-container
-                            .circle-14
-                                @include maxsize-w-h($w: 40px, $h: 40px)
-
-@media (max-width: 390px)
-    .contact-section
-        @include size-w-h($w: 240px, $h: null)
-        padding: 0 0
-
-        .contact-container
-            width: 220px
-            padding: 0 0.5rem
-
-            .contact-title-and-container-left-right
-                flex-direction: column
-
-                .title-contact-container
-                    width: 220px
-
-                    .title-txt
-                        font-size: 54px
-                        padding: 0
-
-                .container-left-and-right
-                    width: 220px
-                    padding: 0 0
-
-                    .container-left
-                        @include boxsize-w-h-minw-minh-maxw-maxh($w: 220px, $h: auto, $minw: null, $minh: null, $maxw: 220px, $maxh: null)
-
-                        .got-a-problem-title-container
-                            height: 100px
-                            align-items: center
-
-                            .got-a-problem-txt
-                                font-size: 1.4rem
-
-                        .need-a-contact-me-container
-                            .need-a-contact-me-txt
-                                @include flex-d-j-a-g($dir: column, $justify: center, $align: flex-start)
-                                padding: 1rem 0
-
-                    .container-right
-                        padding: 0
-                        width: 220px!important
-                        align-items: center
-
-                        .your-name-container
-                            width: 220px
-
-                            .name-textfield
-                                width: 220px!important
-
-                            .error-slot
-                                @include boxsize-w-h-minw-minh-maxw-maxh($w: 220px, $minh: 1.25rem)
-                                display: block
-                                align-self: flex-start
-
-                            .error-msg
-                                width: 220px
-                                @include font-f-s-c-w-lh-ls-a($size: 1rem, $color: var(--danger), $align: left)
-                                margin-top: 5px
-
-                        .your-email-container
-                            width: 220px
-
-                            .email-textfield
-                                width: 220px!important
-
-                            .error-slot
-                                @include boxsize-w-h-minw-minh-maxw-maxh($w: 220px, $minh: 1.25rem)
-                                display: block
-                                align-self: flex-start
-
-                            .error-msg
-                                width: 220px
-                                @include font-f-s-c-w-lh-ls-a($size: 1rem, $color: var(--danger), $align: left)
-                                margin-top: 5px
-
-                        .your-message-container
-                            width: 220px
-
-                            .message-textfield
-                                width: 220px!important
-
-                            .error-slot
-                                @include boxsize-w-h-minw-minh-maxw-maxh($w: 220px, $minh: 1.25rem)
-                                display: block
-                                align-self: flex-start
-
-                            .error-msg
-                                width: 220px
-                                @include font-f-s-c-w-lh-ls-a($size: 1rem, $color: var(--danger), $align: left)
-                                margin-top: 5px
-
-                        .agree-privacy-police-check
-                            display: none
-
-                        .agree-privacy-police-check-mobile
-                            @include flex-d-j-a-g($dir: column, $justify: center, $align: center)
-                            @include boxsize-w-h-minw-minh-maxw-maxh($w: auto, $h: auto, $maxw: auto)
-                            margin: 0
-
-                            .agree-privacy-police-check-label
-                                @include flex-d-j-a-g($justify: center)
-                                width: 100%
-
-                                .agree-privacy-police-check-div
-                                    @include flex-d-j-a-g(row, flex-start, flex-start)
-                                    @include boxsize-w-h-minw-minh-maxw-maxh($w: 20px, $h: 50px, $minw: null, $minh: null, $maxw: null, $maxh: null)
-                                    margin-left: -0.3rem
-                                    padding: 0.1rem 0 0 -0.1rem
-
-                                .agree-privacy-police-check-txt
-                                    @include size-w-h($w: auto, $h: 85px)
-                                    padding: 0 0 0 0.1rem
-                                    font-family: 'Montserrat'
-
-                                    .first-line,
-                                    .second-line,
-                                    p,
-                                    a
-                                        @include flex-d-j-a-g($justify: flex-start, $align: flex-start)
-                                        @include size-w-h($w: auto, $h: auto)
-                                        padding: 0 0 0.4rem 0!important
-                                        margin: 0 0 0 0!important
-                                        font-size: 1rem!important
-
-                                    .privacy-link
-                                        color: var(--link)
-                                        text-decoration: underline
-                                        font-size: 1rem!important
-
-                            .error-slot
-                                @include boxsize-w-h-minw-minh-maxw-maxh($w: 220px, $minh: 1.25rem)
-                                display: block
-                                align-self: flex-start
-
-                            .error-msg
-                                width: 220px
-                                @include font-f-s-c-w-lh-ls-a($size: 1rem, $color: var(--danger), $align: center)
-                                margin: 5px 0 1rem 0
-
-                        .button-container
-                            @include flex-d-j-a-g($justify: center)
-                            width: 100%
-
-                            .btn-contact
-                                @include font-f-s-c-w-lh-ls-a($size: 1rem, $color: var(--on-primary))
-                                @include border-w-s-c-r($w: none, $radius: 8px)
-                                padding: 12px 20px
-                                background-color: var(--primary)
-                                cursor: pointer
-
-                            .btn-valid
-                                background-color: var(--primary-hover)
-
-                        .success-msg
-                            @include font-f-s-c-w-lh-ls-a($size: 1rem, $color: var(--success), $align: center)
-                            margin-top: 20px
-
-                        .back-to-top
-                            display: block
-                            width: 100%
-
-                        .circle-14-container
-                            .circle-14
-                                @include maxsize-w-h($w: 40px, $h: 40px)
+        .container-left-and-right
+          @include flex-d-j-a-g($dir: column, $justify: flex-start, $align: center, $gap: null)
+          margin: 1rem 0 0 0
+          padding: 0 0 0 0
+
+          .container-left
+            @include boxsize-w-h-minw-minh-maxw-maxh($w: 100%, $h: auto, $minw: null, $minh: null, $maxw: 340px, $maxh: null)
+            padding: 0 0 0 0
+
+            .got-a-problem-title-container
+              height: 100px
+              align-items: center
+
+              .got-a-problem-txt
+                @include minsize-w-h($w: null, $h: 100px)
+                @include font-f-s-c-w-lh-ls-a($family: null, $size: 1.5rem, $color: null, $weight: 700, $lineHeight: null, $letterSpacing: null, $align: null)
+                margin-top: 1rem
+
+            .got-a-problem-title-description-container
+              .got-a-problem-title-description-txt
+                margin: 0
+
+            .need-a-contact-me-container
+              padding: 1rem 0
+
+              .need-a-contact-me-txt
+                width: 100%
+
+                .need-a-contact-me-question,
+                .need-a-contact-me-answer
+                  white-space: nowrap
+
+          .container-right
+            @include boxsize-w-h-minw-minh-maxw-maxh($w: 100%, $h: null, $minw: null, $minh: null, $maxw: null, $maxh: null)
+            padding: 0
+
+            .your-name-container
+              @include flex-d-j-a-g($dir: column, $justify: center, $align: center, $gap: null)
+              width: 100%
+              padding: 0
+
+              .name-textfield
+                @include flex-d-j-a-g($dir: row, $justify: center, $align: center, $gap: null)
+                @include boxsize-w-h-minw-minh-maxw-maxh($w: 95%, $h: auto, $minw: null, $minh: null, $maxw: null, $maxh: null)
+                @include border-w-s-c-r($w: 1px, $style: solid, $color: var(--border), $radius: 10px)
+                box-sizing: border-box
+                padding: 15px 25px
+                background-color: var(--surface)
+
+              .error-slot
+                display: block
+                align-self: flex-start
+                @include boxsize-w-h-minw-minh-maxw-maxh($w: 95%, $h: null, $minw: null, $minh: 1.25rem, $maxw: null, $maxh: null)
+
+              .error-msg
+                width: 95%
+                @include font-f-s-c-w-lh-ls-a($family: null, $size: 1rem, $color: var(--danger), $weight: null, $lineHeight: null, $letterSpacing: null, $align: start)
+                margin: 5px 0 0 1rem
+
+            .your-email-container
+              @include flex-d-j-a-g($dir: column, $justify: center, $align: center, $gap: null)
+              width: 100%
+              padding: 0
+
+              .email-textfield
+                @include flex-d-j-a-g($dir: row, $justify: center, $align: center, $gap: null)
+                @include boxsize-w-h-minw-minh-maxw-maxh($w: 95%, $h: null, $minw: null, $minh: null, $maxw: null, $maxh: null)
+                @include border-w-s-c-r($w: 1px, $style: solid, $color: var(--border), $radius: 10px)
+                box-sizing: border-box
+                padding: 15px 25px
+                background-color: var(--surface)
+
+              .error-slot
+                @include boxsize-w-h-minw-minh-maxw-maxh($w: 95%, $h: null, $minw: null, $minh: 1.25rem, $maxw: null, $maxh: null)
+                display: block
+                align-self: flex-start
+
+              .error-msg
+                width: 95%
+                @include font-f-s-c-w-lh-ls-a($family: null, $size: 1rem, $color: var(--danger), $weight: null, $lineHeight: null, $letterSpacing: null, $align: start)
+                margin: 5px 0 0 1rem
+
+            .your-message-container
+              @include flex-d-j-a-g($dir: column, $justify: flex-start, $align: center, $gap: null)
+              width: 100%
+              padding: 0.3rem 0 0 0
+
+              .message-textfield
+                @include flex-d-j-a-g($dir: row, $justify: center, $align: center, $gap: null)
+                @include boxsize-w-h-minw-minh-maxw-maxh($w: 95%, $h: 100%, $minw: null, $minh: null, $maxw: null, $maxh: 200px)
+                @include border-w-s-c-r($w: 1px, $style: solid, $color: var(--border), $radius: 10px)
+                box-sizing: border-box
+                padding: 15px 25px
+                background-color: var(--surface)
+
+              .error-slot
+                @include boxsize-w-h-minw-minh-maxw-maxh($w: 95%, $h: null, $minw: null, $minh: 1.25rem, $maxw: null, $maxh: null)
+                display: block
+                align-self: flex-start
+
+              .error-msg
+                width: 95%
+                @include font-f-s-c-w-lh-ls-a($family: null, $size: 1rem, $color: var(--danger), $weight: null, $lineHeight: null, $letterSpacing: null, $align: start)
+                margin: 5px 0 0 1rem
+
+            .agree-privacy-policy-check-desktop
+              @include flex-d-j-a-g($dir: column, $justify: space-between, $align: flex-start, $gap: null)
+              @include boxsize-w-h-minw-minh-maxw-maxh($w: 95%, $h: 70px, $minw: null, $minh: null, $maxw: none, $maxh: null)
+              padding: 0 1rem
+
+              .agree-privacy-policy-check-label-desktop
+                @include boxsize-w-h-minw-minh-maxw-maxh($w: 100%, $h: 100%, $minw: null, $minh: null, $maxw: none, $maxh: null)
+
+                .agree-privacy-policy-check-txt
+                  p
+                    .privacy-link
+                      white-space: nowrap
+                      overflow: hidden
+                      color: var(--link)
+                      text-decoration: none
+                      margin: 0 3px
+
+              .error-slot
+                @include boxsize-w-h-minw-minh-maxw-maxh($w: 95%, $h: null, $minw: null, $minh: 1.25rem, $maxw: null, $maxh: null)
+                display: block
+                align-self: flex-start
+
+              .error-msg
+                width: 95%
+                @include font-f-s-c-w-lh-ls-a($family: null, $size: 1rem, $color: var(--danger), $weight: null, $lineHeight: null, $letterSpacing: null, $align: flex-start)
+                margin: 0 0 1rem 0
+
+            .button-container
+              @include flex-d-j-a-g($dir: row, $justify: center, $align: stretch, $gap: null)
+              width: 100%
+
+              .btn-contact
+                @include font-f-s-c-w-lh-ls-a($family: null, $size: 1rem, $color: var(--on-primary), $weight: null, $lineHeight: null, $letterSpacing: null, $align: null)
+                @include border-w-s-c-r($w: none, $style: solid, $color: #000000, $radius: 8px)
+                background-color: var(--primary)
+                cursor: pointer
+                padding: 12px 20px
+
+              .btn-valid
+                background-color: var(--primary-hover)
+
+            .success-msg
+              @include font-f-s-c-w-lh-ls-a($family: null, $size: 1.5rem, $color: var(--success), $weight: null, $lineHeight: null, $letterSpacing: null, $align: center)
+              margin-top: 20px
+
+        .back-to-top
+          display: block
+          width: 100%
+
+        .circle-14-container
+          width: 100%
+          .circle-14
+            @include maxsize-w-h($w: 40px, $h: 40px)
+
+@media (max-width: 380px)
+  .contact-section
+    @include size-w-h($w: 90%, $h: null)
+    padding: 0 0
+
+    .contact-container
+      width: 100%
+      padding: 0 0.5rem
+
+      .contact-title-and-container-left-right
+        flex-direction: column
+
+        .title-contact-container
+          width: 100%
+
+          .title-txt
+            font-size: 54px
+            padding: 0
+
+        .container-left-and-right
+          width: 100%
+          padding: 0 0
+
+          .container-left
+            @include boxsize-w-h-minw-minh-maxw-maxh($w: 100%, $h: auto, $minw: null, $minh: null, $maxw: null, $maxh: null)
+
+            .got-a-problem-title-container
+              height: 100%
+              align-items: center
+
+              .got-a-problem-txt
+                font-size: 1.4rem
+
+            .need-a-contact-me-container
+              .need-a-contact-me-txt
+                @include flex-d-j-a-g($dir: column, $justify: center, $align: flex-start, $gap: null)
+                padding: 1rem 0
+
+          .container-right
+            padding: 0
+            width: 100%
+            align-items: center
+
+            .your-name-container
+              width: 100%
+
+              .name-textfield
+                width: 100%
+
+              .error-slot
+                @include boxsize-w-h-minw-minh-maxw-maxh($w: 220px, $h: null, $minw: null, $minh: 1.25rem, $maxw: null, $maxh: null)
+                display: block
+                align-self: flex-start
+
+              .error-msg
+                width: 100%
+                @include font-f-s-c-w-lh-ls-a($family: null, $size: 1rem, $color: var(--danger), $weight: null, $lineHeight: null, $letterSpacing: null, $align: start)
+                margin-top: 5px
+
+            .your-email-container
+              width: 100%
+
+              .email-textfield
+                width: 100%
+
+              .error-slot
+                @include boxsize-w-h-minw-minh-maxw-maxh($w: 220px, $h: null, $minw: null, $minh: 1.25rem, $maxw: null, $maxh: null)
+                display: block
+                align-self: flex-start
+
+              .error-msg
+                width: 100%
+                @include font-f-s-c-w-lh-ls-a($family: null, $size: 1rem, $color: var(--danger), $weight: null, $lineHeight: null, $letterSpacing: null, $align: start)
+                margin-top: 5px
+
+            .your-message-container
+              width: 100%
+
+              .message-textfield
+                width: 100%
+
+              .error-slot
+                @include boxsize-w-h-minw-minh-maxw-maxh($w: 220px, $h: null, $minw: null, $minh: 1.25rem, $maxw: null, $maxh: null)
+                display: block
+                align-self: flex-start
+
+              .error-msg
+                width: 100%
+                @include font-f-s-c-w-lh-ls-a($family: null, $size: 1rem, $color: var(--danger), $weight: null, $lineHeight: null, $letterSpacing: null, $align: start)
+                margin-top: 5px
+
+              .error-slot
+                @include boxsize-w-h-minw-minh-maxw-maxh($w: 220px, $h: null, $minw: null, $minh: 1.25rem, $maxw: null, $maxh: null)
+                display: block
+                align-self: flex-start
+
+              .error-msg
+                width: 220px
+                @include font-f-s-c-w-lh-ls-a($family: null, $size: 1rem, $color: var(--danger), $weight: null, $lineHeight: null, $letterSpacing: null, $align: center)
+                margin: 5px 0 1rem 0
+
+          .button-container
+            @include flex-d-j-a-g($dir: row, $justify: center, $align: stretch, $gap: null)
+            width: 100%
+
+            .btn-contact
+              @include font-f-s-c-w-lh-ls-a($family: null, $size: 1rem, $color: var(--on-primary), $weight: null, $lineHeight: null, $letterSpacing: null, $align: null)
+              @include border-w-s-c-r($w: none, $style: solid, $color: #000000, $radius: 8px)
+              padding: 12px 20px
+              background-color: var(--primary)
+              cursor: pointer
+
+            .btn-valid
+              background-color: var(--primary-hover)
+
+          .success-msg
+            @include font-f-s-c-w-lh-ls-a($family: null, $size: 1rem, $color: var(--success), $weight: null, $lineHeight: null, $letterSpacing: null, $align: center)
+            margin-top: 20px
+
+        .back-to-top
+          display: block
+          width: 100%
+
+        .circle-14-container
+          .circle-14
+            @include maxsize-w-h($w: 40px, $h: 40px)
+
+@media ( max-width: 345px)
+  .contact-section
+    .contact-container
+      .contact-title-and-container-left-right
+        .container-left-and-right
+          .container-right
+            .agree-privacy-policy-check-desktop
+              display: none
+
+            .agree-privacy-policy-check-mobile
+              @include flex-d-j-a-g($dir: column, $justify: center, $align: center, $gap: null)
+              @include boxsize-w-h-minw-minh-maxw-maxh($w: 100%, $h: 100%, $minw: null, $minh: 20px, $maxw: 340px, $maxh: 60px)
+              margin: 0
+
+              .agree-privacy-policy-check-label-mobile
+                @include flex-d-j-a-g($dir: row, $justify: center, $align: stretch, $gap: null)
+                width: 100%
+
+                .agree-privacy-policy-check-container-mobile
+                  @include flex-d-j-a-g($dir: row, $justify: flex-start, $align: flex-start, $gap: null)
+                  @include boxsize-w-h-minw-minh-maxw-maxh($w: 20px, $h: 50px, $minw: null, $minh: null, $maxw: null, $maxh: null)
+                  margin-left: -0.3rem
+                  padding: 0.1rem 0 0 -0.1rem
+
+                .agree-privacy-policy-check-txt
+                  @include flex-d-j-a-g($dir: column, $justify: flex-start, $align: flex-start, $gap: null)
+                  @include size-w-h($w: auto, $h: 50px)
+                  padding: 0 0 0 0.1rem
+                  font-family: 'Montserrat'
+
+                  p
+                    @include flex-d-j-a-g($dir: row, $justify: flex-start, $align: flex-start, $gap: null)
+                    @include size-w-h($w: auto, $h: auto)
+                    padding: 0 0 0.4rem 0!important
+                    margin: 0 0 0 0!important
+                    font-size: 1rem!important
+
+                    .privacy-link
+                      display: inline-block
+                      color: var(--link)
+                      text-decoration: none
+                      margin: 0 3px
+  
 
 @media (max-width: 260px)
-    .contact-container
-        padding: 0 0!important
-
-@media (max-width: 240px)
-    .contact-section
-        justify-content: center
-        width: 100%
-        padding: 0 0
-        margin: 0
-
-        .contact-container
-            max-width: 210px
-            padding: 0 0
-
-            .contact-title-and-container-left-right
-                flex-direction: column
-
-                .title-contact-container
-                    width: 220px
-
-                    .title-txt
-                        justify-content: center!important
-                        font-size: 3rem
-
-                .container-left-and-right
-                    width: 200px
-                    padding: 0 0.5rem
-                    margin: 0
-
-                    .container-left
-                        @include boxsize-w-h-minw-minh-maxw-maxh($h: auto, $maxw: 200px)
-
-                        .got-a-problem-title-container
-                            @include flex-d-j-a-g($justify: center, $align: center)
-                            @include boxsize-w-h-minw-minh-maxw-maxh($h: auto, $maxw: 200px)
-
-                            .got-a-problem-txt
-                                @include font-f-s-c-w-lh-ls-a($size: 1.2rem, $align: center)
-                                height: auto
-
-                        .got-a-problem-title-description-container
-                            .got-a-problem-title-description-txt
-                                text-align: center
-
-                        .need-a-contact-me-container
-                            justify-content: center !important
-
-                            .need-a-contact-me-txt
-                                @include maxsize-w-h($w: 200px, $h: 5rem)
-                                align-items: center
-
-                    .container-right
-                        justify-content: center!important
-                        padding: 0 0.1rem!important
-                        max-width: 200px!important
-
-                        .your-name-container,
-                        .your-email-container,
-                        .your-message-container
-                            @include flex-d-j-a-g($dir: column, $justify: center)
-                            max-width: 200px!important
-                            margin: 0
-
-                            .name-textfield,
-                            .email-textfield,
-                            .message-textfield
-                                max-width: 200px!important
+  .contact-container
+    padding: 0 0!important
 
 @media (prefers-reduced-motion: reduce)
-    .reveal-zoom
-        opacity: 1 !important
-        transform: none !important
-        animation: none !important
+  .reveal-zoom
+    opacity: 1 !important
+    transform: none !important
+    animation: none !important
