@@ -45,7 +45,7 @@ form
 
         .title-txt
           @include boxsize-w-h-minw-minh-maxw-maxh($w: null, $h: auto, $minw: null, $minh: null, $maxw: null, $maxh: 1920px)
-          @include font-f-s-c-w-lh-ls-a($family: 'Baloo', $size: 90px, $color: var(--primary), $weight: bold, $lineHeight: 120%, $letterSpacing: 0, $align: null)
+          @include font-f-s-c-w-lh-ls-a($family: 'Baloo', $size: 80px, $color: var(--primary), $weight: bold, $lineHeight: 120%, $letterSpacing: 0, $align: null)
 
       .container-left-and-right
         @include flex-d-j-a-g($dir: row, $justify: space-between, $align: stretch, $gap: null)
@@ -95,12 +95,12 @@ form
               .need-a-contact-me-question,
               .need-a-contact-me-answer
                 @include boxsize-w-h-minw-minh-maxw-maxh($w: 100%, $h: 100%, $minw: null, $minh: null, $maxw: null, $maxh: null)
-                display: flex
                 font-weight: 400
 
               .need-a-contact-me-answer
                 font-weight: bold
                 @include font-f-s-c-w-lh-ls-a($family: 'Baloo', $size: 3rem, $color: var(--primary), $weight: 400, $lineHeight: 120%, $letterSpacing: 0, $align: null)
+                @include flex-d-j-a-g($dir: row, $justify: flex-start, $align: null, $gap: left)
 
         .container-right
           @include flex-d-j-a-g($dir: column, $justify: center, $align: flex-start, $gap: null)
@@ -168,7 +168,7 @@ form
 
           .agree-privacy-policy-check-desktop
             @include flex-d-j-a-g($dir: column, $justify: flex-start, $align: flex-start, $gap: null)
-            @include boxsize-w-h-minw-minh-maxw-maxh($w: auto, $h: 70px, $minw: null, $minh: null, $maxw: null, $maxh: null)
+            @include boxsize-w-h-minw-minh-maxw-maxh($w: auto, $h: 80px, $minw: null, $minh: null, $maxw: null, $maxh: null)
             @include minsize-w-h($w: null, $h: 20px)
             padding: 0 1rem 0 0
 
@@ -192,7 +192,7 @@ form
               .agree-privacy-policy-check-txt
                 @include flex-d-j-a-g($dir: row, $justify: flex-start, $align: flex-start, $gap: null)
                 @include boxsize-w-h-minw-minh-maxw-maxh($w: null, $h: 50px, $minw: null, $minh: null, $maxw: null, $maxh: null)
-                @include font-f-s-c-w-lh-ls-a($family: 'Montserrat', $size: 1rem, $color: null, $weight: null, $lineHeight: null, $letterSpacing: null, $align: null)
+                @include font-f-s-c-w-lh-ls-a($family: 'Montserrat', $size: 1rem, $color: var(--primary), $weight: null, $lineHeight: null, $letterSpacing: null, $align: null)
                 overflow-wrap: break-word
                 margin: 0
 

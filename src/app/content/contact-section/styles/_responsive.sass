@@ -80,6 +80,14 @@
             .need-a-contact-me-container
               padding: 1rem 0
 
+              .need-a-contact-me-txt
+                width: 100%
+
+                .need-a-contact-me-question,
+                .need-a-contact-me-answer
+                  @include flex-d-j-a-g($dir: column, $justify: center, $align: left, $gap: null)
+                  
+
           .container-right
             @include boxsize-w-h-minw-minh-maxw-maxh($w: 100%, $h: null, $minw: null, $minh: null, $maxw: null, $maxh: null)
             padding: 0
@@ -217,20 +225,60 @@
       padding: 0 0.5rem
 
       .contact-title-and-container-left-right
-        flex-direction: column
+        @include flex-d-j-a-g($dir: column, $justify: center, $align: center, $gap: null)
+        width: 100%
+        margin: 0
 
         .title-contact-container
           width: 100%
+          @include flex-d-j-a-g($dir: column, $justify: center, $align: center, $gap: 1rem)
 
           .title-txt
-            font-size: 54px
-            padding: 0
+            @include flex-d-j-a-g($dir: column, $justify: center, $align: center, $gap: 1rem)
+            @include font-f-s-c-w-lh-ls-a($family: null, $size: 2rem, $color: var(--primary), $weight: null, $lineHeight: null, $letterSpacing: null, $align: center)
 
         .container-left-and-right
           width: 100%
           padding: 0 0
 
+          .container-left
+            @include flex-d-j-a-g($dir: column, $justify: center, $align: center, $gap: 1rem)
+            @include boxsize-w-h-minw-minh-maxw-maxh($w: 100%, $h: auto, $minw: null, $minh: null, $maxw: null, $maxh: null)
 
+            .got-a-problem-title-container
+              text-align: center
+            
+            .got-a-problem-title-description-container
+              @include flex-d-j-a-g($dir: column, $justify: center, $align: center, $gap: 1rem)
+              background-color: var(--surface)
+              border: 1px solid var(--border)
+              border-radius: 10px
+              -webkit-backdrop-filter: blur(1px)
+              padding: 1rem 0.5rem
+              @include font-f-s-c-w-lh-ls-a($family: null, $size: 1.5rem, $color: var(--success), $weight: null, $lineHeight: null, $letterSpacing: null, $align: center)
+
+              .got-a-problem-title-description-txt
+                @include boxsize-w-h-minw-minh-maxw-maxh($w: 90%, $h: auto, $minw: null, $minh: null, $maxw: null, $maxh: null)
+
+
+              .got-a-problem-txt
+                  @include flex-d-j-a-g($dir: column, $justify: center, $align: center, $gap: null)
+                  text-align: center
+                  margin: 1rem
+
+            .need-a-contact-me-container
+              @include flex-d-j-a-g($dir: column, $justify: center, $align: center, $gap: null)
+              @include boxsize-w-h-minw-minh-maxw-maxh($w: 100%, $h: auto, $minw: null, $minh: null, $maxw: null, $maxh: null)
+
+              .need-a-contact-me-txt
+                @include flex-d-j-a-g($dir: column, $justify: center, $align: center, $gap: null)
+
+                .need-a-contact-me-question,
+                .need-a-contact-me-answer
+                  @include flex-d-j-a-g($dir: column, $justify: center, $align: center, $gap: null)
+                  text-align: center
+                  margin: 1rem
+                  white-space: normal
 
           .container-right
             padding: 0
@@ -294,6 +342,55 @@
                 width: 220px
                 @include font-f-s-c-w-lh-ls-a($family: null, $size: 1rem, $color: var(--danger), $weight: null, $lineHeight: null, $letterSpacing: null, $align: center)
                 margin: 5px 0 1rem 0
+                  
+            .agree-privacy-policy-check-desktop
+              display: none
+
+            .agree-privacy-policy-check-mobile
+              @include flex-d-j-a-g($dir: column, $justify: flex-start, $align: flex-start, $gap: null)
+              @include boxsize-w-h-minw-minh-maxw-maxh($w: auto, $h: 80px, $minw: null, $minh: null, $maxw: null, $maxh: null)
+              @include minsize-w-h($w: null, $h: 20px)
+              padding: 0 1rem 0 0
+
+              .agree-privacy-policy-check-label-mobile        
+                @include flex-d-j-a-g($dir: row, $justify: flex-start, $align: flex-start, $gap: null)
+                @include boxsize-w-h-minw-minh-maxw-maxh($w: 100%, $h: 100%, $minw: null, $minh: 20px, $maxw: 360px, $maxh: 60px)
+                padding: 0
+
+                .agree-privacy-policy-check-container-mobile
+                  @include flex-d-j-a-g($dir: row, $justify: flex-start, $align: flex-start, $gap: null)
+                  @include boxsize-w-h-minw-minh-maxw-maxh($w: 25px, $h: 80px, $minw: null, $minh: null, $maxw: null, $maxh: null)
+                  margin-left: -0.3rem
+
+                  .agree-privacy-checkbox
+                    display: flex
+                    @include size-w-h($w: 24px, $h: null)
+
+                    &:hover
+                      cursor: pointer
+
+                .agree-privacy-policy-check-txt
+                  @include flex-d-j-a-g($dir: column, $justify: flex-start, $align: flex-start, $gap: null)
+                  @include boxsize-w-h-minw-minh-maxw-maxh($w: null, $h: 50px, $minw: null, $minh: null, $maxw: null, $maxh: null)
+                  @include font-f-s-c-w-lh-ls-a($family: 'Montserrat', $size: 1.2rem, $color: var(--primary), $weight: null, $lineHeight: null, $letterSpacing: null, $align: null)
+                  overflow-wrap: break-word
+                  margin: 0
+
+                  p
+                    display: flex
+                    align-items: center
+                    white-space: nowrap
+                    overflow: hidden
+                    margin: 0 !important
+
+                    .privacy-link
+                      display: inline-block
+                      color: var(--link)
+                      text-decoration: none
+                      margin: 0 3px
+
+                      &:hover
+                        cursor: pointer
 
           .button-container
             @include flex-d-j-a-g($dir: row, $justify: center, $align: stretch, $gap: null)
