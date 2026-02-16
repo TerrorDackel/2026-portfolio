@@ -21,7 +21,7 @@ a:hover
   right: 0
   left: 0
   backdrop-filter: blur(3px)
-  background-color: var(--glass-bg)
+  background-color: var(--primary)
   z-index: 100
 
   .header-container
@@ -67,7 +67,7 @@ a:hover
           align-items: center
           gap: 0.5rem
           width: 100%
-          background-color: rgb(0, 0, 0, 0.8)
+          background-color: var(--focus-ring-offset)
           padding: 0.5rem
           border-radius: 0.5rem
 
@@ -134,6 +134,7 @@ a:hover
                 padding: 0 6px
 
               .cut
+                margin: 0 0 0 10px
                 width: 10px
                 text-align: center
                 @include font-f-s-c-w-lh-ls-a('Montserrat', 23px, var(--primary), 400, 120%, null, null)
