@@ -24,10 +24,14 @@
       @include boxsize-w-h-minw-minh-maxw-maxh(25%, 70px)
       padding: 2rem
       color: var(--text-inverse)
+      margin: 0
 
       .logo-img
         @include flex-d-j-a-g(row, center, center)
         @include size-w-h(64px, 69px)
+        background-color: var(--focus-ring-offset)
+        padding: 1rem
+        border-radius: 1rem
 
         &:hover
           cursor: pointer
@@ -36,12 +40,6 @@
       @include flex-d-j-a-g(column, center, center)
       @include boxsize-w-h-minw-minh-maxw-maxh(50%, 150px)
       color: var(--text-inverse)
-
-      .over-copyright-container
-        @include flex-d-j-a-g(row, center, center)
-        @include boxsize-w-h-minw-minh-maxw-maxh(100%, 50px)
-        padding: 1rem
-        color: var(--text-inverse)
 
       .copyright-container
         @include flex-d-j-a-g(row, center, center)
@@ -92,6 +90,10 @@
       @include flex-d-j-a-g(row, space-around, center)
       @include boxsize-w-h-minw-minh-maxw-maxh(25%, 30px)
       padding: 1rem
+      backdrop-filter: blur(3px)
+      background-color: var(--focus-ring-offset)
+      border-radius: 1rem
+      margin: 0 2rem 0 0 
 
       .footer-icon-container
         @include flex-d-j-a-g(row, center, center)
