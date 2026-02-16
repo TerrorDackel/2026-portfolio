@@ -1,8 +1,20 @@
 @use '../../../../styles/mixins' as *
 
+@media (max-width: 1550px)
+  .need-a-contact-me-container
+    .need-a-contact-me-txt
+      @include flex-d-j-a-g($dir: column !important)
+    
 @media (max-width: 1440px)
   .agree-privacy-policy-check-txt
     flex-direction: column
+
+@media (max-width: 1550px)
+  .need-a-contact-me-container
+    .need-a-contact-me-txt
+      .need-a-contact-me-question,
+      .need-a-contact-me-answer
+        @include font-f-s-c-w-lh-ls-a($size: 1.5rem)
 
 @media (max-width: 920px)
   .agree-privacy-policy-check-txt
@@ -67,13 +79,6 @@
 
             .need-a-contact-me-container
               padding: 1rem 0
-
-              .need-a-contact-me-txt
-                width: 100%
-
-                .need-a-contact-me-question,
-                .need-a-contact-me-answer
-                  white-space: nowrap
 
           .container-right
             @include boxsize-w-h-minw-minh-maxw-maxh($w: 100%, $h: null, $minw: null, $minh: null, $maxw: null, $maxh: null)
@@ -225,20 +230,7 @@
           width: 100%
           padding: 0 0
 
-          .container-left
-            @include boxsize-w-h-minw-minh-maxw-maxh($w: 100%, $h: auto, $minw: null, $minh: null, $maxw: null, $maxh: null)
 
-            .got-a-problem-title-container
-              height: 100%
-              align-items: center
-
-              .got-a-problem-txt
-                font-size: 1.4rem
-
-            .need-a-contact-me-container
-              .need-a-contact-me-txt
-                @include flex-d-j-a-g($dir: column, $justify: center, $align: flex-start, $gap: null)
-                padding: 1rem 0
 
           .container-right
             padding: 0

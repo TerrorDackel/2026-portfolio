@@ -16,7 +16,6 @@ form
 
 .contact-section
   @include flex-d-j-a-g($dir: row, $justify: center, $align: center, $gap: null)
-  max-width: 1920px
   @include boxsize-w-h-minw-minh-maxw-maxh($w: 100%, $h: auto, $minw: null, $minh: null, $maxw: null, $maxh: null)
   overflow: hidden
 
@@ -41,8 +40,7 @@ form
 
       .title-contact-container
         @include flex-d-j-a-g($dir: column, $justify: flex-start, $align: flex-start, $gap: null)
-        @include boxsize-w-h-minw-minh-maxw-maxh($w: 95%, $h: 180px, $minw: null, $minh: null, $maxw: 1920px, $maxh: null)
-        @include minsize-w-h($w: null, $h: 180px)
+        @include boxsize-w-h-minw-minh-maxw-maxh($w: 95%, $h: 180px, $minw: null, $minh: 180px, $maxw: 1920px, $maxh: null)
         padding: 0 1rem
 
         .title-txt
@@ -68,41 +66,41 @@ form
             .got-a-problem-txt
               display: flex
               align-items: center
-              @include boxsize-w-h-minw-minh-maxw-maxh($w: 100%, $h: null, $minw: null, $minh: null, $maxw: null, $maxh: null)
-              @include minsize-w-h($w: null, $h: 150px)
+              @include boxsize-w-h-minw-minh-maxw-maxh($w: 100%, $h: 100%, $minw: null, $minh: 120px, $maxw: null, $maxh: null)
               @include font-f-s-c-w-lh-ls-a($family: 'Montserrat', $size: 32px, $color: var(--primary), $weight: 960, $lineHeight: 120%, $letterSpacing: 0, $align: null)
               margin: 0
 
           .got-a-problem-title-description-container
             @include flex-d-j-a-g($dir: row, $justify: flex-start, $align: center, $gap: null)
-            @include boxsize-w-h-minw-minh-maxw-maxh($w: 97%, $h: auto, $minw: null, $minh: null, $maxw: null, $maxh: null)
-            @include minsize-w-h($w: null, $h: 150px)
+            @include boxsize-w-h-minw-minh-maxw-maxh($w: 97%, $h: auto, $minw: null, $minh: 150px, $maxw: null, $maxh: null)
             padding: 0.2rem 0
 
             .got-a-problem-title-description-txt
+              @include boxsize-w-h-minw-minh-maxw-maxh($w: 100%, $h: 100%, $minw: null, $minh: 120px, $maxw: null, $maxh: null)
               display: flex
-              @include font-f-s-c-w-lh-ls-a($family: 'Montserrat', $size: 1rem, $color: null, $weight: 400, $lineHeight: 120%, $letterSpacing: 0, $align: null)
+              @include font-f-s-c-w-lh-ls-a($family: 'Montserrat', $size: 1.5rem, $color: var(--primary), $weight: 400, $lineHeight: 120%, $letterSpacing: 0, $align: null)
 
           .need-a-contact-me-container
             @include flex-d-j-a-g($dir: row, $justify: flex-start, $align: center, $gap: null)
-            @include boxsize-w-h-minw-minh-maxw-maxh($w: 100%, $h: auto, $minw: null, $minh: null, $maxw: null, $maxh: null)
+            @include boxsize-w-h-minw-minh-maxw-maxh($w: 97%, $h: auto, $minw: null, $minh: 150px, $maxw: null, $maxh: null)
             overflow: hidden
             padding: 0.2rem 0
 
             .need-a-contact-me-txt
-              @include flex-d-j-a-g($dir: row, $justify: flex-start, $align: stretch, $gap: null)
-              @include boxsize-w-h-minw-minh-maxw-maxh($w: 100%, $h: null, $minw: null, $minh: null, $maxw: null, $maxh: null)
-              @include font-f-s-c-w-lh-ls-a($family: 'Poppins', $size: 0.9rem, $color: var(--primary), $weight: 400, $lineHeight: 120%, $letterSpacing: 0, $align: null)
+              @include flex-d-j-a-g($dir: column, $justify: flex-start, $align: null, $gap: null)
+              @include boxsize-w-h-minw-minh-maxw-maxh($w: 100%, $h: 100%, $minw: null, $minh: null, $maxw: null, $maxh: null)
+              @include font-f-s-c-w-lh-ls-a($family: 'Poppins', $size: 2rem, $color: var(--primary), $weight: 400, $lineHeight: 120%, $letterSpacing: 0, $align: null)
               margin: 0
 
-              .need-a-contact-me-question
+              .need-a-contact-me-question,
+              .need-a-contact-me-answer
+                @include boxsize-w-h-minw-minh-maxw-maxh($w: 100%, $h: 100%, $minw: null, $minh: null, $maxw: null, $maxh: null)
                 display: flex
-                white-space: nowrap
+                font-weight: 400
 
               .need-a-contact-me-answer
-                display: flex
-                white-space: nowrap
                 font-weight: bold
+                @include font-f-s-c-w-lh-ls-a($family: 'Baloo', $size: 3rem, $color: var(--primary), $weight: 400, $lineHeight: 120%, $letterSpacing: 0, $align: null)
 
         .container-right
           @include flex-d-j-a-g($dir: column, $justify: center, $align: flex-start, $gap: null)
