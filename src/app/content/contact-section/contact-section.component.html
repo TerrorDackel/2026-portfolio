@@ -137,8 +137,8 @@
                     (click)="onPrivacyClick()"
                   />
                 </div>
-                <div class="agree-privacy-policy-check-txt">
-                  <p>
+                <div class="agree-privacy-policy-check-txt-desktop">
+                  <p class="agree-privacy-policy-txt-first-line-p-and-a">
                     {{ 'CONTACT.PRIVACY_I' | translate }}
                     <a
                       class="privacy-link"                     
@@ -150,50 +150,7 @@
                       {{ 'CONTACT.PRIVACY_POLICY' | translate }}
                     </a>
                   </p>
-                  <p>
-                    {{ 'CONTACT.PRIVACY_AND' | translate }}
-                  </p>
-                </div>
-              </label>
-              <div class="error-slot">
-                @if (
-                  contactForm.get('privacy')?.touched &&
-                  contactForm.get('privacy')?.invalid
-                ) {
-                  <div class="error-msg">
-                    {{ 'CONTACT.ERROR_PRIVACY_REQUIRED' | translate }}
-                  </div>
-                }
-              </div>
-            </div>
-            <div class="agree-privacy-policy-check-mobile">
-              <label 
-                for="privacyMobile" 
-                class="agree-privacy-policy-check-label-mobile"
-              >
-                <div class="agree-privacy-policy-check-container-mobile">
-                  <input
-                    class="agree-privacy-checkbox"
-                    type="checkbox"
-                    id="privacyMobile"
-                    formControlName="privacy"
-                    (click)="onPrivacyClick()"
-                  />
-                </div>
-                <div class="agree-privacy-policy-check-txt">
-                  <p>
-                    {{ 'CONTACT.PRIVACY_I' | translate }}
-                    <a
-                      class="privacy-link"                     
-                      href="/privacy-policy"
-                      tabindex="0"
-                      (click)="onPrivacyLinkClick($event)"
-                      (keydown)="onPrivacyLinkKeydown($event)"
-                    >
-                      {{ 'CONTACT.PRIVACY_POLICY' | translate }}
-                    </a>
-                  </p>
-                  <p>
+                  <p class="agree-privacy-policy-txt-second-line-p">
                     {{ 'CONTACT.PRIVACY_AND' | translate }}
                   </p>
                 </div>

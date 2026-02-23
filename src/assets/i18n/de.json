@@ -108,7 +108,7 @@
         "PLACEHOLDER_NAME": "Dein Name",
         "ERROR_NAME_REQUIRED": "Name ist erforderlich.",
         "PLACEHOLDER_EMAIL": "Deine E-Mail",
-        "ERROR_EMAIL_INVALID": "Bitte eine gültige E-Mail eingeben.",
+        "ERROR_EMAIL_INVALID": "Bitte gültige E-Mail eingeben.",
         "PLACEHOLDER_CONFIRM": "E-Mail bestätigen",
         "ERROR_CONFIRM_MISMATCH": "Die E-Mails müssen übereinstimmen.",
         "PLACEHOLDER_MESSAGE": "Deine Nachricht",

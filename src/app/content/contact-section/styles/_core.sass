@@ -136,9 +136,9 @@ form
               @include boxsize-w-h-minw-minh-maxw-maxh($w: 100%, $h: null, $minw: null, $minh: null, $maxw: null, $maxh: null)
               @include minsize-w-h($w: null, $h: 1.25rem)
 
-            .error-msg
-              @include font-f-s-c-w-lh-ls-a($family: 'Poppins', $size: 1rem, $color: var(--danger), $weight: null, $lineHeight: null, $letterSpacing: null, $align: start)
-              margin-top: 0.5rem
+              .error-msg
+                @include font-f-s-c-w-lh-ls-a($family: 'Montserrat', $size: 1rem, $color: var(--danger), $weight: null, $lineHeight: null, $letterSpacing: null, $align: start)
+                margin-top: 0.5rem
 
           .your-email-container
             height: 80px
@@ -149,12 +149,12 @@ form
               @include boxsize-w-h-minw-minh-maxw-maxh($w: 100%, $h: null, $minw: null, $minh: null, $maxw: null, $maxh: null)
               @include minsize-w-h($w: null, $h: 1.25rem)
 
-            .error-msg
-              @include font-f-s-c-w-lh-ls-a($family: 'Poppins', $size: 1rem, $color: var(--danger), $weight: null, $lineHeight: null, $letterSpacing: null, $align: start)
-              margin-top: 0.5rem
+              .error-msg
+                @include font-f-s-c-w-lh-ls-a($family: 'Montserrat', $size: 1rem, $color: var(--danger), $weight: null, $lineHeight: null, $letterSpacing: null, $align: start)
+                margin-top: 0.5rem
 
           .your-message-container
-            height: 200px
+            height: 160px
 
             .error-slot
               display: block
@@ -162,22 +162,24 @@ form
               @include boxsize-w-h-minw-minh-maxw-maxh($w: 100%, $h: null, $minw: null, $minh: null, $maxw: null, $maxh: null)
               @include minsize-w-h($w: null, $h: 1.25rem)
 
-            .error-msg
-              @include font-f-s-c-w-lh-ls-a($family: 'Poppins', $size: 1rem, $color: var(--danger), $weight: null, $lineHeight: null, $letterSpacing: null, $align: start)
-              margin-top: 0.5rem
+              .error-msg
+                @include font-f-s-c-w-lh-ls-a($family: 'Montserrat', $size: 1rem, $color: var(--danger), $weight: null, $lineHeight: null, $letterSpacing: null, $align: start)
+                margin-top: 0.5rem
 
-          .agree-privacy-policy-check-desktop
+          .agree-privacy-policy-check-desktop,
+          .agree-privacy-policy-check-mobile
             @include flex-d-j-a-g($dir: column, $justify: flex-start, $align: flex-start, $gap: null)
-            @include boxsize-w-h-minw-minh-maxw-maxh($w: auto, $h: 80px, $minw: null, $minh: null, $maxw: null, $maxh: null)
-            @include minsize-w-h($w: null, $h: 20px)
+            @include boxsize-w-h-minw-minh-maxw-maxh($w: auto, $h: 100px, $minw: null, $minh: null, $maxw: null, $maxh: null)
             padding: 0 1rem 0 0
 
-            .agree-privacy-policy-check-label-desktop
+            .agree-privacy-policy-check-label-desktop,
+            .agree-privacy-policy-check-label-mobile
               @include flex-d-j-a-g($dir: row, $justify: flex-start, $align: flex-start, $gap: null)
-              @include boxsize-w-h-minw-minh-maxw-maxh($w: 100%, $h: 100%, $minw: null, $minh: 20px, $maxw: 360px, $maxh: 60px)
+              @include boxsize-w-h-minw-minh-maxw-maxh($w: 100%, $h: 100%, $minw: null, $minh: 50px, $maxw: 360px, $maxh: 60px)
               padding: 0
 
-              .agree-privacy-policy-check-container-desktop
+              .agree-privacy-policy-check-container-desktop,
+              .agree-privacy-policy-check-container-mobile
                 @include flex-d-j-a-g($dir: row, $justify: flex-start, $align: flex-start, $gap: null)
                 @include boxsize-w-h-minw-minh-maxw-maxh($w: 25px, $h: 80px, $minw: null, $minh: null, $maxw: null, $maxh: null)
                 margin-left: -0.3rem
@@ -189,14 +191,16 @@ form
                   &:hover
                     cursor: pointer
 
-              .agree-privacy-policy-check-txt
+              .agree-privacy-policy-check-txt-desktop,
+              .agree-privacy-policy-check-txt-mobile
                 @include flex-d-j-a-g($dir: row, $justify: flex-start, $align: flex-start, $gap: null)
                 @include boxsize-w-h-minw-minh-maxw-maxh($w: null, $h: 50px, $minw: null, $minh: null, $maxw: null, $maxh: null)
                 @include font-f-s-c-w-lh-ls-a($family: 'Montserrat', $size: 1rem, $color: var(--primary), $weight: null, $lineHeight: null, $letterSpacing: null, $align: null)
                 overflow-wrap: break-word
                 margin: 0
 
-                p
+                .agree-privacy-policy-txt-first-line-p-and-a,
+                .agree-privacy-policy-txt-second-line-p
                   display: flex
                   align-items: center
                   white-space: nowrap
@@ -215,12 +219,14 @@ form
             .error-slot
               display: block
               align-self: stretch
-              @include boxsize-w-h-minw-minh-maxw-maxh($w: 100%, $h: null, $minw: null, $minh: null, $maxw: null, $maxh: null)
-              @include minsize-w-h($w: null, $h: 1.25rem)
+              @include boxsize-w-h-minw-minh-maxw-maxh($w: 100%, $h: 1.5rem, $minw: null, $minh: null, $maxw: null, $maxh: null)
 
-            .error-msg
-              @include font-f-s-c-w-lh-ls-a($family: 'Poppins', $size: 1rem, $color: var(--danger), $weight: null, $lineHeight: null, $letterSpacing: null, $align: start)
-              margin-top: 0.5rem
+              .error-msg
+                height: 40px
+                margin: 1rem 0
+                @include font-f-s-c-w-lh-ls-a($family: 'Poppins', $size: 1rem, $color: var(--danger), $weight: null, $lineHeight: null, $letterSpacing: null, $align: start)
+                margin-top: 6px!important
+                margin-left: 22px!important
 
           .agree-privacy-policy-check-mobile
             display: none
