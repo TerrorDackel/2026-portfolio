@@ -8,13 +8,19 @@
     margin-bottom: 0
 
     .footer-container
-      @include flex-d-j-a-g($dir: column, $justify: center, $align: null, $gap: null)
-      @include boxsize-w-h-minw-minh-maxw-maxh($w: 100%, $h: null, $minw: null, $minh: null, $maxw: null, $maxh: 350px)
+      @include flex-d-j-a-g($dir: column, $justify: center, $align: center, $gap: 1rem)
+      @include boxsize-w-h-minw-minh-maxw-maxh($w: 100%, $h: null, $minw: null, $minh: null, $maxw: null, $maxh: 300px)
       padding: 1rem
+      margin: 0.9rem
 
       .logo-container
-        @include flex-d-j-a-g($dir: row, $justify: center, $align: center, $gap: null)
-        @include boxsize-w-h-minw-minh-maxw-maxh($w: auto, $h: 100%, $minw: null, $minh: null, $maxw: null, $maxh: 80px)
+        display: none
+
+        a
+          .logo-img
+            @include size-w-h($w: 28px, $h: 32px)
+            margin: 0.5rem
+            border-radius: 0.5rem
 
       .created-copyright-impressum-container
         @include flex-d-j-a-g($dir: row, $justify: center, $align: null, $gap: null)
@@ -31,14 +37,19 @@
           display: none
 
       .footer-iconlist-horizontal
-        @include boxsize-w-h-minw-minh-maxw-maxh($w: 100%, $h: 100%, $minw: null, $minh: null, $maxw: 200px, $maxh: 40px)
+        @include flex-d-j-a-g($dir: row, $justify: space-around, $align: center, $gap: null)
+        @include boxsize-w-h-minw-minh-maxw-maxh($w: 100%, $h: 100%, $minw: null, $minh: null, $maxw: 190px, $maxh: 40px)
+        margin: 0.5rem
 
         .footer-icon-container
           @include boxsize-w-h-minw-minh-maxw-maxh($w: auto, $h: null, $minw: null, $minh: null, $maxw: null, $maxh: null)
+          padding: 0.8rem
+          background-color: var(--primary)
+          border-radius: 0.5rem
 
       .legal-notice-container-mobile
         @include flex-d-j-a-g($dir: row, $justify: center, $align: flex-start, $gap: null)
-        @include boxsize-w-h-minw-minh-maxw-maxh($w: 100%, $h: 45px, $minw: null, $minh: null, $maxw: 130px, $maxh: null)
+        @include boxsize-w-h-minw-minh-maxw-maxh($w: 100%, $h: auto, $minw: null, $minh: null, $maxw: null, $maxh: null)
         text-align: center
 
         a
