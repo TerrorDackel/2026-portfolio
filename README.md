@@ -37,9 +37,9 @@ Personal portfolio website built with Angular 17 to showcase my work as a junior
 
 ---
 
-![Portfolio preview lighthouse](src/assets/img/lighthouse.png)
-
 ## Quality signals (Lighthouse)
+
+![Portfolio preview lighthouse](src/assets/img/lighthouse.png)
 
 > **How to run:** Open Chrome DevTools → Lighthouse (Desktop) → Generate report  
 > or run: `npx lighthouse http://localhost:4200 --view --preset=desktop`
