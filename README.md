@@ -37,6 +37,8 @@ Personal portfolio website built with Angular 17 to showcase my work as a junior
 
 ---
 
+![Portfolio preview lighthouse](src/assets/img/lighthouse.png)
+
 ## Quality signals (Lighthouse)
 
 > **How to run:** Open Chrome DevTools → Lighthouse (Desktop) → Generate report  
@@ -44,9 +46,9 @@ Personal portfolio website built with Angular 17 to showcase my work as a junior
 
 | Category | Score | Notes |
 | --- | --- | --- |
-| Performance | 71 | Desktop Lighthouse (local run) |
-| Accessibility | 82 | Desktop Lighthouse (local run) |
-| Best Practices | 96 | Desktop Lighthouse (local run) |
+| Performance | 91 | Desktop Lighthouse (local run) |
+| Accessibility | 100 | Desktop Lighthouse (local run) |
+| Best Practices | 100 | Desktop Lighthouse (local run) |
 | SEO | 100 | Desktop Lighthouse (local run) |
 
 ---
