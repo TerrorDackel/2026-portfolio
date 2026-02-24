@@ -20,11 +20,11 @@ Personal portfolio website built with Angular 17 to showcase my work as a junior
 - Responsive layout for mobile, tablet and desktop
 - Sass architecture with reusable mixins and consistent breakpoints
 - Smooth scrolling and subtle reveal animations
-- Internationalization (DE/EN) with JSON translation files
+- Internationalization (DE/EN) with JSON translation files (client-side language toggle)
 - External links to live demos and GitHub repositories of my projects
 - Accessibility improvements (semantic HTML, readable font sizes, focus states where applicable)
 - Form UX with inline validation feedback and success/error messaging
-- Color switcher, automaticaly dark- and light-mode.
+- Color switcher with automatic dark/light mode
 
 ---
 
@@ -42,13 +42,12 @@ Personal portfolio website built with Angular 17 to showcase my work as a junior
 
 ![Portfolio preview lighthouse](src/assets/img/lighthouse.png)
 
-
 | Category | Score | Notes |
 | --- | --- | --- |
-| Performance | 96 | Desktop Lighthouse (local run) |
-| Accessibility | 100 | Desktop Lighthouse (local run) |
-| Best Practices | 100 | Desktop Lighthouse (local run) |
-| SEO | 100 | Desktop Lighthouse (local run) |
+| Performance | 96 | Desktop Lighthouse (local run, 2026-02-24) |
+| Accessibility | 100 | Desktop Lighthouse (local run, 2026-02-24) |
+| Best Practices | 100 | Desktop Lighthouse (local run, 2026-02-24) |
+| SEO | 100 | Desktop Lighthouse (local run, 2026-02-24) |
 
 ---
 
@@ -56,7 +55,8 @@ Personal portfolio website built with Angular 17 to showcase my work as a junior
 
 - **Architecture:** Standalone components + routing, clean separation of layout (header/content/footer)
 - **Styling:** Sass partials (`_core.sass`, `_responsive.sass`) + global utilities and mixins
-- **i18n:** Translation files in `src/assets/i18n` (`de.json`, `en.json`)
+- **i18n:** Translation files in `src/assets/i18n` (`de.json`, `en.json`) with a client-side language toggle
+- **SEO & sharing:** Canonical URL + meta description, Open Graph and Twitter Card tags, JSON-LD Person schema, `robots.txt` + `sitemap.xml` (home + legal + privacy). English is the indexable default; German is a client-side UI toggle (no separate URLs).
 - **UX:** Scroll helpers + lightweight animations (kept subtle to stay professional)
 
 ---
