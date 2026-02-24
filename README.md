@@ -47,7 +47,7 @@ Personal portfolio website built with Angular 17 to showcase my work as a junior
 
 | Category | Score | Notes |
 | --- | --- | --- |
-| Performance | 91 | Desktop Lighthouse (local run) |
+| Performance | 96 | Desktop Lighthouse (local run) |
 | Accessibility | 100 | Desktop Lighthouse (local run) |
 | Best Practices | 100 | Desktop Lighthouse (local run) |
 | SEO | 100 | Desktop Lighthouse (local run) |
