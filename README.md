@@ -1,7 +1,7 @@
 Personal portfolio website built with Angular 17 to showcase my work as a junior frontend developer, my technical stack, and selected projects. It’s designed to be fast, accessible, responsive, and easy to maintain.
 
 - Live site: https://www.jennifer-thomas.de
-- Repository: https://github.com/TerrorDackel/PortfolioJenniferThomas
+- Repository: https://github.com/TerrorDackel/2026-portfolio
 - Email: contact@jennifer-thomas.de
 - LinkedIn: https://www.linkedin.com/in/jennifer-thomas-595735360/
 
