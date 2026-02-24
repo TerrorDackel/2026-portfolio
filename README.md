@@ -24,6 +24,7 @@ Personal portfolio website built with Angular 17 to showcase my work as a junior
 - External links to live demos and GitHub repositories of my projects
 - Accessibility improvements (semantic HTML, readable font sizes, focus states where applicable)
 - Form UX with inline validation feedback and success/error messaging
+- Color switcher, automaticaly dark- and light-mode.
 
 ---
 
