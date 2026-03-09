@@ -37,11 +37,29 @@
         span
           @include font-f-s-c-w-lh-ls-a($size: 1rem)
 
+@media (max-width: 510px)
+  .legal-notice
+    .txt
+      h2
+        @include font-f-s-c-w-lh-ls-a('Baloo', 76px, var(--primary), bold, 120%, 0%, left)
+
 @media (max-width: 450px)
   .legal-notice
     .txt
       h2
         @include font-f-s-c-w-lh-ls-a($size: 32px)
+
+@media (max-width: 435px)
+  .legal-notice
+    .txt
+      h2
+        @include font-f-s-c-w-lh-ls-a('Baloo', 68px, var(--primary), bold, 120%, 0%, left)
+
+@media (max-width: 380px)
+  .legal-notice
+    .txt
+      h2
+        @include font-f-s-c-w-lh-ls-a('Baloo', 52px, var(--primary), bold, 120%, 0%, left)        
 
 @media (max-width: 350px)
   .legal-notice
@@ -51,7 +69,7 @@
 
       .legal-notice-item
         h4
-          @include font-f-s-c-w-lh-ls-a($size: 20px)
+          @include font-f-s-c-w-lh-ls-a('Open Sans', 24px, var(--primary), bold, 120%, 0%, left)
           padding: 0
 
         span

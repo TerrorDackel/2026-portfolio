@@ -13,11 +13,11 @@
 
       .privacy-policy-header
         @include boxsize-w-h-minw-minh-maxw-maxh($w:100%, $maxw: auto)
-        @include font-f-s-c-w-lh-ls-a($size: 64px)
+        @include font-f-s-c-w-lh-ls-a('Baloo', 64px, var(--primary), bold, 120%, 0%, left)
 
       .privacy-policy-item
         h4
-          @include font-f-s-c-w-lh-ls-a($size: 28px)
+          @include font-f-s-c-w-lh-ls-a('Open Sans', 28px, var(--primary), bold, 120%, 0%, left)
 
         span
           @include font-f-s-c-w-lh-ls-a($size: 1rem)
@@ -28,11 +28,11 @@
 
     .txt
       .privacy-policy-header
-        @include font-f-s-c-w-lh-ls-a($size: 42px)
+        @include font-f-s-c-w-lh-ls-a('Baloo', 42px, var(--primary), bold, 120%, 0%, left)
 
       .privacy-policy-item
         h4
-          @include font-f-s-c-w-lh-ls-a($size: 23px)
+          @include font-f-s-c-w-lh-ls-a('Open Sans', 23px, var(--primary), bold, 120%, 0%, left)
 
         span
           @include font-f-s-c-w-lh-ls-a($size: 1rem)
@@ -41,34 +41,34 @@
   .privacy-policy
     .txt
       .privacy-policy-header
-        @include font-f-s-c-w-lh-ls-a($size: 32px)
+        @include font-f-s-c-w-lh-ls-a('Baloo', 32px, var(--primary), bold, 120%, 0%, left)
 
 @media (max-width: 350px)
   .privacy-policy
     .txt
       .privacy-policy-header
-        @include font-f-s-c-w-lh-ls-a($size: 26px)
+        @include font-f-s-c-w-lh-ls-a('Baloo', 26px, var(--primary), bold, 120%, 0%, left)
 
       .privacy-policy-item
         h4
-          @include font-f-s-c-w-lh-ls-a($size: 20px)
+          @include font-f-s-c-w-lh-ls-a('Open Sans', 20px, var(--primary), bold, 120%, 0%, left)
           padding: 0
 
         span
-          @include font-f-s-c-w-lh-ls-a($size: 1rem)
+          @include font-f-s-c-w-lh-ls-a('Open Sans', 1rem, var(--text), 400, 120%, 0%, left)
 
 @media (max-width: 280px)
   .privacy-policy
     .txt
       .privacy-policy-header
-        @include font-f-s-c-w-lh-ls-a($size: 20px)
+        @include font-f-s-c-w-lh-ls-a('Baloo', 20px, var(--primary), bold, 120%, 0%, left)
 
       .privacy-policy-item
         h4
-          @include font-f-s-c-w-lh-ls-a($size: 18px)
+          @include font-f-s-c-w-lh-ls-a('Open Sans', 18px, var(--primary), bold, 120%, 0%, left)
 
         span
-          @include font-f-s-c-w-lh-ls-a($size: 1rem)
+          @include font-f-s-c-w-lh-ls-a('Open Sans', 1rem, var(--text), 400, 120%, 0%, left)
 
 @media (prefers-reduced-motion: reduce)
   .reveal-zoom
