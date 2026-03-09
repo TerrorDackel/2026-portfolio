@@ -1,10 +1,12 @@
 @use '../../../../styles/mixins' as *
 
-@media (max-width: 700px)
+@media (max-width: 800px)
   .my-work-section
     .my-work-container
+      @include boxsize-w-h-minw-minh-maxw-maxh($w: 100%, $h: auto, $minw: null, $minh: null, $maxw: 580px, $maxh: null)
+
       .my-work-head-container
-        @include boxsize-w-h-minw-minh-maxw-maxh($w: 100%, $h: auto, $minw: null, $minh: null, $maxw: null, $maxh: null)
+        @include boxsize-w-h-minw-minh-maxw-maxh($w: 100%, $h: auto, $minw: null, $minh: null, $maxw: 500px, $maxh: null)
 
         .container-right
           display: none
@@ -20,6 +22,12 @@
 
               .header-txt
                 padding: 0 0 1rem 0
+
+            .description-container
+              .description-txt
+                @include boxsize-w-h-minw-minh-maxw-maxh($w: 90%, $h: auto, $minw: null, $minh: null, $maxw: 500px, $maxh: null)
+                @include font-f-s-c-w-lh-ls-a($family: 'Montserrat', $size: 1.5rem, $color: var(--primary), $weight: bold, $lineHeight: 100%, $letterSpacing: 1%, $align: null)
+                padding: 1rem
 
 @media (max-width: 500px)
   .my-work-section
@@ -42,7 +50,7 @@
           .header-and-description-container
             .header-container
               .header-txt
-                @include font-f-s-c-w-lh-ls-a($family: null, $size: 3.5rem, $color: null, $weight: null, $lineHeight: null, $letterSpacing: null, $align: null)
+                @include font-f-s-c-w-lh-ls-a($family: 'Baloo', $size: 3rem, $color: var(--primary), $weight: bold, $lineHeight: 100%, $letterSpacing: 1%, $align: null)
 
 @media (max-width: 380px)
   .my-work-section
@@ -61,7 +69,7 @@
           .header-and-description-container
             .header-container
               .header-txt
-                @include font-f-s-c-w-lh-ls-a($family: null, $size: 3rem, $color: null, $weight: null, $lineHeight: null, $letterSpacing: null, $align: null)
+                @include font-f-s-c-w-lh-ls-a($family: 'Baloo', $size: 2.9rem, $color: var(--primary), $weight: bold, $lineHeight: 100%, $letterSpacing: 1%, $align: null)
 
 @media (max-width: 295px)
   .my-work-section
@@ -73,7 +81,7 @@
               @include flex-d-j-a-g($dir: row, $justify: center, $align: center, $gap: null)
 
               .header-txt
-                @include font-f-s-c-w-lh-ls-a($family: null, $size: 2.6rem, $color: null, $weight: null, $lineHeight: null, $letterSpacing: null, $align: null)
+                @include font-f-s-c-w-lh-ls-a($family: 'Baloo', $size: 2.8rem, $color: var(--primary), $weight: bold, $lineHeight: 100%, $letterSpacing: 1%, $align: null)
 
 @media (max-width: 260px)
   .my-work-section
@@ -83,7 +91,7 @@
           .header-and-description-container
             .header-container
               .header-txt
-                @include font-f-s-c-w-lh-ls-a($family: null, $size: 2.1rem, $color: null, $weight: null, $lineHeight: null, $letterSpacing: null, $align: null)
+                @include font-f-s-c-w-lh-ls-a($family: 'Baloo', $size: 2.6rem, $color: var(--primary), $weight: bold, $lineHeight: 100%, $letterSpacing: 1%, $align: null)
 
 @media (prefers-reduced-motion: reduce)
   .reveal-zoom
