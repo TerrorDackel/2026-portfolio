@@ -49,13 +49,13 @@ form
 
       .container-left-and-right
         @include flex-d-j-a-g($dir: row, $justify: space-between, $align: stretch, $gap: null)
-        @include boxsize-w-h-minw-minh-maxw-maxh($w: 95%, $h: auto, $minw: null, $minh: null, $maxw: null, $maxh: 1700px)
+        @include boxsize-w-h-minw-minh-maxw-maxh($w: 95%, $h: 100%, $minw: null, $minh: 700px, $maxw: null, $maxh: 1700px)
         margin: 0
         padding: 0 1rem
 
         .container-left
           @include flex-d-j-a-g($dir: column, $justify: flex-start, $align: flex-start, $gap: null)
-          @include boxsize-w-h-minw-minh-maxw-maxh($w: 49%, $h: auto, $minw: null, $minh: null, $maxw: null, $maxh: 800px)
+          @include boxsize-w-h-minw-minh-maxw-maxh($w: 49%, $h: 100%, $minw: null, $minh: null, $maxw: null, $maxh: null)
           padding: 0 1rem 0 0
 
           .got-a-problem-title-container
@@ -79,6 +79,7 @@ form
               @include boxsize-w-h-minw-minh-maxw-maxh($w: 100%, $h: 100%, $minw: null, $minh: 120px, $maxw: null, $maxh: null)
               display: flex
               @include font-f-s-c-w-lh-ls-a($family: 'Montserrat', $size: 1.5rem, $color: var(--primary), $weight: 400, $lineHeight: 120%, $letterSpacing: 0, $align: null)
+              padding: 2.5rem 0 0 0
 
           .need-a-contact-me-container
             @include flex-d-j-a-g($dir: row, $justify: flex-start, $align: center, $gap: null)
