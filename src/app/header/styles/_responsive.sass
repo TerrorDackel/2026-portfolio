@@ -79,7 +79,7 @@
                   @include font-f-s-c-w-lh-ls-a($family: 'Montserrat', $size: 23px, $color: var(--primary), $weight: 400, $lineHeight: 120%, $letterSpacing: 0)
 
                 .accent-select
-                  background: var(--gradient-accent)
+                  background-color: var(--primary)
                   color: var(--text-inverse)
                   border: 1px solid var(--border)
                   border-radius: 0.4rem
@@ -126,6 +126,9 @@
   .accent-select
     option[value="black"]
       display: none
+    option
+      background-color: var(--primary)
+      color: var(--text-inverse)
 
 @media (prefers-color-scheme: light)
   .accent-select
