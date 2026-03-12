@@ -79,15 +79,15 @@
                   @include font-f-s-c-w-lh-ls-a($family: 'Montserrat', $size: 23px, $color: var(--primary), $weight: 400, $lineHeight: 120%, $letterSpacing: 0)
 
                 .accent-select
-                  background-color: var(--surface)
-                  color: var(--text)
+                  background: var(--gradient-accent)
+                  color: var(--text-inverse)
                   border: 1px solid var(--border)
                   border-radius: 0.4rem
                   margin: 0 0 0 0.5rem
                   padding: 0.2rem 1rem
                   font-size: 0.9rem
                   line-height: 1
-                  @include font-f-s-c-w-lh-ls-a($family: 'Montserrat', $size: 23px, $color: var(--primary), $weight: 400, $lineHeight: 120%, $letterSpacing: 0)
+                  @include font-f-s-c-w-lh-ls-a($family: 'Montserrat', $size: 23px, $color: var(--text-inverse), $weight: 400, $lineHeight: 120%, $letterSpacing: 0)
 
                   &:focus-visible
                     outline: 2px solid var(--focus-ring)

@@ -29,19 +29,18 @@
           </a>
           <div class="navbar-desktop-link">
             <label class="accent-switcher">
-              <span class="accent-label">Accent</span>
               <select
                 class="accent-select"
-                aria-label="Accent auswählen"
+                [attr.aria-label]="'ACCENT.LABEL' | translate"
                 [value]="currentAccent"
                 (change)="onAccentChange($event)"
               >
-                <option value="blue">Blue</option>
-                <option value="emerald">Emerald</option>
-                <option value="purple">Purple</option>
-                <option value="pink">Pink</option>
-                <option value="black">Black</option>
-                <option value="white">White</option>
+                <option value="blue">{{ 'ACCENT.BLUE' | translate }}</option>
+                <option value="emerald">{{ 'ACCENT.EMERALD' | translate }}</option>
+                <option value="purple">{{ 'ACCENT.PURPLE' | translate }}</option>
+                <option value="pink">{{ 'ACCENT.PINK' | translate }}</option>
+                <option value="black">{{ 'ACCENT.BLACK' | translate }}</option>
+                <option value="white">{{ 'ACCENT.WHITE' | translate }}</option>
               </select>
             </label>
           </div>
@@ -131,19 +130,18 @@
             </a>
             <div class="navbar-mobile-link">
               <label class="accent-switcher">
-                <span class="accent-label">Accent</span>
                 <select
                   class="accent-select"
-                  aria-label="Accent auswählen"
+                  [attr.aria-label]="'ACCENT.LABEL' | translate"
                   [value]="currentAccent"
                   (change)="onAccentChange($event)"
                 >
-                  <option value="blue">Blue</option>
-                  <option value="emerald">Emerald</option>
-                  <option value="purple">Purple</option>
-                  <option value="pink">Pink</option>
-                  <option value="black">Black</option>
-                  <option value="white">White</option>
+                  <option value="blue">{{ 'ACCENT.BLUE' | translate }}</option>
+                  <option value="emerald">{{ 'ACCENT.EMERALD' | translate }}</option>
+                  <option value="purple">{{ 'ACCENT.PURPLE' | translate }}</option>
+                  <option value="pink">{{ 'ACCENT.PINK' | translate }}</option>
+                  <option value="black">{{ 'ACCENT.BLACK' | translate }}</option>
+                  <option value="white">{{ 'ACCENT.WHITE' | translate }}</option>
                 </select>
               </label>
             </div>

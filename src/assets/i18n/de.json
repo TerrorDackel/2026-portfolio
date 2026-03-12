@@ -120,5 +120,14 @@
         "BUTTON_SEND": "Sag hallo ;)",
         "SUCCESS": "Deine Nachricht wurde erfolgreich gesendet!",
         "ERROR": "Ups! Etwas ist schiefgelaufen. Bitte versuche es später erneut."
+    },
+    "ACCENT": {
+        "LABEL": "Akzentfarbe",
+        "BLUE": "Blau",
+        "EMERALD": "Smaragd",
+        "PURPLE": "Violett",
+        "PINK": "Pink",
+        "BLACK": "Schwarz",
+        "WHITE": "Weiß"
     }
 }

@@ -118,5 +118,14 @@
         "BUTTON_SEND": "Say hello ;)",
         "SUCCESS": "Your message has been sent successfully!",
         "ERROR": "Oops! Something went wrong. Please try again later."
+    },
+    "ACCENT": {
+        "LABEL": "Accent color",
+        "BLUE": "Blue",
+        "EMERALD": "Emerald",
+        "PURPLE": "Purple",
+        "PINK": "Pink",
+        "BLACK": "Black",
+        "WHITE": "White"
     }
 }

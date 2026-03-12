@@ -49,7 +49,7 @@ a:hover
 
         .logo-img
           @include size-w-h(40px, 42px)
-          background-color: var(--focus-ring-offset)
+          background: var(--gradient-accent)
           padding: 1rem
           border-radius: 1rem
 
@@ -71,7 +71,7 @@ a:hover
           align-items: center
           gap: 0.5rem
           width: 100%
-          background-color: var(--focus-ring-offset)
+          background: var(--gradient-accent)
           padding: 0.5rem
           border-radius: 0.5rem
           margin: 0 1rem 0 0 
@@ -80,13 +80,13 @@ a:hover
             display: inline-block
             padding: 0.5rem 0.5rem
             text-align: center
-            @include font-f-s-c-w-lh-ls-a('Montserrat', 23px, var(--primary), 400, 120%, 0)
+            @include font-f-s-c-w-lh-ls-a('Montserrat', 23px, var(--text-inverse), 400, 120%, 0)
             transition: transform 0.1s ease
             will-change: transform
             white-space: nowrap
 
             &:hover
-              text-shadow: 0 0 0.6px var(--primary), 0 0 0.6px var(--primary)
+              text-shadow: 0 0 0.6px var(--text-inverse), 0 0 0.6px var(--text-inverse)
               cursor: pointer
               transform: scale(1.1)
 
@@ -97,11 +97,12 @@ a:hover
 
               .accent-label
                 font-size: 0.85rem
-                @include font-f-s-c-w-lh-ls-a('Montserrat', 23px, var(--primary), 400, 120%, 0)
+                @include font-f-s-c-w-lh-ls-a('Montserrat', 23px, var(--text-inverse), 400, 120%, 0)
 
               .accent-select
-                background-color: var(--surface)
-                @include font-f-s-c-w-lh-ls-a('Montserrat', 23px, var(--primary), 400, 120%, 0)
+                background: var(--gradient-accent)
+                color: var(--text-inverse)
+                @include font-f-s-c-w-lh-ls-a('Montserrat', 23px, var(--text-inverse), 400, 120%, 0)
                 border: 1px solid var(--border)
                 border-radius: 0.4rem
                 padding: 0.2rem 0.4rem
@@ -119,7 +120,7 @@ a:hover
               .en
                 width: 35px
                 text-align: center
-                @include font-f-s-c-w-lh-ls-a('Montserrat', 23px, var(--primary), 400, 120%, null, null)
+                @include font-f-s-c-w-lh-ls-a('Montserrat', 23px, var(--text-inverse), 400, 120%, null, null)
                 transition: transform 0.1s ease, font-weight 0.2s ease
                 transform-origin: center
                 border: none
@@ -128,7 +129,7 @@ a:hover
                 cursor: pointer
 
                 &:hover
-                  text-shadow: 0 0 0.6px var(--primary), 0 0 0.6px var(--primary)
+                  text-shadow: 0 0 0.6px var(--text-inverse), 0 0 0.6px var(--text-inverse)
                   transform: scale(1.15)
 
                 &.active
@@ -142,7 +143,7 @@ a:hover
                 margin: 0 0 0 10px
                 width: 10px
                 text-align: center
-                @include font-f-s-c-w-lh-ls-a('Montserrat', 23px, var(--primary), 400, 120%, null, null)
+                @include font-f-s-c-w-lh-ls-a('Montserrat', 23px, var(--text-inverse), 400, 120%, null, null)
                 pointer-events: none
 
 @media (prefers-color-scheme: dark)
