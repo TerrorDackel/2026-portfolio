@@ -57,3 +57,9 @@
       @include flex-d-j-a-g(row, center, stretch)
       @include boxsize-w-h-minw-minh-maxw-maxh(100%, auto, null, null, 340px, null)
       @include font-f-s-c-w-lh-ls-a('Montserrat', 18px, var(--text-inverse), 400, 120%, null, start)
+
+@media (prefers-color-scheme: dark)
+  // Akzent "Weiß" im Dark Mode: Karten-Hintergrund auf Hintergrundfarbe (bg) umstellen
+  :host-context(html[data-accent="white"])
+    .ref-component-container
+      background-color: var(--surface)

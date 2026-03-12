@@ -106,3 +106,17 @@
     .legal-notice-container-mobile
       display: none
 
+@media (prefers-color-scheme: dark)
+  // Akzent "Weiß" im Dark Mode: Footer-Inhalt auf Hintergrundfarbe (bg) umstellen
+  :host-context(html[data-accent="white"])
+    .footer-section .footer-container
+      background: var(--bg)
+
+    // Logo-Hintergrund im Footer auf bg umstellen
+    .footer-section .footer-container .logo-container .logo-img
+      background: var(--bg)
+
+    // Icon-Leiste (drei Icons rechts) auf bg umstellen
+    .footer-section .footer-container .footer-iconlist-horizontal
+      background: var(--bg)
+

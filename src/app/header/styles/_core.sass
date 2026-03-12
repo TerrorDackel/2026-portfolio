@@ -150,9 +150,18 @@ a:hover
   .accent-select
     option[value="black"]
       display: none
-    option
-      background-color: var(--primary)
-      color: var(--text-inverse)
+
+  // Akzent "Weiß" im Dark Mode: Flächen auf Hintergrundfarbe (bg) stellen
+  :host-context(html[data-accent="white"])
+    .header-section
+      background-color: var(--bg)
+
+    .header-section .header-container .header-logo-container .header-img-container .logo-img
+      background: var(--bg)
+    .header-section .header-container .header-navbar-container .navbar-desktop .navbar-desktop-links-container
+      background: var(--bg)
+    .header-section .header-container .header-navbar-container .navbar-desktop .navbar-desktop-links-container .navbar-desktop-link .accent-switcher .accent-select
+      background-color: var(--bg)
 
 @media (prefers-color-scheme: light)
   .accent-select

@@ -94,3 +94,11 @@
 
 .reveal-zoom.in-view
   animation: zoomIn 1s cubic-bezier(.2,.8,.2,1) var(--reveal-delay, 0ms) both
+
+@media (prefers-color-scheme: dark)
+  // Akzent "Weiß" im Dark Mode: Referenz-Hintergrundflächen auf Hintergrundfarbe (bg) umstellen
+  :host-context(html[data-accent="white"])
+    .ref-section
+      background: var(--bg)
+    .ref-section .ref-container
+      background: var(--bg)
