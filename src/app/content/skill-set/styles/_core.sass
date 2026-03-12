@@ -40,11 +40,9 @@
       margin-top: 30px
       padding-bottom: 16px
 
-@media (prefers-color-scheme: dark)
-  // Akzent "Weiß" im Dark Mode: Skill-Set-Block auf Hintergrundfarbe (bg) umstellen
-  :host-context(html[data-accent="white"])
-    .skill-set-section
-      background: var(--bg)
+:host-context(html[data-accent="white"])
+  .skill-set-section
+    background: var(--bg)
 
 @keyframes zoomIn
   from

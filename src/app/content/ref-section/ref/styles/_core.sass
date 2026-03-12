@@ -10,6 +10,7 @@
   box-shadow: var(--shadow-2)
   padding: 1rem
   background-color: var(--glass-bg)
+  -webkit-backdrop-filter: blur(1px)
   backdrop-filter: blur(1px)
   transition: transform 0.1s ease, box-shadow 0.1s ease
   position: relative
@@ -58,8 +59,6 @@
       @include boxsize-w-h-minw-minh-maxw-maxh(100%, auto, null, null, 340px, null)
       @include font-f-s-c-w-lh-ls-a('Montserrat', 18px, var(--text-inverse), 400, 120%, null, start)
 
-@media (prefers-color-scheme: dark)
-  // Akzent "Weiß" im Dark Mode: Karten-Hintergrund auf Hintergrundfarbe (bg) umstellen
-  :host-context(html[data-accent="white"])
-    .ref-component-container
-      background-color: var(--surface)
+:host-context(html[data-accent="white"])
+  .ref-component-container
+    background-color: var(--surface)

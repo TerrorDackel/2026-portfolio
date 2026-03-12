@@ -28,10 +28,11 @@
             {{ 'NAV.CONTACT' | translate }}
           </a>
           <div class="navbar-desktop-link">
-            <label class="accent-switcher">
+            <label class="accent-switcher" for="accent-select-desktop">
+              <span class="visually-hidden">{{ 'ACCENT.LABEL' | translate }}</span>
               <select
+                id="accent-select-desktop"
                 class="accent-select"
-                [attr.aria-label]="'ACCENT.LABEL' | translate"
                 [value]="currentAccent"
                 (change)="onAccentChange($event)"
               >
@@ -129,10 +130,11 @@
               {{ 'NAV.CONTACT' | translate }}
             </a>
             <div class="navbar-mobile-link">
-              <label class="accent-switcher">
+              <label class="accent-switcher" for="accent-select-mobile">
+                <span class="visually-hidden">{{ 'ACCENT.LABEL' | translate }}</span>
                 <select
+                  id="accent-select-mobile"
                   class="accent-select"
-                  [attr.aria-label]="'ACCENT.LABEL' | translate"
                   [value]="currentAccent"
                   (change)="onAccentChange($event)"
                 >

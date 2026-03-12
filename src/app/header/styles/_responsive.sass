@@ -38,6 +38,7 @@
           top: 117px
           right: 0px
           @include flex-d-j-a-g($dir: column, $justify: center, $align: center)
+          -webkit-backdrop-filter: blur(1rem)
           backdrop-filter: blur(1rem)
           background-color: var(--surface)
           color: var(--primary)
@@ -130,10 +131,9 @@
       background-color: var(--primary)
       color: var(--text-inverse)
 
-  // Akzent "Weiß" im Dark Mode: Accent-Select (mobile) auf Hintergrundfarbe (bg)
-  :host-context(html[data-accent="white"])
-    .header-section .header-container .header-navbar-container .navbar-mobile .navbar-mobile-links-container .navbar-mobile-links-container-alignment .navbar-mobile-link .accent-switcher .accent-select
-      background-color: var(--bg)
+:host-context(html[data-accent="white"])
+  .header-section .header-container .header-navbar-container .navbar-mobile .navbar-mobile-links-container .navbar-mobile-links-container-alignment .navbar-mobile-link .accent-switcher .accent-select
+    background-color: var(--bg)
 
 @media (prefers-color-scheme: light)
   .accent-select

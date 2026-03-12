@@ -11,6 +11,7 @@
   @include boxsize-w-h-minw-minh-maxw-maxh(100%, auto)
   margin: 0
   background: var(--gradient-accent)
+  -webkit-backdrop-filter: blur(4px)
   backdrop-filter: blur(4px)
 
   .ref-container
@@ -69,6 +70,7 @@
       &.dragging
         cursor: grabbing
         scroll-snap-type: none
+        -webkit-user-select: none
         user-select: none
 
       .ref-card
@@ -95,10 +97,8 @@
 .reveal-zoom.in-view
   animation: zoomIn 1s cubic-bezier(.2,.8,.2,1) var(--reveal-delay, 0ms) both
 
-@media (prefers-color-scheme: dark)
-  // Akzent "Weiß" im Dark Mode: Referenz-Hintergrundflächen auf Hintergrundfarbe (bg) umstellen
-  :host-context(html[data-accent="white"])
-    .ref-section
-      background: var(--bg)
-    .ref-section .ref-container
-      background: var(--bg)
+:host-context(html[data-accent="white"])
+  .ref-section
+    background: var(--bg)
+  .ref-section .ref-container
+    background: var(--bg)
