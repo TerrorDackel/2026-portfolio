@@ -69,6 +69,42 @@ export class ProgrammBoxComponent {
     {
       iconSrc: 'assets/img/icon/11.png',
       name: 'Growth mindset'
+    },
+    {
+      iconSrc: 'assets/img/icon/12.png',
+      name: 'Architectural thinking'
+    },
+    {
+      iconSrc: 'assets/img/icon/13.png',
+      name: 'Clarity before code'
+    },
+    {
+      iconSrc: 'assets/img/icon/14.png',
+      name: 'Modern tooling'
+    },
+    {
+      iconSrc: 'assets/img/icon/15.png',
+      name: 'Debugging focus'
+    },
+    {
+      iconSrc: 'assets/img/icon/16.png',
+      name: 'Testing basics'
+    },
+    {
+      iconSrc: 'assets/img/icon/17.png',
+      name: 'UX focus'
+    },
+    {
+      iconSrc: 'assets/img/icon/18.png',
+      name: 'Responsive design'
+    },
+    {
+      iconSrc: 'assets/img/icon/19.png',
+      name: 'Accessibility focus'
+    },
+    {
+      iconSrc: 'assets/img/icon/20.png',
+      name: 'Domain understanding'
     }
   ];
 }
