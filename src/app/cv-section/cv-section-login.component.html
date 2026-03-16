@@ -1,0 +1,55 @@
+<main class="cv-section-login-container" aria-labelledby="cv-section-login-heading">
+  <section class="cv-section-card">
+    <h2 id="cv-section-login-heading" class="cv-section-title reveal-zoom">
+      {{ 'CV_SECTION.LOGIN_TITLE' | translate }}
+    </h2>
+
+    <div class="cv-section-subtitle-container">
+      <p class="cv-section-subtitle-txt">
+        {{ 'CV_SECTION.LOGIN_SUBTITLE' | translate }}
+      </p>
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate class="cv-section-form">
+      <div class="cv-section-field">
+        <input
+          type="text"
+          class="cv-section-input"
+          id="cv-section-name"
+          formControlName="name"
+          [placeholder]="'CV_SECTION.PLACEHOLDER_NAME' | translate"
+        />
+      </div>
+
+      <div class="cv-section-field">
+        <input
+          type="password"
+          class="cv-section-input"
+          id="cv-section-password"
+          formControlName="password"
+          [placeholder]="'CV_SECTION.PLACEHOLDER_PASSWORD' | translate"
+        />
+      </div>
+
+      @if (showInlineError && inlineErrorKey) {
+        <div class="cv-section-error-toast">
+          <span class="cv-section-error-text">
+            {{ inlineErrorKey | translate }}
+          </span>
+        </div>
+      }
+
+      <div class="cv-section-button-container">
+        <button
+          type="submit"
+          class="cv-section-btn"
+          [class.cv-section-btn-valid]="loginForm.valid && !isSubmitting"
+          [disabled]="!loginForm.valid || isSubmitting"
+        >
+          {{ 'CV_SECTION.BUTTON_LOGIN' | translate }}
+        </button>
+      </div>
+    </form>
+  </section>
+</main>
+

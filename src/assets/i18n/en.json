@@ -119,6 +119,17 @@
         "SUCCESS": "Your message has been sent successfully!",
         "ERROR": "Oops! Something went wrong. Please try again later."
     },
+    "CV_SECTION": {
+        "LOGIN_TITLE": "Detailed profile area",
+        "LOGIN_SUBTITLE": "Please enter your name and the access password.",
+        "PLACEHOLDER_NAME": "Your name",
+        "PLACEHOLDER_PASSWORD": "Password",
+        "BUTTON_LOGIN": "Log in",
+        "LOGIN_SUCCESS": "Welcome to the detailed profile area – here you will find CV, certificates and technical background on my projects.",
+        "ERROR_INVALID_PASSWORD": "The entered password is not correct.",
+        "ERROR_INVALID_NAME": "Please enter a valid name.",
+        "ERROR_GENERIC": "An error occurred while logging in. Please try again later."
+    },
     "ACCENT": {
         "LABEL": "Accent color",
         "BLUE": "Blue",

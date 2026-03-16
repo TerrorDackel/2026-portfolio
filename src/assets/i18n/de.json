@@ -121,6 +121,17 @@
         "SUCCESS": "Deine Nachricht wurde erfolgreich gesendet!",
         "ERROR": "Ups! Etwas ist schiefgelaufen. Bitte versuche es später erneut."
     },
+    "CV_SECTION": {
+        "LOGIN_TITLE": "Geschützter Profilbereich",
+        "LOGIN_SUBTITLE": "Bitte geben Sie Ihren Namen und das Zugangspasswort ein.",
+        "PLACEHOLDER_NAME": "Ihr Name",
+        "PLACEHOLDER_PASSWORD": "Passwort",
+        "BUTTON_LOGIN": "Anmelden",
+        "LOGIN_SUCCESS": "Willkommen im detaillierten Profilbereich – hier finden Sie Lebenslauf, Zertifikate und technische Hintergründe zu meinen Projekten.",
+        "ERROR_INVALID_PASSWORD": "Das eingegebene Passwort ist nicht korrekt.",
+        "ERROR_INVALID_NAME": "Bitte geben Sie einen gültigen Namen ein.",
+        "ERROR_GENERIC": "Beim Anmelden ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut."
+    },
     "ACCENT": {
         "LABEL": "Akzentfarbe",
         "BLUE": "Blau",

@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { LegalNoticeComponent } from './legal-notice/legal-notice.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { ContentComponent } from './content/content.component';
+import { CvSectionLoginComponent } from './cv-section/cv-section-login.component';
 
 /**
  * Application route configuration.
@@ -19,6 +20,10 @@ export const routes: Routes = [
   {
     path: '',
     component: ContentComponent
+  },
+  {
+    path: 'cv-section/login',
+    component: CvSectionLoginComponent
   },
   {
     path: 'legal-notice',
