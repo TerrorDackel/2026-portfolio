@@ -1,5 +1,12 @@
 <main class="cv-section-admin" aria-labelledby="cv-section-admin-heading">
   <section class="cv-section-admin-card">
+    <button
+      type="button"
+      class="cv-section-logout-btn"
+      (click)="onLogoutClick()"
+    >
+      {{ 'CV_SECTION.BUTTON_LOGOUT' | translate }}
+    </button>
     <div class="cv-section-admin-border"></div>
 
     <div class="cv-section-admin-content">

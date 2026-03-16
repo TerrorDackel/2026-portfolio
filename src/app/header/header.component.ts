@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
 /**
@@ -21,7 +21,8 @@ import { TranslatePipe, TranslateService } from '@ngx-translate/core';
   standalone: true,
   imports: [
     CommonModule,
-    TranslatePipe
+    TranslatePipe,
+    RouterLink
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.sass'

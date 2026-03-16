@@ -2,6 +2,7 @@
     "NAV": {
         "ABOUT_ME": "Über mich",
         "SKILL_SET": "Fähigkeiten",
+        "CV_LOGIN": "CV Login",
         "MY_WORK": "Meine Arbeit",
         "CONTACT": "Kontakt"
     },
@@ -127,6 +128,7 @@
         "PLACEHOLDER_NAME": "Ihr Name",
         "PLACEHOLDER_PASSWORD": "Passwort",
         "BUTTON_LOGIN": "Anmelden",
+        "BUTTON_LOGOUT": "Logout",
         "LOGIN_SUCCESS": "Willkommen im detaillierten Profilbereich – hier finden Sie Lebenslauf, Zertifikate und technische Hintergründe zu meinen Projekten.",
         "ERROR_INVALID_PASSWORD": "Das eingegebene Passwort ist nicht korrekt.",
         "ERROR_INVALID_NAME": "Bitte geben Sie einen gültigen Namen ein.",

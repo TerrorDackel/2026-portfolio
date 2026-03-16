@@ -21,6 +21,9 @@
           <a class="navbar-desktop-link" href="#skillSet">
             {{ 'NAV.SKILL_SET' | translate }}
           </a>
+          <a class="navbar-desktop-link" routerLink="/cv-section/login">
+            {{ 'NAV.CV_LOGIN' | translate }}
+          </a>
           <a class="navbar-desktop-link" href="#myWork">
             {{ 'NAV.MY_WORK' | translate }}
           </a>
@@ -112,6 +115,14 @@
               (keydown.enter)="closeMenu()"
             >
               {{ 'NAV.SKILL_SET' | translate }}
+            </a>
+            <a
+              class="navbar-mobile-link"
+              routerLink="/cv-section/login"
+              (click)="closeMenu()"
+              (keydown.enter)="closeMenu()"
+            >
+              {{ 'NAV.CV_LOGIN' | translate }}
             </a>
             <a
               class="navbar-mobile-link"
