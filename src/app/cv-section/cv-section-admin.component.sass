@@ -1,0 +1,66 @@
+.cv-section-admin
+  display: flex
+  justify-content: center
+  align-items: center
+  padding: 24px 16px
+  margin-top: 120px
+  margin-bottom: 24px
+
+.cv-section-admin-card
+  position: relative
+  width: 100%
+  max-width: 960px
+  border-radius: 32px
+  background-color: var(--bg-panel, var(--bg))
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.28)
+  overflow: hidden
+
+.cv-section-admin-border
+  position: absolute
+  inset-inline-start: 0
+  inset-block-start: 0
+  height: 4px
+  width: 0
+  background: var(--gradient-accent)
+  animation: cv-section-admin-border-grow 520ms ease-out forwards
+
+.cv-section-admin-content
+  padding: 32px 32px 40px
+
+.cv-section-admin-title
+  margin: 0 0 12px
+  font-size: 28px
+  line-height: 1.2
+
+.cv-section-admin-subtitle-container
+  margin-bottom: 24px
+
+.cv-section-admin-subtitle
+  margin: 0
+  font-size: 16px
+  line-height: 1.5
+
+.cv-section-admin-placeholder
+  padding: 16px 20px
+  border-radius: 24px
+  background-color: rgba(255, 255, 255, 0.02)
+  border: 1px dashed rgba(255, 255, 255, 0.12)
+
+.cv-section-admin-placeholder-text
+  margin: 0
+  font-size: 15px
+  line-height: 1.6
+
+@keyframes cv-section-admin-border-grow
+  from
+    width: 0
+  to
+    width: 100%
+
+@media (max-width: 768px)
+  .cv-section-admin-card
+    border-radius: 24px
+
+  .cv-section-admin-content
+    padding: 24px 20px 32px
+

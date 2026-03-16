@@ -4,6 +4,7 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
 import { ContentComponent } from './content/content.component';
 import { CvSectionLoginComponent } from './cv-section/cv-section-login.component';
 import { CvSectionHomeComponent } from './cv-section/cv-section-home.component';
+import { CvSectionAdminComponent } from './cv-section/cv-section-admin.component';
 
 /**
  * Application route configuration.
@@ -29,6 +30,10 @@ export const routes: Routes = [
   {
     path: 'cv-section/cv',
     component: CvSectionHomeComponent
+  },
+  {
+    path: 'cv-section/admin',
+    component: CvSectionAdminComponent
   },
   {
     path: 'legal-notice',

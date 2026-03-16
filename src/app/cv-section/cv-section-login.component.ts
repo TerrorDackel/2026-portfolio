@@ -96,7 +96,11 @@ export class CvSectionLoginComponent implements OnInit, OnDestroy {
             .toPromise();
           this.isSubmitting = false;
           this.sessionService.start();
-          void this.router.navigate(['/cv-section/cv']);
+          if (response.role === 'ROLE_ADMIN') {
+            void this.router.navigate(['/cv-section/admin']);
+          } else {
+            void this.router.navigate(['/cv-section/cv']);
+          }
         },
         error: (error) => {
           this.isSubmitting = false;

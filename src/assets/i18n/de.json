@@ -139,7 +139,10 @@
         "SESSION_EXPIRED": "Du wurdest wegen Inaktivität automatisch abgemeldet.",
         "HOME_TITLE": "Detaillierter Profilbereich",
         "HOME_INTRO": "Willkommen im geschützten Bereich. Hier finden Sie jetzt oder zukünftig Lebenslauf, Zertifikate und technische Hintergründe zu meinen Projekten.",
-        "HOME_PLACEHOLDER": "An dieser Stelle werde ich Schritt für Schritt weitere Inhalte für Recruiterinnen, Recruiter und Entwicklerinnen/Entwickler ergänzen."
+        "HOME_PLACEHOLDER": "An dieser Stelle werde ich Schritt für Schritt weitere Inhalte für Recruiterinnen, Recruiter und Entwicklerinnen/Entwickler ergänzen.",
+        "ADMIN_TITLE": "Adminbereich",
+        "ADMIN_SUBTITLE": "Habedere Jenny, willkommen im Adminbereich.",
+        "ADMIN_PLACEHOLDER": "Hier wirst du zukünftig deine Login-Übersicht und weitere Verwaltungsfunktionen für den geschützten Bereich finden."
     },
     "ACCENT": {
         "LABEL": "Akzentfarbe",
