@@ -6,10 +6,11 @@
   <div class="cv-doc-links-grid">
     @for (doc of documents; track doc.id) {
       <article class="cv-doc-card">
-        <button
-          type="button"
+        <a
           class="cv-doc-card-inner"
-          (click)="window.open(doc.href, '_blank', 'noopener')"
+          [href]="doc.href"
+          target="_blank"
+          rel="noopener noreferrer"
           [attr.aria-label]="doc.titleKey | translate"
         >
           <div class="cv-doc-image-wrapper">
@@ -29,7 +30,7 @@
               {{ doc.descriptionKey | translate }}
             </p>
           </div>
-        </button>
+        </a>
       </article>
     }
   </div>
