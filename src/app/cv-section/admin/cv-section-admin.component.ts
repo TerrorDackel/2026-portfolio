@@ -4,12 +4,11 @@ import { TranslateModule } from '@ngx-translate/core';
 import { CvSectionSessionService } from '../cv-section-session.service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { CvDocumentLinksComponent } from '../document-links/cv-document-links.component';
 
 @Component({
   selector: 'app-cv-section-admin',
   standalone: true,
-  imports: [CommonModule, TranslateModule, CvDocumentLinksComponent],
+  imports: [CommonModule, TranslateModule],
   templateUrl: './cv-section-admin.component.html',
   styleUrls: ['./cv-section-admin.component.sass']
 })
