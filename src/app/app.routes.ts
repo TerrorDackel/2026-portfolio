@@ -2,9 +2,9 @@ import { Routes } from '@angular/router';
 import { LegalNoticeComponent } from './legal-notice/legal-notice.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { ContentComponent } from './content/content.component';
-import { CvSectionLoginComponent } from './cv-section/cv-section-login.component';
-import { CvSectionHomeComponent } from './cv-section/cv-section-home.component';
-import { CvSectionAdminComponent } from './cv-section/cv-section-admin.component';
+import { CvSectionLoginComponent } from './cv-section/login/cv-section-login.component';
+import { CvSectionHomeComponent } from './cv-section/home/cv-section-home.component';
+import { CvSectionAdminComponent } from './cv-section/admin/cv-section-admin.component';
 
 /**
  * Application route configuration.

@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { CvSectionSessionService } from './cv-section-session.service';
+import { CvSectionSessionService } from '../cv-section-session.service';
 
 interface CvSectionMeResponse {
   name: string;

@@ -1,19 +1,19 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
-import { CvSectionSessionService } from './cv-section-session.service';
+import { CvSectionSessionService } from '../cv-section-session.service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { CvDocumentLinksComponent } from './cv-document-links.component';
+import { CvDocumentLinksComponent } from '../document-links/cv-document-links.component';
 
 @Component({
-  selector: 'app-cv-section-admin',
+  selector: 'app-cv-section-home',
   standalone: true,
   imports: [CommonModule, TranslateModule, CvDocumentLinksComponent],
-  templateUrl: './cv-section-admin.component.html',
-  styleUrls: ['./cv-section-admin.component.sass']
+  templateUrl: './cv-section-home.component.html',
+  styleUrls: ['./cv-section-home.component.sass']
 })
-export class CvSectionAdminComponent {
+export class CvSectionHomeComponent {
   private readonly sessionService = inject(CvSectionSessionService);
   private readonly http = inject(HttpClient);
   private readonly router = inject(Router);
