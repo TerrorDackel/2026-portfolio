@@ -1,0 +1,37 @@
+<section class="cv-doc-links" aria-labelledby="cv-doc-links-heading">
+  <h3 id="cv-doc-links-heading" class="cv-doc-links-title">
+    {{ 'CV_SECTION.DOC_SECTION_TITLE' | translate }}
+  </h3>
+
+  <div class="cv-doc-links-grid">
+    @for (doc of documents; track doc.id) {
+      <article class="cv-doc-card">
+        <button
+          type="button"
+          class="cv-doc-card-inner"
+          (click)="window.open(doc.href, '_blank', 'noopener')"
+          [attr.aria-label]="doc.titleKey | translate"
+        >
+          <div class="cv-doc-image-wrapper">
+            <img
+              class="cv-doc-image"
+              [src]="doc.imgSrc"
+              [alt]="doc.imgAltKey | translate"
+              loading="lazy"
+            />
+          </div>
+
+          <div class="cv-doc-text">
+            <h4 class="cv-doc-title">
+              {{ doc.titleKey | translate }}
+            </h4>
+            <p class="cv-doc-description">
+              {{ doc.descriptionKey | translate }}
+            </p>
+          </div>
+        </button>
+      </article>
+    }
+  </div>
+</section>
+

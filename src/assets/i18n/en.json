@@ -142,7 +142,14 @@
         "HOME_PLACEHOLDER": "This is where I will gradually add more content for recruiters and fellow engineers.",
         "ADMIN_TITLE": "Admin area",
         "ADMIN_SUBTITLE": "Habedere Jenny, welcome to the admin area.",
-        "ADMIN_PLACEHOLDER": "This is where you will later find your login overview and further management functions for the protected area."
+        "ADMIN_PLACEHOLDER": "This is where you will later find your login overview and further management functions for the protected area.",
+        "DOC_SECTION_TITLE": "Documents",
+        "DOC_RESUME_TITLE": "Résumé (DE)",
+        "DOC_RESUME_DESC": "Print-optimised HTML view of the résumé.",
+        "DOC_RESUME_ALT": "Preview of the résumé of Jennifer Thomas.",
+        "DOC_CERT_TITLE": "Certificates",
+        "DOC_CERT_DESC": "Graduation certificate and additional proof.",
+        "DOC_CERT_ALT": "Preview of the graduation certificate of Developer Akademie GmbH for Jennifer Thomas."
     },
     "ACCENT": {
         "LABEL": "Accent color",

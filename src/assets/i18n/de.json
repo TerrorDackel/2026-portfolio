@@ -144,7 +144,14 @@
         "HOME_PLACEHOLDER": "An dieser Stelle werde ich Schritt für Schritt weitere Inhalte für Recruiterinnen, Recruiter und Entwicklerinnen/Entwickler ergänzen.",
         "ADMIN_TITLE": "Adminbereich",
         "ADMIN_SUBTITLE": "Habedere Jenny, willkommen im Adminbereich.",
-        "ADMIN_PLACEHOLDER": "Hier wirst du zukünftig deine Login-Übersicht und weitere Verwaltungsfunktionen für den geschützten Bereich finden."
+        "ADMIN_PLACEHOLDER": "Hier wirst du zukünftig deine Login-Übersicht und weitere Verwaltungsfunktionen für den geschützten Bereich finden.",
+        "DOC_SECTION_TITLE": "Dokumente",
+        "DOC_RESUME_TITLE": "Lebenslauf (DE)",
+        "DOC_RESUME_DESC": "Druckoptimierte HTML-Ansicht des Lebenslaufs.",
+        "DOC_RESUME_ALT": "Vorschau des Lebenslaufs von Jennifer Thomas.",
+        "DOC_CERT_TITLE": "Zertifikate",
+        "DOC_CERT_DESC": "Abschlusszertifikat und weitere Nachweise.",
+        "DOC_CERT_ALT": "Vorschau des Abschlusszertifikats der Developer Akademie GmbH für Jennifer Thomas."
     },
     "ACCENT": {
         "LABEL": "Akzentfarbe",
