@@ -10,7 +10,13 @@
       </p>
     </div>
 
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate class="cv-section-form">
+    <form
+      [formGroup]="loginForm"
+      (ngSubmit)="onSubmit()"
+      novalidate
+      class="cv-section-form"
+      autocomplete="on"
+    >
       <div class="cv-section-field">
         <input
           type="text"
