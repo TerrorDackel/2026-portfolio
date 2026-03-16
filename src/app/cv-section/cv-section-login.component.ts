@@ -1,8 +1,11 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { CvSectionSessionService } from './cv-section-session.service';
 
 interface CvSectionMeResponse {
   name: string;
@@ -16,10 +19,15 @@ interface CvSectionMeResponse {
   templateUrl: './cv-section-login.component.html',
   styleUrls: ['./cv-section-login.component.sass']
 })
-export class CvSectionLoginComponent {
+export class CvSectionLoginComponent implements OnInit, OnDestroy {
   private readonly http = inject(HttpClient);
   private readonly fb = inject(FormBuilder);
   private readonly translate = inject(TranslateService);
+  private readonly route = inject(ActivatedRoute);
+  private readonly router = inject(Router);
+  private readonly sessionService = inject(CvSectionSessionService);
+
+  private warningSub?: Subscription;
 
   loginForm: FormGroup = this.fb.group({
     name: ['', [Validators.required]],
@@ -29,6 +37,36 @@ export class CvSectionLoginComponent {
   isSubmitting = false;
   inlineErrorKey: string | null = null;
   showInlineError = false;
+  showPassword = false;
+  showInactivityWarning = false;
+
+  ngOnInit(): void {
+    this.warningSub = this.sessionService.warning$.subscribe((show) => {
+      this.showInactivityWarning = show;
+    });
+
+    const reason = this.route.snapshot.queryParamMap.get('reason');
+    if (reason === 'timeout') {
+      this.inlineErrorKey = 'CV_SECTION.SESSION_EXPIRED';
+      this.showInlineError = true;
+      void this.router.navigate([], {
+        queryParams: { reason: null },
+        queryParamsHandling: 'merge'
+      });
+
+      setTimeout(() => {
+        this.showInlineError = false;
+      }, 3000);
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.warningSub?.unsubscribe();
+  }
+
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
+  }
 
   onSubmit(): void {
     if (this.loginForm.invalid || this.isSubmitting) {
@@ -59,6 +97,7 @@ export class CvSectionLoginComponent {
             })
             .toPromise();
           this.isSubmitting = false;
+          this.sessionService.start();
         },
         error: (error) => {
           this.isSubmitting = false;

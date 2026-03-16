@@ -130,7 +130,13 @@
         "LOGIN_SUCCESS": "Willkommen im detaillierten Profilbereich – hier finden Sie Lebenslauf, Zertifikate und technische Hintergründe zu meinen Projekten.",
         "ERROR_INVALID_PASSWORD": "Das eingegebene Passwort ist nicht korrekt.",
         "ERROR_INVALID_NAME": "Bitte geben Sie einen gültigen Namen ein.",
-        "ERROR_GENERIC": "Beim Anmelden ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut."
+        "ERROR_GENERIC": "Beim Anmelden ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.",
+        "SHOW_PASSWORD": "Passwort anzeigen",
+        "HIDE_PASSWORD": "Passwort verbergen",
+        "PW_VISIBLE": "sichtbar",
+        "PW_HIDDEN": "versteckt",
+        "SESSION_WARNING": "Aus Sicherheitsgründen wirst du in 30 Sekunden automatisch abgemeldet, wenn du nicht aktiv bist.",
+        "SESSION_EXPIRED": "Du wurdest wegen Inaktivität automatisch abgemeldet."
     },
     "ACCENT": {
         "LABEL": "Akzentfarbe",

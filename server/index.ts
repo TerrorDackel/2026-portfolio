@@ -31,11 +31,11 @@ interface JwtPayload {
 // - CV-Zugang: FrontendDeveloper.JenniferThomas.2026
 //
 // Diese Hashes kannst du später bei Bedarf mit einem kleinen Script neu erzeugen.
-// Hier sind Beispiel-Hashes; ersetze sie bei Bedarf durch neu generierte.
+// Die folgenden Werte sind mit bcrypt (cost 10) aus den obigen Klartext-Passwörtern erzeugt.
 const ADMIN_PASSWORD_HASH =
-  '$2b$10$4zyJihVq9Xj0sS3q4nXwo.8OaH1vSOVdk1vYuvQbqkzTdlV/6uD8q'; // Platzhalter
+  '$2b$10$3/yLV8J9HLm2sChtCs/UJ.TI63yFPTCn/jHBTUX7JsuX1gFFZCEYu';
 const CV_ACCESS_PASSWORD_HASH =
-  '$2b$10$E3kh1pZC5T4h1ixyBz4vYuEoW7X2lV6fHC5n3oSxqK5GQUn9I9pSa'; // Platzhalter
+  '$2b$10$vK6sPZiBN76H3Mppd8FqZuNf3DqlE3FTnSn/KUledHkYWVcx55oZO';
 
 app.use(
   cors({

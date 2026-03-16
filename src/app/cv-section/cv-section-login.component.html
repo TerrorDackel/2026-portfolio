@@ -21,20 +21,40 @@
         />
       </div>
 
-      <div class="cv-section-field">
+      <div class="cv-section-field cv-section-password-wrapper">
         <input
-          type="password"
+          [type]="showPassword ? 'text' : 'password'"
           class="cv-section-input"
           id="cv-section-password"
           formControlName="password"
           [placeholder]="'CV_SECTION.PLACEHOLDER_PASSWORD' | translate"
         />
+        <button
+          type="button"
+          class="cv-section-toggle-password"
+          (click)="togglePasswordVisibility()"
+          [attr.aria-label]="
+            (showPassword ? 'CV_SECTION.HIDE_PASSWORD' : 'CV_SECTION.SHOW_PASSWORD') | translate
+          "
+        >
+          <span>
+            {{ showPassword ? ('CV_SECTION.PW_VISIBLE' | translate) : ('CV_SECTION.PW_HIDDEN' | translate) }}
+          </span>
+        </button>
       </div>
 
       @if (showInlineError && inlineErrorKey) {
         <div class="cv-section-error-toast">
           <span class="cv-section-error-text">
             {{ inlineErrorKey | translate }}
+          </span>
+        </div>
+      }
+
+      @if (showInactivityWarning) {
+        <div class="cv-section-warning-toast">
+          <span class="cv-section-warning-text">
+            {{ 'CV_SECTION.SESSION_WARNING' | translate }}
           </span>
         </div>
       }
