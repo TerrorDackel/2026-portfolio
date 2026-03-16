@@ -89,8 +89,6 @@ export class CvSectionLoginComponent implements OnInit, OnDestroy {
       )
       .subscribe({
         next: (response) => {
-          // Für Sprint 2 reicht es, nach erfolgreichem Login die Begrüßung anzuzeigen.
-          // Routing zu geschützten Unterseiten folgt in einem späteren Schritt.
           void this.translate
             .get('CV_SECTION.LOGIN_SUCCESS', {
               name: response.name
@@ -98,6 +96,7 @@ export class CvSectionLoginComponent implements OnInit, OnDestroy {
             .toPromise();
           this.isSubmitting = false;
           this.sessionService.start();
+          void this.router.navigate(['/cv-section/cv']);
         },
         error: (error) => {
           this.isSubmitting = false;

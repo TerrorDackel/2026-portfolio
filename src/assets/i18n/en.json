@@ -134,7 +134,10 @@
         "PW_VISIBLE": "visible",
         "PW_HIDDEN": "hidden",
         "SESSION_WARNING": "For security reasons you will be logged out automatically in 30 seconds if you remain inactive.",
-        "SESSION_EXPIRED": "You have been logged out automatically due to inactivity."
+        "SESSION_EXPIRED": "You have been logged out automatically due to inactivity.",
+        "HOME_TITLE": "Detailed profile area",
+        "HOME_INTRO": "Welcome to the protected area. Here you will now or in future find CV, certificates and technical background information on my projects.",
+        "HOME_PLACEHOLDER": "This is where I will gradually add more content for recruiters and fellow engineers."
     },
     "ACCENT": {
         "LABEL": "Accent color",

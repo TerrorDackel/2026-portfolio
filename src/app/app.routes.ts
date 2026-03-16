@@ -3,6 +3,7 @@ import { LegalNoticeComponent } from './legal-notice/legal-notice.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { ContentComponent } from './content/content.component';
 import { CvSectionLoginComponent } from './cv-section/cv-section-login.component';
+import { CvSectionHomeComponent } from './cv-section/cv-section-home.component';
 
 /**
  * Application route configuration.
@@ -24,6 +25,10 @@ export const routes: Routes = [
   {
     path: 'cv-section/login',
     component: CvSectionLoginComponent
+  },
+  {
+    path: 'cv-section/cv',
+    component: CvSectionHomeComponent
   },
   {
     path: 'legal-notice',
