@@ -7,11 +7,11 @@ import fs from 'fs';
 import path from 'path';
 
 const app = express();
-const PORT = process.env.PORT || 4000;
+const PORT = process.env['PORT'] || 4000;
 
 // In einer echten produktiven Umgebung würdest du das Secret
 // aus einer sicheren Umgebung (ENV-Variable) laden.
-const JWT_SECRET = process.env.CV_SECTION_JWT_SECRET || 'change_this_secret_in_env';
+const JWT_SECRET = process.env['CV_SECTION_JWT_SECRET'] || 'change_this_secret_in_env';
 const JWT_EXPIRES_IN_SECONDS = 60 * 5; // 5 Minuten
 
 // Logfile-Pfad
@@ -82,7 +82,7 @@ const isValidName = (name: string, role: CvSectionRole): boolean => {
 
 // Middleware, um JWT aus HTTP-only Cookie zu lesen und zu prüfen
 const authenticateJwt = (req: Request, res: Response, next: NextFunction): void => {
-  const token = req.cookies?.cv_section_token;
+  const token = req.cookies?.['cv_section_token'];
 
   if (!token) {
     res.sendStatus(401);
