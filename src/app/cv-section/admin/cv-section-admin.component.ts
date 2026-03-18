@@ -116,7 +116,7 @@ export class CvSectionAdminComponent implements OnInit {
     this.clearLogsErrorKey = null;
 
     this.http
-      .post('/api/cv-section/admin/logs/clear', {}, { withCredentials: true })
+      .post('/api/cv-section/admin/logs/clear', {}, { withCredentials: true, responseType: 'text' })
       .subscribe({
         next: () => {
           this.isClearingLogs = false;
