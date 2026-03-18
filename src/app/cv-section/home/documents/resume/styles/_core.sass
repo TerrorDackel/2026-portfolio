@@ -61,6 +61,9 @@ a
   align-items: center
   font-size: 0.9rem
 
+.cv-contact span:last-child
+  margin-left: auto
+
 .cv-meta
   display: flex
   justify-content: space-between
@@ -117,11 +120,20 @@ a
     margin: 0 0 12px
     padding-bottom: 6px
     border-bottom: 2px solid rgba(29, 78, 216, 0.2)
+    
+    // Jahreszahlen in der h2-Zeile sollen nicht die h2-letter-spacing/uppercase übernehmen.
+    .cv-item-period
+      letter-spacing: normal
+      text-transform: none
 
   p
     margin: 0 0 8px
     font-size: 0.95rem
     line-height: 1.55
+
+  // Im ersten Abschnitt "Über mich" soll der letzte Absatz bündig mit der Card-Unterkante abschließen.
+  &:first-of-type .cv-card p:last-child
+    margin-bottom: 0
 
 .cv-two-columns
   display: grid
