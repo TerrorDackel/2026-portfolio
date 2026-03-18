@@ -22,6 +22,10 @@ export class CvSectionAdminComponent implements OnInit {
   protected logFetchError: string | null = null;
   protected visibleLogs: Array<{ timestamp: string; role: string; name: string }> = [];
 
+  protected isLoadingStats = true;
+  protected statsFetchError: string | null = null;
+  protected cvAccessUniqueUsersSinceLastAdmin: number | null = null;
+
   ngOnInit(): void {
     this.http
       .get('/api/cv-section/admin/logs', { withCredentials: true, responseType: 'text' })
@@ -59,6 +63,23 @@ export class CvSectionAdminComponent implements OnInit {
           .filter((e) => e.role === 'ROLE_CV_ACCESS')
           .sort((a, b) => (a.timestamp < b.timestamp ? 1 : -1))
           .slice(0, 200);
+      });
+
+    this.http
+      .get<{ lastAdminLogin: string | null; cvAccessUniqueUsersSinceLastAdmin: number }>(
+        '/api/cv-section/admin/stats',
+        { withCredentials: true }
+      )
+      .pipe(
+        catchError(() => {
+          this.isLoadingStats = false;
+          this.statsFetchError = 'STATS_COULD_NOT_BE_LOADED';
+          return of({ lastAdminLogin: null, cvAccessUniqueUsersSinceLastAdmin: 0 });
+        })
+      )
+      .subscribe((stats) => {
+        this.isLoadingStats = false;
+        this.cvAccessUniqueUsersSinceLastAdmin = stats.cvAccessUniqueUsersSinceLastAdmin ?? 0;
       });
   }
 

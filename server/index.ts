@@ -16,6 +16,55 @@ const JWT_EXPIRES_IN_SECONDS = 60 * 5; // 5 Minuten
 
 // Logfile-Pfad
 const LOG_FILE_PATH = path.join(__dirname, 'logs', 'cv-logins.log');
+const LOG_RETENTION_DAYS = 30;
+
+type ParsedLogEntry = {
+  timestampIso: string;
+  timestampMs: number;
+  role: 'ROLE_ADMIN' | 'ROLE_CV_ACCESS';
+  name: string;
+  rawLine: string;
+};
+
+const parseLogLines = (content: string): ParsedLogEntry[] => {
+  const cutoffMs = Date.now() - LOG_RETENTION_DAYS * 24 * 60 * 60 * 1000;
+  const lines = String(content ?? '')
+    .split('\n')
+    .map((l) => l.trim())
+    .filter(Boolean);
+
+  return lines
+    .map((line) => {
+      const parts = line.split(' | ');
+      const timestampIso = parts[0] ?? '';
+      const role = parts[1] ?? '';
+      const name = parts.slice(2).join(' | ');
+      const timestampMs = Date.parse(timestampIso);
+      if (!timestampIso || !role || !name || Number.isNaN(timestampMs)) return null;
+      return { timestampIso, timestampMs, role, name, rawLine: line };
+    })
+    .filter(Boolean) as ParsedLogEntry[];
+};
+
+const cleanupOldLoginLogs = (): void => {
+  try {
+    if (!fs.existsSync(LOG_FILE_PATH)) return;
+
+    const content = fs.readFileSync(LOG_FILE_PATH, 'utf8');
+    const entries = parseLogLines(content);
+    const cutoffMs = Date.now() - LOG_RETENTION_DAYS * 24 * 60 * 60 * 1000;
+
+    const keptRawLines = entries.filter((e) => e.timestampMs >= cutoffMs).map((e) => e.rawLine);
+    const newContent = keptRawLines.length ? `${keptRawLines.join('\n')}\n` : '';
+
+    if (newContent !== content) {
+      fs.writeFileSync(LOG_FILE_PATH, newContent, 'utf8');
+    }
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.error('Failed to cleanup old login logs', err);
+  }
+};
 
 // Feste Rollen
 type CvSectionRole = 'ROLE_ADMIN' | 'ROLE_CV_ACCESS';
@@ -172,6 +221,49 @@ app.get('/api/cv-section/me', authenticateJwt, (req: Request, res: Response): vo
   }
 
   res.json(user);
+});
+
+// Admin-Only: Rohlogs
+app.get('/api/cv-section/admin/logs', authenticateJwt, authorizeRole('ROLE_ADMIN'), (req, res) => {
+  cleanupOldLoginLogs();
+
+  fs.readFile(LOG_FILE_PATH, 'utf8', (err, content) => {
+    if (err) {
+      res.status(500).json({ error: 'LOG_READ_FAILED' });
+      return;
+    }
+
+    res.type('text/plain').send(content);
+  });
+});
+
+// Admin-Only: Statistik
+app.get('/api/cv-section/admin/stats', authenticateJwt, authorizeRole('ROLE_ADMIN'), (req, res) => {
+  cleanupOldLoginLogs();
+
+  fs.readFile(LOG_FILE_PATH, 'utf8', (err, content) => {
+    if (err) {
+      res.status(500).json({ error: 'LOG_READ_FAILED' });
+      return;
+    }
+
+    const entries = parseLogLines(content);
+
+    const lastAdmin = entries
+      .filter((e) => e.role === 'ROLE_ADMIN')
+      .sort((a, b) => (a.timestampMs < b.timestampMs ? 1 : -1))[0];
+
+    const cvAfterLastAdmin = lastAdmin
+      ? entries.filter((e) => e.role === 'ROLE_CV_ACCESS' && e.timestampMs > lastAdmin.timestampMs)
+      : entries.filter((e) => e.role === 'ROLE_CV_ACCESS');
+
+    const uniqueNames = new Set(cvAfterLastAdmin.map((e) => e.name));
+
+    res.json({
+      lastAdminLogin: lastAdmin ? lastAdmin.timestampIso : null,
+      cvAccessUniqueUsersSinceLastAdmin: uniqueNames.size
+    });
+  });
 });
 
 // Logout-Endpunkt

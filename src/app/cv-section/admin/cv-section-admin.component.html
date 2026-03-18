@@ -22,7 +22,14 @@
 
       <div class="cv-section-admin-placeholder">
         <p class="cv-section-admin-placeholder-text">
-          {{ 'CV_SECTION.ADMIN_PLACEHOLDER' | translate }}
+          @if (isLoadingStats) {
+            <span>Berechne...</span>
+          } @else {
+            <span>
+              Es waren seit deiner letzten Anmeldung
+              {{ cvAccessUniqueUsersSinceLastAdmin ?? 0 }} Personen in deinem CV-Bereich eingeloggt.
+            </span>
+          }
         </p>
       </div>
 
