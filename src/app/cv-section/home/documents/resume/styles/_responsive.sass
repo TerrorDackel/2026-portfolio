@@ -27,11 +27,16 @@
     padding: 1rem 1.25rem
 
 @media print
+  @page
+    size: A4
+    margin: 12mm
+
   html,
   body
     background-color: #ffffff
     color: #0f172a
-    font-size: 11pt
+    font-size: 10.5pt
+    line-height: 1.35
 
   .cv-header
     background: #1d4ed8
@@ -41,12 +46,45 @@
     page-break-inside: avoid
 
   .cv-main
-    margin-top: 20px
-    padding: 0 16px
+    max-width: none
+    margin: 14px 0 0
+    padding: 0
 
   .cv-section
+    margin-bottom: 14px
+    break-inside: auto
+    page-break-inside: auto
+
+    h2
+      break-after: avoid
+      page-break-after: avoid
+
+  .cv-two-columns,
+  .cv-projects
+    grid-template-columns: 1fr
+    gap: 12px
+
+  .cv-card
+    padding: 0.9rem 1.1rem
+
+  .cv-project
+    padding: 0.75rem 0.95rem
+
+  .cv-item-header
     break-inside: avoid
     page-break-inside: avoid
+
+  p,
+  li
+    orphans: 3
+    widows: 3
+
+  .cv-werdegang-item
+    break-inside: avoid
+    page-break-inside: avoid
+
+  .cv-actions
+    display: none !important
 
   .cv-card,
   .cv-project
