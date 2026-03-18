@@ -1,0 +1,56 @@
+.cv-header
+  @media (max-width: 720px)
+    padding: 24px 20px
+
+@media (max-width: 720px)
+  .cv-header-inner
+    flex-direction: column-reverse
+    align-items: flex-start
+
+  .cv-main
+    padding: 0 16px
+    margin-top: 24px
+
+  .cv-two-columns
+    grid-template-columns: 1fr
+
+  .cv-card
+    padding: 1rem 1.25rem
+
+@media print
+  html,
+  body
+    background-color: #ffffff
+    color: #0f172a
+    font-size: 11pt
+
+  .cv-header
+    background: #1d4ed8
+    color: #e0f2fe
+    padding: 24px 32px
+    break-inside: avoid
+    page-break-inside: avoid
+
+  .cv-main
+    margin-top: 20px
+    padding: 0 16px
+
+  .cv-section
+    break-inside: avoid
+    page-break-inside: avoid
+
+  .cv-card,
+  .cv-project
+    box-shadow: none
+    border: 1px solid #e2e8f0
+
+  .cv-media
+    max-height: 240mm
+    width: auto
+
+  a[href]
+    color: #1d4ed8
+
+    &:after
+      content: none
+

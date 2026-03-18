@@ -18,6 +18,9 @@
       autocomplete="on"
     >
       <div class="cv-section-field">
+        <label class="visually-hidden" for="cv-section-name">
+          {{ 'CV_SECTION.PLACEHOLDER_NAME' | translate }}
+        </label>
         <input
           type="text"
           class="cv-section-input"
@@ -30,6 +33,9 @@
       </div>
 
       <div class="cv-section-field cv-section-password-wrapper">
+        <label class="visually-hidden" for="cv-section-password">
+          {{ 'CV_SECTION.PLACEHOLDER_PASSWORD' | translate }}
+        </label>
         <input
           [type]="showPassword ? 'text' : 'password'"
           class="cv-section-input"
