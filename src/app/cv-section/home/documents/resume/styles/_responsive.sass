@@ -59,7 +59,12 @@
       break-after: avoid
       page-break-after: avoid
 
-  .cv-two-columns,
+  // Keep the two-column section to save vertical space.
+  .cv-two-columns
+    grid-template-columns: 1fr 1fr
+    gap: 12px
+
+  // Print projects in a single column to avoid awkward splits.
   .cv-projects
     grid-template-columns: 1fr
     gap: 12px
@@ -82,6 +87,19 @@
   .cv-werdegang-item
     break-inside: avoid
     page-break-inside: avoid
+
+  // Group "Sprachkenntnisse" + "Werdegang" together by starting languages on a fresh page.
+  .cv-section[aria-labelledby="cv-sprachen"]
+    break-before: page
+    page-break-before: always
+
+    h2
+      break-after: avoid
+      page-break-after: avoid
+
+  .cv-section[aria-labelledby="cv-werdegang"]
+    break-before: avoid
+    page-break-before: avoid
 
   .cv-actions
     display: none !important
