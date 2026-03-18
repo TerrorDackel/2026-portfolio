@@ -32,6 +32,21 @@
         />
       </div>
 
+      <div class="cv-section-field">
+        <label class="visually-hidden" for="cv-section-company">
+          {{ 'CV_SECTION.PLACEHOLDER_COMPANY' | translate }}
+        </label>
+        <input
+          type="text"
+          class="cv-section-input"
+          id="cv-section-company"
+          formControlName="company"
+          name="company"
+          autocomplete="organization"
+          [placeholder]="'CV_SECTION.PLACEHOLDER_COMPANY' | translate"
+        />
+      </div>
+
       <div class="cv-section-field cv-section-password-wrapper">
         <label class="visually-hidden" for="cv-section-password">
           {{ 'CV_SECTION.PLACEHOLDER_PASSWORD' | translate }}

@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -9,6 +9,7 @@ import { CvSectionSessionService } from '../cv-section-session.service';
 
 interface CvSectionMeResponse {
   name: string;
+  company: string;
   role: 'ROLE_ADMIN' | 'ROLE_CV_ACCESS';
 }
 
@@ -29,8 +30,23 @@ export class CvSectionLoginComponent implements OnInit, OnDestroy {
 
   private warningSub?: Subscription;
 
+  private readonly validateCompanyLetters = (control: AbstractControl): { invalidCompany: true } | null => {
+    const raw = String(control.value ?? '');
+    const trimmed = raw.trim();
+    if (!trimmed) return null;
+
+    // Only letters (plus spaces) and at least 3 letters overall.
+    const cleanedLetters = trimmed.replace(/\s+/g, '');
+    const lettersOnly = /^[A-Za-zÄÖÜäöüß]+$/.test(cleanedLetters);
+    if (!lettersOnly) return { invalidCompany: true };
+    if (cleanedLetters.length < 3) return { invalidCompany: true };
+
+    return null;
+  };
+
   loginForm: FormGroup = this.fb.group({
     name: ['', [Validators.required]],
+    company: ['', [Validators.required, this.validateCompanyLetters]],
     password: ['', [Validators.required]]
   });
 
@@ -77,12 +93,12 @@ export class CvSectionLoginComponent implements OnInit, OnDestroy {
     this.inlineErrorKey = null;
     this.showInlineError = false;
 
-    const { name, password } = this.loginForm.value as { name: string; password: string };
+    const { name, company, password } = this.loginForm.value as { name: string; company: string; password: string };
 
     this.http
       .post<CvSectionMeResponse>(
         '/api/cv-section/login',
-        { name, password },
+        { name, company, password },
         {
           withCredentials: true
         }
@@ -109,6 +125,8 @@ export class CvSectionLoginComponent implements OnInit, OnDestroy {
             this.inlineErrorKey = 'CV_SECTION.ERROR_INVALID_PASSWORD';
           } else if (error?.error?.error === 'INVALID_NAME') {
             this.inlineErrorKey = 'CV_SECTION.ERROR_INVALID_NAME';
+          } else if (error?.error?.error === 'INVALID_COMPANY') {
+            this.inlineErrorKey = 'CV_SECTION.ERROR_INVALID_COMPANY';
           } else {
             this.inlineErrorKey = 'CV_SECTION.ERROR_GENERIC';
           }

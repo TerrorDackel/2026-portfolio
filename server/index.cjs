@@ -27,10 +27,11 @@ const parseLogLines = (content) => {
       const parts = line.split(' | ');
       const timestampIso = parts[0] ?? '';
       const role = parts[1] ?? '';
-      const name = parts.slice(2).join(' | ');
+      const name = parts[2] ?? '';
+      const company = parts[3] ?? '';
       const timestampMs = Date.parse(timestampIso);
       if (!timestampIso || !role || !name || Number.isNaN(timestampMs)) return null;
-      return { timestampIso, timestampMs, role, name, rawLine: line };
+      return { timestampIso, timestampMs, role, name, company, rawLine: line };
     })
     .filter(Boolean);
 };
@@ -61,9 +62,9 @@ const cleanupOldLoginLogs = () => {
  * @param {string} name
  * @param {CvSectionRole} role
  */
-const appendLoginLog = (name, role) => {
+const appendLoginLog = (name, company, role) => {
   const timestamp = new Date().toISOString();
-  const line = `${timestamp} | ${role} | ${name}\n`;
+  const line = `${timestamp} | ${role} | ${name} | ${company}\n`;
 
   fs.appendFile(LOG_FILE_PATH, line, (err) => {
     if (err) {
@@ -97,6 +98,21 @@ const isValidName = (name, role) => {
   return parts.every((part) => /^[A-Za-zÄÖÜäöüß]{3,}$/.test(part));
 };
 
+/**
+ * Firmenvalidierung:
+ * - mindestens 3 Buchstaben (Leerzeichen sind erlaubt)
+ * - keine Zahlen
+ * - nur Buchstaben (inkl. Umlaute) + Leerzeichen
+ *
+ * @param {string} company
+ * @returns {boolean}
+ */
+const isValidCompany = (company) => {
+  const trimmed = String(company ?? '').trim();
+  const cleanedLetters = trimmed.replace(/\s+/g, '');
+  return /^[A-Za-zÄÖÜäöüß]+$/.test(cleanedLetters) && cleanedLetters.length >= 3;
+};
+
 app.use(
   cors({
     origin: ['http://localhost:4200'],
@@ -122,6 +138,7 @@ const authenticateJwt = (req, res, next) => {
     const decoded = jwt.verify(token, JWT_SECRET);
     req.user = {
       name: decoded.name,
+      company: decoded.company,
       role: decoded.role
     };
     next();
@@ -147,9 +164,9 @@ const authorizeRole = (role) => {
 
 // Login-Endpoint für cv-section
 app.post('/api/cv-section/login', async (req, res) => {
-  const { password, name } = req.body || {};
+  const { password, name, company } = req.body || {};
 
-  if (!password || !name) {
+  if (!password || !name || !company) {
     res.status(400).json({ error: 'MISSING_CREDENTIALS' });
     return;
   }
@@ -184,7 +201,12 @@ app.post('/api/cv-section/login', async (req, res) => {
     return;
   }
 
-  const payload = { name, role };
+  if (!isValidCompany(company)) {
+    res.status(400).json({ error: 'INVALID_COMPANY' });
+    return;
+  }
+
+  const payload = { name, role, company };
   const token = jwt.sign(payload, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN_SECONDS });
 
   res.cookie('cv_section_token', token, {
@@ -194,10 +216,11 @@ app.post('/api/cv-section/login', async (req, res) => {
     maxAge: JWT_EXPIRES_IN_SECONDS * 1000
   });
 
-  appendLoginLog(name, role);
+  appendLoginLog(name, company, role);
 
   res.json({
     name,
+    company,
     role,
     expiresInSeconds: JWT_EXPIRES_IN_SECONDS
   });

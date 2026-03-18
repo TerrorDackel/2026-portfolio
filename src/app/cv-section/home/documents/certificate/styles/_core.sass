@@ -23,6 +23,13 @@ a
   color: #e0f2fe
   padding: calc(32px + 72px + 1rem) 40px 32px
 
+  // Header-Links sollen unabhängig vom Accent-Switch immer weiß bleiben.
+  .cv-links
+    a
+      color: #ffffff !important
+      &:hover
+        color: #ffffff !important
+
 .cv-header-inner
   max-width: 960px
   margin: 0 auto

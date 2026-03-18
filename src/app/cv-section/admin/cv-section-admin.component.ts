@@ -20,7 +20,7 @@ export class CvSectionAdminComponent implements OnInit {
 
   protected isLoadingLogs = true;
   protected logFetchError: string | null = null;
-  protected visibleLogs: Array<{ timestamp: string; role: string; name: string }> = [];
+  protected visibleLogs: { timestamp: string; role: string; name: string; company: string }[] = [];
 
   protected isLoadingStats = true;
   protected statsFetchError: string | null = null;
@@ -53,8 +53,9 @@ export class CvSectionAdminComponent implements OnInit {
             const parts = line.split(' | ');
             const timestamp = parts[0] ?? '';
             const role = parts[1] ?? '';
-            const name = parts.slice(2).join(' | ');
-            return { timestamp, role, name };
+            const name = parts[2] ?? '';
+            const company = parts[3] ?? '';
+            return { timestamp, role, name, company };
           })
           .filter((e) => e.timestamp && e.role && e.name);
 

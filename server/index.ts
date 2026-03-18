@@ -23,6 +23,7 @@ type ParsedLogEntry = {
   timestampMs: number;
   role: 'ROLE_ADMIN' | 'ROLE_CV_ACCESS';
   name: string;
+  company: string;
   rawLine: string;
 };
 
@@ -38,10 +39,11 @@ const parseLogLines = (content: string): ParsedLogEntry[] => {
       const parts = line.split(' | ');
       const timestampIso = parts[0] ?? '';
       const role = parts[1] ?? '';
-      const name = parts.slice(2).join(' | ');
+      const name = parts[2] ?? '';
+      const company = parts[3] ?? '';
       const timestampMs = Date.parse(timestampIso);
       if (!timestampIso || !role || !name || Number.isNaN(timestampMs)) return null;
-      return { timestampIso, timestampMs, role, name, rawLine: line };
+      return { timestampIso, timestampMs, role, name, company, rawLine: line };
     })
     .filter(Boolean) as ParsedLogEntry[];
 };
@@ -71,6 +73,7 @@ type CvSectionRole = 'ROLE_ADMIN' | 'ROLE_CV_ACCESS';
 
 interface JwtPayload {
   name: string;
+  company: string;
   role: CvSectionRole;
 }
 
@@ -97,9 +100,9 @@ app.use(express.json());
 app.use(cookieParser());
 
 // Hilfsfunktion für Logging
-const appendLoginLog = (name: string, role: CvSectionRole): void => {
+const appendLoginLog = (name: string, company: string, role: CvSectionRole): void => {
   const timestamp = new Date().toISOString();
-  const line = `${timestamp} | ${role} | ${name}\n`;
+  const line = `${timestamp} | ${role} | ${name} | ${company}\n`;
 
   fs.appendFile(LOG_FILE_PATH, line, (err) => {
     if (err) {
@@ -129,6 +132,13 @@ const isValidName = (name: string, role: CvSectionRole): boolean => {
   return parts.every((part) => /^[A-Za-zÄÖÜäöüß]{3,}$/.test(part));
 };
 
+// Firmenvalidierung: mind. 3 Buchstaben (Leerzeichen ok), keine Zahlen
+const isValidCompany = (company: string): boolean => {
+  const trimmed = String(company ?? '').trim();
+  const cleanedLetters = trimmed.replace(/\s+/g, '');
+  return /^[A-Za-zÄÖÜäöüß]+$/.test(cleanedLetters) && cleanedLetters.length >= 3;
+};
+
 // Middleware, um JWT aus HTTP-only Cookie zu lesen und zu prüfen
 const authenticateJwt = (req: Request, res: Response, next: NextFunction): void => {
   const token = req.cookies?.['cv_section_token'];
@@ -142,6 +152,7 @@ const authenticateJwt = (req: Request, res: Response, next: NextFunction): void 
     const decoded = jwt.verify(token, JWT_SECRET) as JwtPayload & jwt.JwtPayload;
     (req as Request & { user?: JwtPayload }).user = {
       name: decoded.name,
+      company: decoded.company,
       role: decoded.role
     };
     next();
@@ -164,9 +175,9 @@ const authorizeRole = (role: CvSectionRole) => {
 
 // Login-Endpoint für cv-section
 app.post('/api/cv-section/login', async (req: Request, res: Response): Promise<void> => {
-  const { password, name } = req.body as { password?: string; name?: string };
+  const { password, name, company } = req.body as { password?: string; name?: string; company?: string };
 
-  if (!password || !name) {
+  if (!password || !name || !company) {
     res.status(400).json({ error: 'MISSING_CREDENTIALS' });
     return;
   }
@@ -193,7 +204,12 @@ app.post('/api/cv-section/login', async (req: Request, res: Response): Promise<v
     return;
   }
 
-  const payload: JwtPayload = { name, role };
+  if (!isValidCompany(company)) {
+    res.status(400).json({ error: 'INVALID_COMPANY' });
+    return;
+  }
+
+  const payload: JwtPayload = { name, role, company };
   const token = jwt.sign(payload, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN_SECONDS });
 
   res.cookie('cv_section_token', token, {
@@ -203,10 +219,11 @@ app.post('/api/cv-section/login', async (req: Request, res: Response): Promise<v
     maxAge: JWT_EXPIRES_IN_SECONDS * 1000
   });
 
-  appendLoginLog(name, role);
+  appendLoginLog(name, company, role);
 
   res.json({
     name,
+    company,
     role,
     expiresInSeconds: JWT_EXPIRES_IN_SECONDS
   });
