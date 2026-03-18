@@ -65,6 +65,11 @@
     white-space: nowrap
     gap: 6px
     font-size: 10pt
+    justify-content: flex-start
+
+  .cv-contact
+    flex: 0 0 auto
+    width: auto
 
   // Links im Header sind im Print die Hauptquelle für Überlauf/komische Umbrüche.
   // Für eine "CV-like" Druckversion: Kontakt ja, Link-Leiste nein.
@@ -112,10 +117,28 @@
   .cv-item-header
     break-inside: avoid
     page-break-inside: avoid
+    display: grid
+    grid-template-columns: 1fr auto
+    align-items: baseline
+    gap: 6px
 
   .cv-item
     break-inside: avoid
     page-break-inside: avoid
+
+  .cv-item-period
+    white-space: nowrap
+    font-size: 9pt
+
+  .cv-item-subtitle
+    margin-bottom: 2px
+    font-size: 9.5pt
+
+  .cv-list
+    margin: 0 0 6px 16px
+
+    li
+      margin-bottom: 2px
 
   // Prefer keeping education on page 1 by allowing a split before it if needed.
   .cv-section[aria-labelledby="cv-skills"] .cv-column:last-child .cv-block.cv-card:last-child
@@ -149,7 +172,7 @@
     width: auto
 
   a[href]
-    color: #1d4ed8
+    color: inherit
 
     &:after
       content: none
