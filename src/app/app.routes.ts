@@ -5,6 +5,8 @@ import { ContentComponent } from './content/content.component';
 import { CvSectionLoginComponent } from './cv-section/login/cv-section-login.component';
 import { CvSectionHomeComponent } from './cv-section/home/cv-section-home.component';
 import { CvSectionAdminComponent } from './cv-section/admin/cv-section-admin.component';
+import { CvResumePageComponent } from './cv-section/home/documents/cv-resume-page.component';
+import { CvCertificatePageComponent } from './cv-section/home/documents/cv-certificate-page.component';
 
 /**
  * Application route configuration.
@@ -30,6 +32,14 @@ export const routes: Routes = [
   {
     path: 'cv-section/cv',
     component: CvSectionHomeComponent
+  },
+  {
+    path: 'cv-section/cv/resume',
+    component: CvResumePageComponent
+  },
+  {
+    path: 'cv-section/cv/certificate',
+    component: CvCertificatePageComponent
   },
   {
     path: 'cv-section/admin',
