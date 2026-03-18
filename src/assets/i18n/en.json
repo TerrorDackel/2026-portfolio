@@ -128,6 +128,8 @@
         "PLACEHOLDER_PASSWORD": "Password",
         "BUTTON_LOGIN": "Log in",
         "BUTTON_LOGOUT": "Logout",
+        "BUTTON_CLEAR_LOGS": "Clear logs",
+        "CLEAR_LOGS_FAILED": "Could not delete logs.",
         "LOGIN_SUCCESS": "Welcome to the detailed profile area – here you will find CV, certificates and technical background on my projects.",
         "ERROR_INVALID_PASSWORD": "The entered password is not correct.",
         "ERROR_INVALID_NAME": "Please enter a valid name.",

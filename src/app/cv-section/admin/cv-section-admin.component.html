@@ -2,11 +2,21 @@
   <section class="cv-section-admin-card">
     <button
       type="button"
+      class="cv-section-clear-logs-btn"
+      (click)="onClearLogsClick()"
+      [disabled]="isClearingLogs"
+    >
+      {{ 'CV_SECTION.BUTTON_CLEAR_LOGS' | translate }}
+    </button>
+
+    <button
+      type="button"
       class="cv-section-logout-btn"
       (click)="onLogoutClick()"
     >
       {{ 'CV_SECTION.BUTTON_LOGOUT' | translate }}
     </button>
+
     <div class="cv-section-admin-border"></div>
 
     <div class="cv-section-admin-content">
@@ -31,6 +41,12 @@
             </span>
           }
         </p>
+
+        @if (clearLogsErrorKey) {
+          <p class="cv-admin-clear-logs-error">
+            {{ clearLogsErrorKey | translate }}
+          </p>
+        }
 
         <div class="cv-admin-links">
           <p>
@@ -74,7 +90,7 @@
                 <div>{{ formatTimestamp(log.timestamp) }}</div>
                 <div>{{ log.role }}</div>
                 <div>{{ log.name }}</div>
-                <div>{{ log.company }}</div>
+                <div>{{ log.company || '—' }}</div>
               </div>
             }
           </div>

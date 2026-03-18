@@ -249,6 +249,16 @@ app.get('/api/cv-section/admin/logs', authenticateJwt, authorizeRole('ROLE_ADMIN
   });
 });
 
+// Admin-Only: Logs manuell löschen
+app.post('/api/cv-section/admin/logs/clear', authenticateJwt, authorizeRole('ROLE_ADMIN'), (req, res) => {
+  try {
+    fs.writeFileSync(LOG_FILE_PATH, '');
+    res.sendStatus(204);
+  } catch {
+    res.status(500).json({ error: 'LOG_CLEAR_FAILED' });
+  }
+});
+
 app.get('/api/cv-section/admin/stats', authenticateJwt, authorizeRole('ROLE_ADMIN'), (req, res) => {
   cleanupOldLoginLogs();
   fs.readFile(LOG_FILE_PATH, 'utf8', (err, content) => {

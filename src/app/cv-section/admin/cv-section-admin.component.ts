@@ -18,6 +18,9 @@ export class CvSectionAdminComponent implements OnInit {
   private readonly http = inject(HttpClient);
   private readonly router = inject(Router);
 
+  protected isClearingLogs = false;
+  protected clearLogsErrorKey: string | null = null;
+
   protected isLoadingLogs = true;
   protected logFetchError: string | null = null;
   protected visibleLogs: { timestamp: string; role: string; name: string; company: string }[] = [];
@@ -27,6 +30,14 @@ export class CvSectionAdminComponent implements OnInit {
   protected cvAccessUniqueUsersSinceLastAdmin: number | null = null;
 
   ngOnInit(): void {
+    this.loadLogs();
+    this.loadStats();
+  }
+
+  private loadLogs(): void {
+    this.isLoadingLogs = true;
+    this.logFetchError = null;
+
     this.http
       .get('/api/cv-section/admin/logs', { withCredentials: true, responseType: 'text' })
       .pipe(
@@ -65,6 +76,11 @@ export class CvSectionAdminComponent implements OnInit {
           .sort((a, b) => (a.timestamp < b.timestamp ? 1 : -1))
           .slice(0, 200);
       });
+  }
+
+  private loadStats(): void {
+    this.isLoadingStats = true;
+    this.statsFetchError = null;
 
     this.http
       .get<{ lastAdminLogin: string | null; cvAccessUniqueUsersSinceLastAdmin: number }>(
@@ -88,6 +104,30 @@ export class CvSectionAdminComponent implements OnInit {
     const d = new Date(iso);
     if (Number.isNaN(d.getTime())) return iso;
     return d.toLocaleString('de-DE', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' });
+  }
+
+  onClearLogsClick(): void {
+    if (this.isClearingLogs) return;
+
+    const confirmed = window.confirm('Willst du wirklich alle Login-Logs löschen?');
+    if (!confirmed) return;
+
+    this.isClearingLogs = true;
+    this.clearLogsErrorKey = null;
+
+    this.http
+      .post('/api/cv-section/admin/logs/clear', {}, { withCredentials: true })
+      .subscribe({
+        next: () => {
+          this.isClearingLogs = false;
+          this.loadLogs();
+          this.loadStats();
+        },
+        error: () => {
+          this.isClearingLogs = false;
+          this.clearLogsErrorKey = 'CV_SECTION.CLEAR_LOGS_FAILED';
+        }
+      });
   }
 
   onLogoutClick(): void {
