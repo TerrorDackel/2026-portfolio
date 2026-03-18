@@ -17,7 +17,8 @@
             <img
               class="cv-doc-image"
               [src]="doc.imgSrc"
-              [alt]="doc.imgAltKey | translate"
+              alt="{{ doc.imgAltKey | translate }}"
+              title="{{ doc.titleKey | translate }}"
               loading="lazy"
             />
           </div>
