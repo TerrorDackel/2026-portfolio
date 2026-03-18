@@ -53,9 +53,13 @@
             (showPassword ? 'CV_SECTION.HIDE_PASSWORD' : 'CV_SECTION.SHOW_PASSWORD') | translate
           "
         >
-          <span>
-            {{ showPassword ? ('CV_SECTION.PW_VISIBLE' | translate) : ('CV_SECTION.PW_HIDDEN' | translate) }}
-          </span>
+          <img
+            class="cv-section-toggle-icon"
+            [src]="showPassword ? 'assets/img/icon/17.png' : 'assets/img/icon/21.png'"
+            alt=""
+            [attr.title]="(showPassword ? 'CV_SECTION.HIDE_PASSWORD' : 'CV_SECTION.SHOW_PASSWORD') | translate"
+            aria-hidden="true"
+          />
         </button>
       </div>
 
