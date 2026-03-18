@@ -147,6 +147,7 @@
         "ADMIN_TITLE": "Admin area",
         "ADMIN_SUBTITLE": "Habedere Jenny, welcome to the admin area.",
         "ADMIN_PLACEHOLDER": "This is where you will later find your login overview and further management functions for the protected area.",
+        "ADMIN_GREETING_WITH_COUNT": "Habedere Jenny, there were {{count}} people logged in to your CV area since your last login.",
         "DOC_SECTION_TITLE": "Documents",
         "DOC_RESUME_TITLE": "Résumé (DE)",
         "DOC_RESUME_DESC": "Print-optimised HTML view of the résumé.",
