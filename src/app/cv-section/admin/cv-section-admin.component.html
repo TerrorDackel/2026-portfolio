@@ -25,6 +25,31 @@
           {{ 'CV_SECTION.ADMIN_PLACEHOLDER' | translate }}
         </p>
       </div>
+
+      <div class="cv-admin-logs" aria-label="Login-Logs">
+        @if (isLoadingLogs) {
+          <p>Logs werden geladen...</p>
+        } @else if (logFetchError) {
+          <p>Logs konnten nicht geladen werden.</p>
+        } @else if (visibleLogs.length === 0) {
+          <p>Keine Login-Logs vorhanden.</p>
+        } @else {
+          <div class="cv-admin-logs-table">
+            <div class="cv-admin-logs-head">
+              <div>Uhrzeit/Datum</div>
+              <div>Rolle</div>
+              <div>Name</div>
+            </div>
+            @for (log of visibleLogs; track log.timestamp + log.name) {
+              <div class="cv-admin-logs-row">
+                <div>{{ formatTimestamp(log.timestamp) }}</div>
+                <div>{{ log.role }}</div>
+                <div>{{ log.name }}</div>
+              </div>
+            }
+          </div>
+        }
+      </div>
       <div class="cv-admin-links">
         <p>
           <a

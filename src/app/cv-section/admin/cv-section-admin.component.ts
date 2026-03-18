@@ -1,9 +1,10 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { CvSectionSessionService } from '../cv-section-session.service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { catchError, of } from 'rxjs';
 
 @Component({
   selector: 'app-cv-section-admin',
@@ -12,10 +13,60 @@ import { Router } from '@angular/router';
   templateUrl: './cv-section-admin.component.html',
   styleUrls: ['./cv-section-admin.component.sass']
 })
-export class CvSectionAdminComponent {
+export class CvSectionAdminComponent implements OnInit {
   private readonly sessionService = inject(CvSectionSessionService);
   private readonly http = inject(HttpClient);
   private readonly router = inject(Router);
+
+  protected isLoadingLogs = true;
+  protected logFetchError: string | null = null;
+  protected visibleLogs: Array<{ timestamp: string; role: string; name: string }> = [];
+
+  ngOnInit(): void {
+    this.http
+      .get('/api/cv-section/admin/logs', { withCredentials: true, responseType: 'text' })
+      .pipe(
+        catchError(() => {
+          this.isLoadingLogs = false;
+          this.logFetchError = 'LOGS_COULD_NOT_BE_LOADED';
+          return of('');
+        })
+      )
+      .subscribe((raw) => {
+        this.isLoadingLogs = false;
+        if (!raw?.trim()) {
+          this.visibleLogs = [];
+          return;
+        }
+
+        const lines = raw
+          .split('\n')
+          .map((l) => l.trim())
+          .filter(Boolean);
+
+        const parsed = lines
+          .map((line) => {
+            const parts = line.split(' | ');
+            const timestamp = parts[0] ?? '';
+            const role = parts[1] ?? '';
+            const name = parts.slice(2).join(' | ');
+            return { timestamp, role, name };
+          })
+          .filter((e) => e.timestamp && e.role && e.name);
+
+        // Per requirement: show only non-admin login attempts in the admin area.
+        this.visibleLogs = parsed
+          .filter((e) => e.role === 'ROLE_CV_ACCESS')
+          .sort((a, b) => (a.timestamp < b.timestamp ? 1 : -1))
+          .slice(0, 200);
+      });
+  }
+
+  protected formatTimestamp(iso: string): string {
+    const d = new Date(iso);
+    if (Number.isNaN(d.getTime())) return iso;
+    return d.toLocaleString('de-DE', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' });
+  }
 
   onLogoutClick(): void {
     this.http
