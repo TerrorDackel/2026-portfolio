@@ -139,7 +139,7 @@
         "SESSION_EXPIRED": "You have been logged out automatically due to inactivity.",
         "HOME_TITLE": "Detailed profile area",
         "HOME_INTRO": "Welcome to the protected area. Here you will find your CV, certificates and background information about my projects.",
-        "HOME_PLACEHOLDER": "This is where I will gradually add more content for recruiters and fellow engineers.",
+        "HOME_PLACEHOLDER": "",
         "ADMIN_TITLE": "Admin area",
         "ADMIN_SUBTITLE": "Habedere Jenny, welcome to the admin area.",
         "ADMIN_PLACEHOLDER": "This is where you will later find your login overview and further management functions for the protected area.",
