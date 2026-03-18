@@ -27,41 +27,73 @@ type ParsedLogEntry = {
   rawLine: string;
 };
 
-const parseLogLines = (content: string): ParsedLogEntry[] => {
-  const cutoffMs = Date.now() - LOG_RETENTION_DAYS * 24 * 60 * 60 * 1000;
-  const lines = String(content ?? '')
+/**
+ * Extracts non-empty log lines from raw file content.
+ */
+const getRawLogLines = (content: string): string[] => {
+  return String(content ?? '')
     .split('\n')
     .map((l) => l.trim())
     .filter(Boolean);
-
-  return lines
-    .map((line) => {
-      const parts = line.split(' | ');
-      const timestampIso = parts[0] ?? '';
-      const role = parts[1] ?? '';
-      const name = parts[2] ?? '';
-      const company = parts[3] ?? '';
-      const timestampMs = Date.parse(timestampIso);
-      if (!timestampIso || !role || !name || Number.isNaN(timestampMs)) return null;
-      return { timestampIso, timestampMs, role, name, company, rawLine: line };
-    })
-    .filter(Boolean) as ParsedLogEntry[];
 };
 
+/**
+ * Parses a single log line into a validated ParsedLogEntry.
+ * Returns null if the line does not match the expected format.
+ */
+const parseSingleLogLine = (line: string): ParsedLogEntry | null => {
+  const parts = line.split(' | ');
+  const timestampIso = parts[0] ?? '';
+  const role = parts[1] ?? '';
+  const name = parts[2] ?? '';
+  const company = parts[3] ?? '';
+  const timestampMs = Date.parse(timestampIso);
+
+  if (!timestampIso || !role || !name || Number.isNaN(timestampMs)) return null;
+  return { timestampIso, timestampMs, role, name, company, rawLine: line };
+};
+
+/**
+ * Parses all log lines and returns only valid entries.
+ */
+const parseLogLines = (content: string): ParsedLogEntry[] => {
+  const lines = getRawLogLines(content);
+  return lines.map(parseSingleLogLine).filter((e): e is ParsedLogEntry => Boolean(e));
+};
+
+const getRetentionCutoffMs = (): number => {
+  return Date.now() - LOG_RETENTION_DAYS * 24 * 60 * 60 * 1000;
+};
+
+const readLogFileContent = (): string | null => {
+  if (!fs.existsSync(LOG_FILE_PATH)) return null;
+  return fs.readFileSync(LOG_FILE_PATH, 'utf8');
+};
+
+const filterEntriesByRetention = (entries: ParsedLogEntry[], cutoffMs: number): ParsedLogEntry[] => {
+  return entries.filter((e) => e.timestampMs >= cutoffMs);
+};
+
+const writeLogFileContentIfChanged = (original: string, entries: ParsedLogEntry[]): void => {
+  const keptRawLines = entries.map((e) => e.rawLine);
+  const newContent = keptRawLines.length ? `${keptRawLines.join('\n')}\n` : '';
+  if (newContent === original) return;
+  fs.writeFileSync(LOG_FILE_PATH, newContent, 'utf8');
+};
+
+/**
+ * Removes login log entries older than the retention window.
+ * Failures should not block the login flow.
+ */
 const cleanupOldLoginLogs = (): void => {
   try {
-    if (!fs.existsSync(LOG_FILE_PATH)) return;
+    const content = readLogFileContent();
+    if (!content) return;
 
-    const content = fs.readFileSync(LOG_FILE_PATH, 'utf8');
     const entries = parseLogLines(content);
-    const cutoffMs = Date.now() - LOG_RETENTION_DAYS * 24 * 60 * 60 * 1000;
-
-    const keptRawLines = entries.filter((e) => e.timestampMs >= cutoffMs).map((e) => e.rawLine);
-    const newContent = keptRawLines.length ? `${keptRawLines.join('\n')}\n` : '';
-
-    if (newContent !== content) {
-      fs.writeFileSync(LOG_FILE_PATH, newContent, 'utf8');
-    }
+    const cutoffMs = getRetentionCutoffMs();
+    const keptEntries = filterEntriesByRetention(entries, cutoffMs);
+    writeLogFileContentIfChanged(content, keptEntries);
   } catch (err) {
     // eslint-disable-next-line no-console
     console.error('Failed to cleanup old login logs', err);
@@ -77,27 +109,53 @@ type AdminStats = {
  * Computes the admin statistics from already parsed log entries.
  * The unique CV-access user count is calculated relative to the previous admin login.
  */
+/**
+ * Filters admin log entries and sorts them newest-first.
+ */
+const getSortedAdminEntries = (entries: ParsedLogEntry[]): ParsedLogEntry[] => {
+  return entries.filter((e) => e.role === 'ROLE_ADMIN').sort((a, b) => b.timestampMs - a.timestampMs);
+};
+
+/**
+ * Extracts the last and previous admin login entries.
+ */
+const pickAdminBounds = (adminEntries: ParsedLogEntry[]) => {
+  return { currentAdmin: adminEntries[0] ?? null, previousAdmin: adminEntries[1] ?? null };
+};
+
+/**
+ * Filters CV-access logs to the window between previous and current admin logins.
+ * If there is no previous admin, it includes all CV-access logs.
+ */
+const filterCvAccessForBounds = (
+  entries: ParsedLogEntry[],
+  bounds: { currentAdmin: ParsedLogEntry | null; previousAdmin: ParsedLogEntry | null }
+): ParsedLogEntry[] => {
+  const { currentAdmin, previousAdmin } = bounds;
+
+  if (!previousAdmin) return entries.filter((e) => e.role === 'ROLE_CV_ACCESS');
+
+  return entries.filter(
+    (e) =>
+      e.role === 'ROLE_CV_ACCESS' &&
+      e.timestampMs > previousAdmin.timestampMs &&
+      (!currentAdmin || e.timestampMs <= currentAdmin.timestampMs)
+  );
+};
+
+/** Counts unique CV-access user names. */
+const countUniqueCvAccessNames = (entries: ParsedLogEntry[]): number => {
+  return new Set(entries.map((e) => e.name)).size;
+};
+
 const computeAdminStats = (entries: ParsedLogEntry[]): AdminStats => {
-  const adminEntries = entries
-    .filter((e) => e.role === 'ROLE_ADMIN')
-    .sort((a, b) => b.timestampMs - a.timestampMs);
+  const adminEntries = getSortedAdminEntries(entries);
+  const bounds = pickAdminBounds(adminEntries);
+  const relevantCvAccess = filterCvAccessForBounds(entries, bounds);
 
-  const currentAdmin = adminEntries[0] ?? null;
-  const previousAdmin = adminEntries[1] ?? null;
-
-  const relevantCvAccess = previousAdmin
-    ? entries.filter(
-        (e) =>
-          e.role === 'ROLE_CV_ACCESS' &&
-          e.timestampMs > previousAdmin.timestampMs &&
-          (!currentAdmin || e.timestampMs <= currentAdmin.timestampMs)
-      )
-    : entries.filter((e) => e.role === 'ROLE_CV_ACCESS');
-
-  const uniqueNames = new Set(relevantCvAccess.map((e) => e.name));
   return {
-    lastAdminLogin: previousAdmin ? previousAdmin.timestampIso : null,
-    cvAccessUniqueUsersSinceLastAdmin: uniqueNames.size
+    lastAdminLogin: bounds.previousAdmin ? bounds.previousAdmin.timestampIso : null,
+    cvAccessUniqueUsersSinceLastAdmin: countUniqueCvAccessNames(relevantCvAccess)
   };
 };
 
