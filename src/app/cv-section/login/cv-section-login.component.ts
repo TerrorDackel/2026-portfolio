@@ -29,6 +29,7 @@ export class CvSectionLoginComponent implements OnInit, OnDestroy {
   private readonly sessionService = inject(CvSectionSessionService);
 
   private warningSub?: Subscription;
+  private nameSub?: Subscription;
 
   private readonly validateCompanyLetters = (control: AbstractControl): { invalidCompany: true } | null => {
     const raw = String(control.value ?? '');
@@ -46,6 +47,9 @@ export class CvSectionLoginComponent implements OnInit, OnDestroy {
 
   loginForm: FormGroup = this.fb.group({
     name: ['', [Validators.required]],
+    // Requirement ist dynamisch:
+    // - bei Admin (Name == "Admin") ist Firma optional
+    // - bei allen anderen (CV-Zugang) ist Firma Pflicht
     company: ['', [this.validateCompanyLetters]],
     password: ['', [Validators.required]]
   });
@@ -59,6 +63,11 @@ export class CvSectionLoginComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.warningSub = this.sessionService.warning$.subscribe((show) => {
       this.showInactivityWarning = show;
+    });
+
+    this.syncCompanyRequirement(this.loginForm.controls.name.value);
+    this.nameSub = this.loginForm.controls.name.valueChanges.subscribe((value) => {
+      this.syncCompanyRequirement(value);
     });
 
     const reason = this.route.snapshot.queryParamMap.get('reason');
@@ -78,6 +87,16 @@ export class CvSectionLoginComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.warningSub?.unsubscribe();
+    this.nameSub?.unsubscribe();
+  }
+
+  private syncCompanyRequirement(nameValue: string | null | undefined): void {
+    const trimmed = String(nameValue ?? '').trim();
+    const isAdminAttempt = trimmed === 'Admin';
+
+    const companyControl = this.loginForm.controls.company;
+    companyControl.setValidators(isAdminAttempt ? [this.validateCompanyLetters] : [Validators.required, this.validateCompanyLetters]);
+    companyControl.updateValueAndValidity({ emitEvent: false });
   }
 
   togglePasswordVisibility(): void {
