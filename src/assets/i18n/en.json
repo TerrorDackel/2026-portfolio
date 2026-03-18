@@ -142,7 +142,7 @@
         "SESSION_WARNING": "For security reasons you will be logged out automatically in 30 seconds if you remain inactive.",
         "SESSION_EXPIRED": "You have been logged out automatically due to inactivity.",
         "HOME_TITLE": "Detailed profile area",
-        "HOME_INTRO": "Welcome to the protected area. Here you will find your CV, certificates and background information about my projects.",
+        "HOME_INTRO": "Welcome to the protected area, {{name}}. Here you will find your CV, certificates and background information about my projects.",
         "HOME_PLACEHOLDER": "",
         "ADMIN_TITLE": "Admin area",
         "ADMIN_SUBTITLE": "Habedere Jenny, welcome to the admin area.",
