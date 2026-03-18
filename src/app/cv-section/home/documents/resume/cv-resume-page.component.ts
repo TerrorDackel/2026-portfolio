@@ -9,5 +9,10 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./cv-resume-page.component.sass'],
   encapsulation: ViewEncapsulation.None
 })
-export class CvResumePageComponent {}
+export class CvResumePageComponent {
+  print(): void {
+    window.print();
+  }
+}
+
 

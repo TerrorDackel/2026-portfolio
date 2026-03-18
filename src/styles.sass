@@ -49,3 +49,21 @@ a
   font-weight: 400
   font-style: normal
   font-optical-sizing: auto
+
+@media print
+  app-header,
+  app-footer,
+  .header-section,
+  .footer-section,
+  .navbar-desktop,
+  .navbar-mobile,
+  .navbar-mobile-links-container,
+  .cv-actions,
+  .cv-print-button
+    display: none !important
+
+  html,
+  body
+    background: #ffffff !important
+    color: #000000 !important
+    overflow: visible !important

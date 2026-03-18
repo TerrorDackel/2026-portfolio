@@ -1,6 +1,6 @@
 .cv-header
   @media (max-width: 720px)
-    padding: 24px 20px
+    padding: calc(24px + 72px + 1rem) 20px 24px
 
 @media (max-width: 720px)
   .cv-header-inner
@@ -16,6 +16,9 @@
 
   .cv-card
     padding: 1rem 1.25rem
+
+  .cv-cert-intro-grid
+    grid-template-columns: 1fr
 
 @media print
   html,
