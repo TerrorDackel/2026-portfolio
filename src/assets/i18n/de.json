@@ -124,7 +124,7 @@
     },
     "CV_SECTION": {
         "LOGIN_TITLE": "Geschützter Profilbereich",
-        "LOGIN_SUBTITLE": "Bitte geben Sie Ihren Namen und das Zugangspasswort ein.",
+        "LOGIN_SUBTITLE": "Bitte geben Sie Ihren Namen, Firma und das Zugangspasswort ein.",
         "PLACEHOLDER_NAME": "Ihr Name",
         "PLACEHOLDER_COMPANY": "Ihre Firma",
         "PLACEHOLDER_PASSWORD": "Passwort",

@@ -266,18 +266,29 @@ app.get('/api/cv-section/admin/stats', authenticateJwt, authorizeRole('ROLE_ADMI
 
     const entries = parseLogLines(content);
 
-    const lastAdmin = entries
+    const adminEntries = entries
       .filter((e) => e.role === 'ROLE_ADMIN')
-      .sort((a, b) => (a.timestampMs < b.timestampMs ? 1 : -1))[0];
+      .sort((a, b) => b.timestampMs - a.timestampMs);
 
-    const cvAfterLastAdmin = lastAdmin
-      ? entries.filter((e) => e.role === 'ROLE_CV_ACCESS' && e.timestampMs > lastAdmin.timestampMs)
+    // Wichtig: Wenn die Admin-Statistik geladen wird, wurde der aktuelle Admin-Login
+    // bereits als letzter Log-Eintrag geschrieben. Daher zählen wir CV-Logins erst
+    // seit dem vorherigen Admin-Login (vor dem aktuellen).
+    const currentAdmin = adminEntries[0] ?? null;
+    const previousAdmin = adminEntries[1] ?? null;
+
+    const cvAfterPreviousAdmin = previousAdmin
+      ? entries.filter(
+          (e) =>
+            e.role === 'ROLE_CV_ACCESS' &&
+            e.timestampMs > previousAdmin.timestampMs &&
+            (!currentAdmin || e.timestampMs <= currentAdmin.timestampMs)
+        )
       : entries.filter((e) => e.role === 'ROLE_CV_ACCESS');
 
-    const uniqueNames = new Set(cvAfterLastAdmin.map((e) => e.name));
+    const uniqueNames = new Set(cvAfterPreviousAdmin.map((e) => e.name));
 
     res.json({
-      lastAdminLogin: lastAdmin ? lastAdmin.timestampIso : null,
+      lastAdminLogin: previousAdmin ? previousAdmin.timestampIso : null,
       cvAccessUniqueUsersSinceLastAdmin: uniqueNames.size
     });
   });
