@@ -77,14 +77,12 @@
           <div class="cv-admin-logs-table">
             <div class="cv-admin-logs-head">
               <div>Uhrzeit/Datum</div>
-              <div>Rolle</div>
               <div>Name</div>
               <div>Firma</div>
             </div>
             @for (log of visibleLogs; track log.timestamp + log.name + log.company) {
               <div class="cv-admin-logs-row">
                 <div>{{ formatTimestamp(log.timestamp) }}</div>
-                <div>{{ log.role }}</div>
                 <div>{{ log.name }}</div>
                 <div>{{ log.company || '—' }}</div>
               </div>
