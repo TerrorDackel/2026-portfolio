@@ -177,7 +177,7 @@ const authorizeRole = (role: CvSectionRole) => {
 app.post('/api/cv-section/login', async (req: Request, res: Response): Promise<void> => {
   const { password, name, company } = req.body as { password?: string; name?: string; company?: string };
 
-  if (!password || !name || !company) {
+  if (!password || !name) {
     res.status(400).json({ error: 'MISSING_CREDENTIALS' });
     return;
   }
@@ -204,12 +204,13 @@ app.post('/api/cv-section/login', async (req: Request, res: Response): Promise<v
     return;
   }
 
-  if (!isValidCompany(company)) {
+  const normalizedCompany = role === 'ROLE_CV_ACCESS' ? String(company ?? '').trim() : '';
+  if (role === 'ROLE_CV_ACCESS' && !isValidCompany(normalizedCompany)) {
     res.status(400).json({ error: 'INVALID_COMPANY' });
     return;
   }
 
-  const payload: JwtPayload = { name, role, company };
+  const payload: JwtPayload = { name, role, company: normalizedCompany };
   const token = jwt.sign(payload, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN_SECONDS });
 
   res.cookie('cv_section_token', token, {
@@ -219,11 +220,11 @@ app.post('/api/cv-section/login', async (req: Request, res: Response): Promise<v
     maxAge: JWT_EXPIRES_IN_SECONDS * 1000
   });
 
-  appendLoginLog(name, company, role);
+  appendLoginLog(name, normalizedCompany, role);
 
   res.json({
     name,
-    company,
+    company: normalizedCompany,
     role,
     expiresInSeconds: JWT_EXPIRES_IN_SECONDS
   });

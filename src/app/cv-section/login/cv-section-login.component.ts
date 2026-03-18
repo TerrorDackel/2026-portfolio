@@ -46,7 +46,7 @@ export class CvSectionLoginComponent implements OnInit, OnDestroy {
 
   loginForm: FormGroup = this.fb.group({
     name: ['', [Validators.required]],
-    company: ['', [Validators.required, this.validateCompanyLetters]],
+    company: ['', [this.validateCompanyLetters]],
     password: ['', [Validators.required]]
   });
 
