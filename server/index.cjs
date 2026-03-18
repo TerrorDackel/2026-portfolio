@@ -15,40 +15,81 @@ const JWT_EXPIRES_IN_SECONDS = 60 * 5; // 5 Minuten
 const LOG_FILE_PATH = path.join(__dirname, 'logs', 'cv-logins.log');
 const LOG_RETENTION_DAYS = 30;
 
-const parseLogLines = (content) => {
-  const cutoff = LOG_RETENTION_DAYS * 24 * 60 * 60 * 1000;
-  const lines = String(content ?? '')
+/**
+ * Extracts non-empty log lines from raw file content.
+ *
+ * @param {string} content
+ * @returns {string[]}
+ */
+const getRawLogLines = (content) => {
+  return String(content ?? '')
     .split('\n')
     .map((l) => l.trim())
     .filter(Boolean);
-
-  return lines
-    .map((line) => {
-      const parts = line.split(' | ');
-      const timestampIso = parts[0] ?? '';
-      const role = parts[1] ?? '';
-      const name = parts[2] ?? '';
-      const company = parts[3] ?? '';
-      const timestampMs = Date.parse(timestampIso);
-      if (!timestampIso || !role || !name || Number.isNaN(timestampMs)) return null;
-      return { timestampIso, timestampMs, role, name, company, rawLine: line };
-    })
-    .filter(Boolean);
 };
 
+/**
+ * Parses a single log line into a validated entry.
+ * Returns null when the line does not match the expected format.
+ *
+ * @param {string} line
+ * @returns {{timestampIso: string, timestampMs: number, role: string, name: string, company: string, rawLine: string} | null}
+ */
+const parseSingleLogLine = (line) => {
+  const parts = line.split(' | ');
+  const timestampIso = parts[0] ?? '';
+  const role = parts[1] ?? '';
+  const name = parts[2] ?? '';
+  const company = parts[3] ?? '';
+  const timestampMs = Date.parse(timestampIso);
+
+  if (!timestampIso || !role || !name || Number.isNaN(timestampMs)) return null;
+  return { timestampIso, timestampMs, role, name, company, rawLine: line };
+};
+
+/**
+ * Parses all valid log lines.
+ *
+ * @param {string} content
+ * @returns {Array}
+ */
+const parseLogLines = (content) => {
+  return getRawLogLines(content).map(parseSingleLogLine).filter((e) => Boolean(e));
+};
+
+const getRetentionCutoffMs = () => {
+  return Date.now() - LOG_RETENTION_DAYS * 24 * 60 * 60 * 1000;
+};
+
+const readLogFileContent = () => {
+  if (!fs.existsSync(LOG_FILE_PATH)) return null;
+  return fs.readFileSync(LOG_FILE_PATH, 'utf8');
+};
+
+const filterEntriesByRetention = (entries, cutoffMs) => {
+  return entries.filter((e) => e.timestampMs >= cutoffMs);
+};
+
+const writeLogFileContentIfChanged = (original, entries) => {
+  const keptRawLines = entries.map((e) => e.rawLine);
+  const newContent = keptRawLines.length ? `${keptRawLines.join('\n')}\n` : '';
+  if (newContent === original) return;
+  fs.writeFileSync(LOG_FILE_PATH, newContent, 'utf8');
+};
+
+/**
+ * Removes login log entries older than the retention window.
+ * Failures do not block the login flow.
+ */
 const cleanupOldLoginLogs = () => {
   try {
-    if (!fs.existsSync(LOG_FILE_PATH)) return;
+    const content = readLogFileContent();
+    if (!content) return;
 
-    const cutoffMs = Date.now() - LOG_RETENTION_DAYS * 24 * 60 * 60 * 1000;
-    const content = fs.readFileSync(LOG_FILE_PATH, 'utf8');
-    const parsed = parseLogLines(content);
-    const kept = parsed.filter((e) => e.timestampMs >= cutoffMs).map((e) => e.rawLine);
-
-    const newContent = kept.length ? `${kept.join('\n')}\n` : '';
-    if (newContent !== content) {
-      fs.writeFileSync(LOG_FILE_PATH, newContent, 'utf8');
-    }
+    const entries = parseLogLines(content);
+    const cutoffMs = getRetentionCutoffMs();
+    const keptEntries = filterEntriesByRetention(entries, cutoffMs);
+    writeLogFileContentIfChanged(content, keptEntries);
   } catch (err) {
     // Nicht hart fehlschlagen: Login-Funktion soll weiterhin funktionieren.
     // eslint-disable-next-line no-console
