@@ -5,8 +5,8 @@ import { ContentComponent } from './content/content.component';
 import { CvSectionLoginComponent } from './cv-section/login/cv-section-login.component';
 import { CvSectionHomeComponent } from './cv-section/home/cv-section-home.component';
 import { CvSectionAdminComponent } from './cv-section/admin/cv-section-admin.component';
-import { CvResumePageComponent } from './cv-section/home/documents/cv-resume-page.component';
-import { CvCertificatePageComponent } from './cv-section/home/documents/cv-certificate-page.component';
+import { CvResumePageComponent } from './cv-section/home/documents/resume/cv-resume-page.component';
+import { CvCertificatePageComponent } from './cv-section/home/documents/certificate/cv-certificate-page.component';
 
 /**
  * Application route configuration.

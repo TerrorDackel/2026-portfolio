@@ -2,12 +2,12 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-cv-resume-page',
+  selector: 'app-cv-certificate-page',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './cv-resume-page.component.html',
-  styleUrls: ['./cv-document-page.sass'],
+  templateUrl: './cv-certificate-page.component.html',
+  styleUrls: ['../cv-document-page.sass'],
   encapsulation: ViewEncapsulation.None
 })
-export class CvResumePageComponent {}
+export class CvCertificatePageComponent {}
 
