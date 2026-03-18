@@ -56,6 +56,34 @@ const cleanupOldLoginLogs = () => {
   }
 };
 
+/**
+ * Computes admin statistics from already parsed log entries.
+ * CV-access unique user count is calculated relative to the previous admin login.
+ *
+ * @param {Array<{ timestampMs: number, role: string, name: string, timestampIso: string }>} entries
+ * @returns {{ lastAdminLogin: string | null, cvAccessUniqueUsersSinceLastAdmin: number }}
+ */
+const computeAdminStats = (entries) => {
+  const adminEntries = entries
+    .filter((e) => e.role === 'ROLE_ADMIN')
+    .sort((a, b) => b.timestampMs - a.timestampMs);
+
+  const currentAdmin = adminEntries[0] ?? null;
+  const previousAdmin = adminEntries[1] ?? null;
+
+  const relevantCvAccess = previousAdmin
+    ? entries.filter(
+        (e) =>
+          e.role === 'ROLE_CV_ACCESS' &&
+          e.timestampMs > previousAdmin.timestampMs &&
+          (!currentAdmin || e.timestampMs <= currentAdmin.timestampMs)
+      )
+    : entries.filter((e) => e.role === 'ROLE_CV_ACCESS');
+
+  const uniqueNames = new Set(relevantCvAccess.map((e) => e.name));
+  return { lastAdminLogin: previousAdmin ? previousAdmin.timestampIso : null, cvAccessUniqueUsersSinceLastAdmin: uniqueNames.size };
+};
+
 /** @typedef {'ROLE_ADMIN' | 'ROLE_CV_ACCESS'} CvSectionRole */
 
 /**
@@ -269,31 +297,7 @@ app.get('/api/cv-section/admin/stats', authenticateJwt, authorizeRole('ROLE_ADMI
     }
 
     const entries = parseLogLines(content);
-    const adminEntries = entries
-      .filter((e) => e.role === 'ROLE_ADMIN')
-      .sort((a, b) => b.timestampMs - a.timestampMs);
-
-    // Wichtig: Wenn die Admin-Statistik geladen wird, wurde der aktuelle Admin-Login
-    // bereits als letzter Log-Eintrag geschrieben. Daher zählen wir CV-Logins erst
-    // seit dem vorherigen Admin-Login (vor dem aktuellen).
-    const currentAdmin = adminEntries[0] ?? null;
-    const previousAdmin = adminEntries[1] ?? null;
-
-    const cvAfterPreviousAdmin = previousAdmin
-      ? entries.filter(
-          (e) =>
-            e.role === 'ROLE_CV_ACCESS' &&
-            e.timestampMs > previousAdmin.timestampMs &&
-            (!currentAdmin || e.timestampMs <= currentAdmin.timestampMs)
-        )
-      : entries.filter((e) => e.role === 'ROLE_CV_ACCESS');
-
-    const uniqueNames = new Set(cvAfterPreviousAdmin.map((e) => e.name));
-
-    res.json({
-      lastAdminLogin: previousAdmin ? previousAdmin.timestampIso : null,
-      cvAccessUniqueUsersSinceLastAdmin: uniqueNames.size
-    });
+    res.json(computeAdminStats(entries));
   });
 });
 

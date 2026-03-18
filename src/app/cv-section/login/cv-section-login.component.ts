@@ -60,103 +60,130 @@ export class CvSectionLoginComponent implements OnInit, OnDestroy {
   showPassword = false;
   showInactivityWarning = false;
 
+  /**
+   * Sets up UI subscriptions and initializes conditional validators.
+   */
   ngOnInit(): void {
-    this.warningSub = this.sessionService.warning$.subscribe((show) => {
-      this.showInactivityWarning = show;
-    });
-
-    this.syncCompanyRequirement(this.loginForm.controls['name'].value);
-    this.nameSub = this.loginForm.controls['name'].valueChanges.subscribe((value) => {
-      this.syncCompanyRequirement(value);
-    });
-
-    const reason = this.route.snapshot.queryParamMap.get('reason');
-    if (reason === 'timeout') {
-      this.inlineErrorKey = 'CV_SECTION.SESSION_EXPIRED';
-      this.showInlineError = true;
-      void this.router.navigate([], {
-        queryParams: { reason: null },
-        queryParamsHandling: 'merge'
-      });
-
-      setTimeout(() => {
-        this.showInlineError = false;
-      }, 3000);
-    }
+    this.setupInactivityWarning();
+    this.setupDynamicCompanyValidator();
+    this.handleTimeoutQueryParam();
   }
 
+  /** Cleans up subscriptions. */
   ngOnDestroy(): void {
     this.warningSub?.unsubscribe();
     this.nameSub?.unsubscribe();
   }
 
+  /**
+   * Makes the company field required only for CV-access users.
+   * Admin attempts are detected by the special name "Admin".
+   */
   private syncCompanyRequirement(nameValue: string | null | undefined): void {
     const trimmed = String(nameValue ?? '').trim();
     const isAdminAttempt = trimmed === 'Admin';
 
     const companyControl = this.loginForm.controls['company'];
-    companyControl.setValidators(isAdminAttempt ? [this.validateCompanyLetters] : [Validators.required, this.validateCompanyLetters]);
+    const validators = isAdminAttempt ? [this.validateCompanyLetters] : [Validators.required, this.validateCompanyLetters];
+    companyControl.setValidators(validators);
     companyControl.updateValueAndValidity({ emitEvent: false });
   }
 
+  /** Toggles the password visibility input. */
   togglePasswordVisibility(): void {
     this.showPassword = !this.showPassword;
   }
 
+  /** Handles the submit action from the login form. */
   onSubmit(): void {
-    if (this.loginForm.invalid || this.isSubmitting) {
-      return;
-    }
+    if (!this.canSubmit()) return;
+    this.startSubmitState();
 
+    const payload = this.buildLoginPayload();
+    this.requestLogin(payload).subscribe({
+      next: (response) => this.handleLoginSuccess(response),
+      error: (error) => this.handleLoginError(error)
+    });
+  }
+
+  /** Returns true if we are allowed to submit the form. */
+  private canSubmit(): boolean {
+    return !this.isSubmitting && this.loginForm.valid;
+  }
+
+  /** Applies a submitting UI state. */
+  private startSubmitState(): void {
     this.isSubmitting = true;
     this.inlineErrorKey = null;
     this.showInlineError = false;
+  }
 
+  /** Builds the backend payload from the reactive form. */
+  private buildLoginPayload(): { name: string; company: string; password: string } {
     const { name, company, password } = this.loginForm.value as { name: string; company: string; password: string };
+    return { name, company, password };
+  }
 
-    this.http
-      .post<CvSectionMeResponse>(
-        '/api/cv-section/login',
-        { name, company, password },
-        {
-          withCredentials: true
-        }
-      )
-      .subscribe({
-        next: (response) => {
-          void this.translate
-            .get('CV_SECTION.LOGIN_SUCCESS', {
-              name: response.name
-            })
-            .toPromise();
-          this.isSubmitting = false;
-          this.sessionService.start();
-          if (response.role === 'ROLE_ADMIN') {
-            void this.router.navigate(['/cv-section/admin']);
-          } else {
-            void this.router.navigate(['/cv-section/home']);
-          }
-        },
-        error: (error) => {
-          this.isSubmitting = false;
+  /** Requests the login endpoint and returns an observable. */
+  private requestLogin(payload: { name: string; company: string; password: string }) {
+    return this.http.post<CvSectionMeResponse>('/api/cv-section/login', payload, { withCredentials: true });
+  }
 
-          if (error?.error?.error === 'INVALID_PASSWORD') {
-            this.inlineErrorKey = 'CV_SECTION.ERROR_INVALID_PASSWORD';
-          } else if (error?.error?.error === 'INVALID_NAME') {
-            this.inlineErrorKey = 'CV_SECTION.ERROR_INVALID_NAME';
-          } else if (error?.error?.error === 'INVALID_COMPANY') {
-            this.inlineErrorKey = 'CV_SECTION.ERROR_INVALID_COMPANY';
-          } else {
-            this.inlineErrorKey = 'CV_SECTION.ERROR_GENERIC';
-          }
+  /** Handles the successful login response. */
+  private handleLoginSuccess(response: CvSectionMeResponse): void {
+    void this.translate.get('CV_SECTION.LOGIN_SUCCESS', { name: response.name }).toPromise();
+    this.finishSubmitState();
+    this.sessionService.start();
+    const route = response.role === 'ROLE_ADMIN' ? '/cv-section/admin' : '/cv-section/home';
+    void this.router.navigate([route]);
+  }
 
-          this.showInlineError = true;
+  /** Applies the error UI state after a failed login. */
+  private handleLoginError(error: unknown): void {
+    this.finishSubmitState();
+    this.inlineErrorKey = this.mapLoginErrorToKey(error);
+    this.showInlineError = true;
+    setTimeout(() => (this.showInlineError = false), 3000);
+  }
 
-          setTimeout(() => {
-            this.showInlineError = false;
-          }, 3000);
-        }
-      });
+  /** Sets submitting flags back to idle. */
+  private finishSubmitState(): void {
+    this.isSubmitting = false;
+  }
+
+  /** Maps backend error codes to the translation keys. */
+  private mapLoginErrorToKey(error: unknown): string {
+    const typedError = error as { error?: { error?: string } } | null;
+    const code = typedError?.error?.error;
+    if (code === 'INVALID_PASSWORD') return 'CV_SECTION.ERROR_INVALID_PASSWORD';
+    if (code === 'INVALID_NAME') return 'CV_SECTION.ERROR_INVALID_NAME';
+    if (code === 'INVALID_COMPANY') return 'CV_SECTION.ERROR_INVALID_COMPANY';
+    return 'CV_SECTION.ERROR_GENERIC';
+  }
+
+  /** Subscribes to inactivity warnings shown by the session service. */
+  private setupInactivityWarning(): void {
+    this.warningSub = this.sessionService.warning$.subscribe((show) => {
+      this.showInactivityWarning = show;
+    });
+  }
+
+  /** Enables or disables the company field requirement based on user name. */
+  private setupDynamicCompanyValidator(): void {
+    const nameControl = this.loginForm.controls['name'];
+    this.syncCompanyRequirement(nameControl.value);
+    this.nameSub = nameControl.valueChanges.subscribe((value) => this.syncCompanyRequirement(value));
+  }
+
+  /** Shows an inline error if the login page was opened after session timeout. */
+  private handleTimeoutQueryParam(): void {
+    const reason = this.route.snapshot.queryParamMap.get('reason');
+    if (reason !== 'timeout') return;
+
+    this.inlineErrorKey = 'CV_SECTION.SESSION_EXPIRED';
+    this.showInlineError = true;
+    void this.router.navigate([], { queryParams: { reason: null }, queryParamsHandling: 'merge' });
+    setTimeout(() => (this.showInlineError = false), 3000);
   }
 }
 

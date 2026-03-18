@@ -68,6 +68,39 @@ const cleanupOldLoginLogs = (): void => {
   }
 };
 
+type AdminStats = {
+  lastAdminLogin: string | null;
+  cvAccessUniqueUsersSinceLastAdmin: number;
+};
+
+/**
+ * Computes the admin statistics from already parsed log entries.
+ * The unique CV-access user count is calculated relative to the previous admin login.
+ */
+const computeAdminStats = (entries: ParsedLogEntry[]): AdminStats => {
+  const adminEntries = entries
+    .filter((e) => e.role === 'ROLE_ADMIN')
+    .sort((a, b) => b.timestampMs - a.timestampMs);
+
+  const currentAdmin = adminEntries[0] ?? null;
+  const previousAdmin = adminEntries[1] ?? null;
+
+  const relevantCvAccess = previousAdmin
+    ? entries.filter(
+        (e) =>
+          e.role === 'ROLE_CV_ACCESS' &&
+          e.timestampMs > previousAdmin.timestampMs &&
+          (!currentAdmin || e.timestampMs <= currentAdmin.timestampMs)
+      )
+    : entries.filter((e) => e.role === 'ROLE_CV_ACCESS');
+
+  const uniqueNames = new Set(relevantCvAccess.map((e) => e.name));
+  return {
+    lastAdminLogin: previousAdmin ? previousAdmin.timestampIso : null,
+    cvAccessUniqueUsersSinceLastAdmin: uniqueNames.size
+  };
+};
+
 // Feste Rollen
 type CvSectionRole = 'ROLE_ADMIN' | 'ROLE_CV_ACCESS';
 
@@ -173,59 +206,107 @@ const authorizeRole = (role: CvSectionRole) => {
   };
 };
 
-// Login-Endpoint für cv-section
-app.post('/api/cv-section/login', async (req: Request, res: Response): Promise<void> => {
-  const { password, name, company } = req.body as { password?: string; name?: string; company?: string };
+type LoginBody = { password?: string; name?: string; company?: string };
 
-  if (!password || !name) {
-    res.status(400).json({ error: 'MISSING_CREDENTIALS' });
-    return;
-  }
+type LoginSuccess = { name: string; company: string; role: CvSectionRole };
 
-  let role: CvSectionRole | null = null;
+type LoginFailure = { statusCode: number; errorKey: string };
 
+type LoginResult = { ok: true; data: LoginSuccess } | { ok: false; error: LoginFailure };
+
+/**
+ * Determines the user role from the provided password.
+ * Returns null if the password does not match any role.
+ */
+const getRoleFromPassword = async (password: string): Promise<CvSectionRole | null> => {
   const isAdminPassword = await bcrypt.compare(password, ADMIN_PASSWORD_HASH);
-  if (isAdminPassword) {
-    role = 'ROLE_ADMIN';
-  } else {
-    const isCvPassword = await bcrypt.compare(password, CV_ACCESS_PASSWORD_HASH);
-    if (isCvPassword) {
-      role = 'ROLE_CV_ACCESS';
-    }
-  }
+  if (isAdminPassword) return 'ROLE_ADMIN';
 
-  if (!role) {
-    res.status(401).json({ error: 'INVALID_PASSWORD' });
-    return;
-  }
+  const isCvPassword = await bcrypt.compare(password, CV_ACCESS_PASSWORD_HASH);
+  if (isCvPassword) return 'ROLE_CV_ACCESS';
 
-  if (!isValidName(name, role)) {
-    res.status(400).json({ error: 'INVALID_NAME' });
-    return;
-  }
+  return null;
+};
 
-  const normalizedCompany = role === 'ROLE_CV_ACCESS' ? String(company ?? '').trim() : '';
-  if (role === 'ROLE_CV_ACCESS' && !isValidCompany(normalizedCompany)) {
-    res.status(400).json({ error: 'INVALID_COMPANY' });
-    return;
-  }
+/**
+ * Normalizes the company field depending on the role.
+ * Admin users can skip it, so we store an empty string.
+ */
+const normalizeCompanyForRole = (role: CvSectionRole, company: unknown): string => {
+  if (role === 'ROLE_ADMIN') return '';
+  return String(company ?? '').trim();
+};
 
-  const payload: JwtPayload = { name, role, company: normalizedCompany };
+/**
+ * Validates the normalized company value for CV-access users.
+ * Admin users are allowed to keep it empty.
+ */
+const validateCompanyForRole = (role: CvSectionRole, normalizedCompany: string): boolean => {
+  if (role === 'ROLE_ADMIN') return true;
+  return isValidCompany(normalizedCompany);
+};
+
+/**
+ * Builds the JWT payload for the login endpoint.
+ */
+const buildJwtPayload = (data: LoginSuccess): JwtPayload => {
+  return { name: data.name, role: data.role, company: data.company };
+};
+
+/**
+ * Handles all validation logic for a login request.
+ */
+const validateLoginRequest = async (body: LoginBody): Promise<LoginResult> => {
+  const password = body.password;
+  const name = body.name;
+  const company = body.company;
+
+  if (!password || !name) return { ok: false, error: { statusCode: 400, errorKey: 'MISSING_CREDENTIALS' } };
+
+  const role = await getRoleFromPassword(password);
+  if (!role) return { ok: false, error: { statusCode: 401, errorKey: 'INVALID_PASSWORD' } };
+
+  if (!isValidName(name, role)) return { ok: false, error: { statusCode: 400, errorKey: 'INVALID_NAME' } };
+
+  const normalizedCompany = normalizeCompanyForRole(role, company);
+  if (!validateCompanyForRole(role, normalizedCompany)) return { ok: false, error: { statusCode: 400, errorKey: 'INVALID_COMPANY' } };
+
+  return { ok: true, data: { name, company: normalizedCompany, role } };
+};
+
+/**
+ * Signs the JWT and sets it as a secure HTTP-only cookie.
+ */
+const issueJwtCookie = (res: Response, payload: JwtPayload): void => {
   const token = jwt.sign(payload, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN_SECONDS });
-
   res.cookie('cv_section_token', token, {
     httpOnly: true,
     secure: true,
     sameSite: 'strict',
     maxAge: JWT_EXPIRES_IN_SECONDS * 1000
   });
+};
 
-  appendLoginLog(name, normalizedCompany, role);
+/**
+ * Sends a JSON error object in the format expected by the frontend.
+ */
+const sendLoginError = (res: Response, failure: LoginFailure): void => {
+  res.status(failure.statusCode).json({ error: failure.errorKey });
+};
+
+// Login-Endpoint für cv-section
+app.post('/api/cv-section/login', async (req: Request, res: Response): Promise<void> => {
+  const result = await validateLoginRequest(req.body as LoginBody);
+  if (!result.ok) return sendLoginError(res, result.error);
+
+  const payload = buildJwtPayload(result.data);
+  issueJwtCookie(res, payload);
+  appendLoginLog(result.data.name, result.data.company, result.data.role);
 
   res.json({
-    name,
-    company: normalizedCompany,
-    role,
+    name: result.data.name,
+    company: result.data.company,
+    role: result.data.role,
     expiresInSeconds: JWT_EXPIRES_IN_SECONDS
   });
 });
@@ -276,32 +357,7 @@ app.get('/api/cv-section/admin/stats', authenticateJwt, authorizeRole('ROLE_ADMI
     }
 
     const entries = parseLogLines(content);
-
-    const adminEntries = entries
-      .filter((e) => e.role === 'ROLE_ADMIN')
-      .sort((a, b) => b.timestampMs - a.timestampMs);
-
-    // Wichtig: Wenn die Admin-Statistik geladen wird, wurde der aktuelle Admin-Login
-    // bereits als letzter Log-Eintrag geschrieben. Daher zählen wir CV-Logins erst
-    // seit dem vorherigen Admin-Login (vor dem aktuellen).
-    const currentAdmin = adminEntries[0] ?? null;
-    const previousAdmin = adminEntries[1] ?? null;
-
-    const cvAfterPreviousAdmin = previousAdmin
-      ? entries.filter(
-          (e) =>
-            e.role === 'ROLE_CV_ACCESS' &&
-            e.timestampMs > previousAdmin.timestampMs &&
-            (!currentAdmin || e.timestampMs <= currentAdmin.timestampMs)
-        )
-      : entries.filter((e) => e.role === 'ROLE_CV_ACCESS');
-
-    const uniqueNames = new Set(cvAfterPreviousAdmin.map((e) => e.name));
-
-    res.json({
-      lastAdminLogin: previousAdmin ? previousAdmin.timestampIso : null,
-      cvAccessUniqueUsersSinceLastAdmin: uniqueNames.size
-    });
+    res.json(computeAdminStats(entries));
   });
 });
 

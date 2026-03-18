@@ -6,6 +6,13 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { catchError, of } from 'rxjs';
 
+interface CvSectionAdminLogEntry {
+  timestamp: string;
+  role: string;
+  name: string;
+  company: string;
+}
+
 @Component({
   selector: 'app-cv-section-admin',
   standalone: true,
@@ -23,7 +30,7 @@ export class CvSectionAdminComponent implements OnInit {
 
   protected isLoadingLogs = true;
   protected logFetchError: string | null = null;
-  protected visibleLogs: { timestamp: string; role: string; name: string; company: string }[] = [];
+  protected visibleLogs: CvSectionAdminLogEntry[] = [];
 
   protected isLoadingStats = true;
   protected statsFetchError: string | null = null;
@@ -34,115 +41,172 @@ export class CvSectionAdminComponent implements OnInit {
     this.loadStats();
   }
 
+  /**
+   * Loads logs for the admin page.
+   * The backend returns raw log lines which we parse and filter.
+   */
   private loadLogs(): void {
+    this.setLogsLoadingState();
+    this.requestAdminLogsRaw()
+      .pipe(catchError(() => this.handleLogsFetchError()))
+      .subscribe((raw) => this.applyLogsFromRaw(raw));
+  }
+
+  /** Requests the raw log content from the backend. */
+  private requestAdminLogsRaw() {
+    return this.http.get('/api/cv-section/admin/logs', {
+      withCredentials: true,
+      responseType: 'text'
+    });
+  }
+
+  /** Sets loading/error state for logs UI. */
+  private setLogsLoadingState(): void {
     this.isLoadingLogs = true;
     this.logFetchError = null;
-
-    this.http
-      .get('/api/cv-section/admin/logs', { withCredentials: true, responseType: 'text' })
-      .pipe(
-        catchError(() => {
-          this.isLoadingLogs = false;
-          this.logFetchError = 'LOGS_COULD_NOT_BE_LOADED';
-          return of('');
-        })
-      )
-      .subscribe((raw) => {
-        this.isLoadingLogs = false;
-        if (!raw?.trim()) {
-          this.visibleLogs = [];
-          return;
-        }
-
-        const lines = raw
-          .split('\n')
-          .map((l) => l.trim())
-          .filter(Boolean);
-
-        const parsed = lines
-          .map((line) => {
-            const parts = line.split(' | ');
-            const timestamp = parts[0] ?? '';
-            const role = parts[1] ?? '';
-            const name = parts[2] ?? '';
-            const company = parts[3] ?? '';
-            return { timestamp, role, name, company };
-          })
-          .filter((e) => e.timestamp && e.role && e.name);
-
-        // Per requirement: show only non-admin login attempts in the admin area.
-        this.visibleLogs = parsed
-          .filter((e) => e.role === 'ROLE_CV_ACCESS')
-          .sort((a, b) => (a.timestamp < b.timestamp ? 1 : -1))
-          .slice(0, 200);
-      });
   }
 
+  /** Returns an empty raw response when logs fetch fails. */
+  private handleLogsFetchError() {
+    this.isLoadingLogs = false;
+    this.logFetchError = 'LOGS_COULD_NOT_BE_LOADED';
+    return of('');
+  }
+
+  /**
+   * Parses backend raw log lines, filters them to CV-access entries,
+   * sorts them newest-first, and limits the result.
+   */
+  private applyLogsFromRaw(raw: string): void {
+    this.isLoadingLogs = false;
+    const parsed = this.parseLogsRaw(raw);
+    this.visibleLogs = this.filterAndSortLogs(parsed).slice(0, 200);
+  }
+
+  /** Splits raw text into valid log entries. */
+  private parseLogsRaw(raw: string): CvSectionAdminLogEntry[] {
+    const lines = String(raw ?? '')
+      .split('\n')
+      .map((l) => l.trim())
+      .filter(Boolean);
+
+    return lines
+      .map((line) => this.parseSingleLogLine(line))
+      .filter((e): e is CvSectionAdminLogEntry => Boolean(e));
+  }
+
+  /** Parses a single log line into an entry object. */
+  private parseSingleLogLine(line: string): CvSectionAdminLogEntry | null {
+    const parts = line.split(' | ');
+    const timestamp = parts[0] ?? '';
+    const role = parts[1] ?? '';
+    const name = parts[2] ?? '';
+    const company = parts[3] ?? '';
+
+    if (!timestamp || !role || !name) return null;
+    return { timestamp, role, name, company };
+  }
+
+  /** Filters to CV-access logs and sorts them newest-first. */
+  private filterAndSortLogs(entries: CvSectionAdminLogEntry[]): CvSectionAdminLogEntry[] {
+    return entries
+      .filter((e) => e.role === 'ROLE_CV_ACCESS')
+      .sort((a, b) => (a.timestamp < b.timestamp ? 1 : -1));
+  }
+
+  /** Loads admin statistics for the greeting block. */
   private loadStats(): void {
+    this.setStatsLoadingState();
+    this.requestAdminStats()
+      .pipe(catchError(() => this.handleStatsFetchError()))
+      .subscribe((stats) => this.applyStats(stats));
+  }
+
+  /** Requests the stats JSON from the backend. */
+  private requestAdminStats() {
+    return this.http.get<{ lastAdminLogin: string | null; cvAccessUniqueUsersSinceLastAdmin: number }>(
+      '/api/cv-section/admin/stats',
+      { withCredentials: true }
+    );
+  }
+
+  /** Sets loading/error state for stats UI. */
+  private setStatsLoadingState(): void {
     this.isLoadingStats = true;
     this.statsFetchError = null;
-
-    this.http
-      .get<{ lastAdminLogin: string | null; cvAccessUniqueUsersSinceLastAdmin: number }>(
-        '/api/cv-section/admin/stats',
-        { withCredentials: true }
-      )
-      .pipe(
-        catchError(() => {
-          this.isLoadingStats = false;
-          this.statsFetchError = 'STATS_COULD_NOT_BE_LOADED';
-          return of({ lastAdminLogin: null, cvAccessUniqueUsersSinceLastAdmin: 0 });
-        })
-      )
-      .subscribe((stats) => {
-        this.isLoadingStats = false;
-        this.cvAccessUniqueUsersSinceLastAdmin = stats.cvAccessUniqueUsersSinceLastAdmin ?? 0;
-      });
   }
 
+  /** Returns a default stats object when stats fetch fails. */
+  private handleStatsFetchError() {
+    this.isLoadingStats = false;
+    this.statsFetchError = 'STATS_COULD_NOT_BE_LOADED';
+    return of({ lastAdminLogin: null, cvAccessUniqueUsersSinceLastAdmin: 0 });
+  }
+
+  /** Applies stats value to the greeting block. */
+  private applyStats(stats: { cvAccessUniqueUsersSinceLastAdmin: number }): void {
+    this.isLoadingStats = false;
+    this.cvAccessUniqueUsersSinceLastAdmin = stats.cvAccessUniqueUsersSinceLastAdmin ?? 0;
+  }
+
+  /** Formats the ISO timestamp into a readable German date/time string. */
   protected formatTimestamp(iso: string): string {
     const d = new Date(iso);
     if (Number.isNaN(d.getTime())) return iso;
     return d.toLocaleString('de-DE', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' });
   }
 
+  /** Clears all login logs after confirmation. */
   onClearLogsClick(): void {
     if (this.isClearingLogs) return;
+    if (!this.confirmClearLogs()) return;
+    this.clearLogs();
+  }
 
-    const confirmed = window.confirm('Willst du wirklich alle Login-Logs löschen?');
-    if (!confirmed) return;
+  /** Shows a confirmation dialog for destructive actions. */
+  private confirmClearLogs(): boolean {
+    return window.confirm('Willst du wirklich alle Login-Logs löschen?');
+  }
 
+  /** Calls the backend endpoint to clear logs and refreshes UI afterwards. */
+  private clearLogs(): void {
     this.isClearingLogs = true;
     this.clearLogsErrorKey = null;
 
     this.http
       .post('/api/cv-section/admin/logs/clear', {}, { withCredentials: true, responseType: 'text' })
       .subscribe({
-        next: () => {
-          this.isClearingLogs = false;
-          this.loadLogs();
-          this.loadStats();
-        },
-        error: () => {
-          this.isClearingLogs = false;
-          this.clearLogsErrorKey = 'CV_SECTION.CLEAR_LOGS_FAILED';
-        }
+        next: () => this.onClearLogsSuccess(),
+        error: () => this.onClearLogsError()
       });
+  }
+
+  /** Applies UI state after successful log deletion. */
+  private onClearLogsSuccess(): void {
+    this.isClearingLogs = false;
+    this.loadLogs();
+    this.loadStats();
+  }
+
+  /** Applies UI state when the clear logs request fails. */
+  private onClearLogsError(): void {
+    this.isClearingLogs = false;
+    this.clearLogsErrorKey = 'CV_SECTION.CLEAR_LOGS_FAILED';
   }
 
   onLogoutClick(): void {
     this.http
       .post('/api/cv-section/logout', {}, { withCredentials: true })
       .subscribe({
-        next: () => {
-          this.sessionService.stop();
-          void this.router.navigate(['/cv-section/login']);
-        },
-        error: () => {
-          this.sessionService.stop();
-          void this.router.navigate(['/cv-section/login']);
-        }
+        next: () => this.logoutAndNavigate(),
+        error: () => this.logoutAndNavigate()
       });
+  }
+
+  /** Stops local session tracking and navigates back to the login page. */
+  private logoutAndNavigate(): void {
+    this.sessionService.stop();
+    void this.router.navigate(['/cv-section/login']);
   }
 }
 
