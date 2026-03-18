@@ -99,7 +99,7 @@ export class CvSectionLoginComponent implements OnInit, OnDestroy {
           if (response.role === 'ROLE_ADMIN') {
             void this.router.navigate(['/cv-section/admin']);
           } else {
-            void this.router.navigate(['/cv-section/cv']);
+            void this.router.navigate(['/cv-section/home']);
           }
         },
         error: (error) => {

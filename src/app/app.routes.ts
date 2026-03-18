@@ -30,15 +30,15 @@ export const routes: Routes = [
     component: CvSectionLoginComponent
   },
   {
-    path: 'cv-section/cv',
+    path: 'cv-section/home',
     component: CvSectionHomeComponent
   },
   {
-    path: 'cv-section/cv/resume',
+    path: 'cv-section/home/resume',
     component: CvResumePageComponent
   },
   {
-    path: 'cv-section/cv/certificate',
+    path: 'cv-section/home/certificate',
     component: CvCertificatePageComponent
   },
   {

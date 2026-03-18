@@ -1,0 +1,138 @@
+.cv-section-login-container
+  display: flex
+  justify-content: center
+  align-items: center
+  padding: 24px 16px
+  margin-top: 120px
+  margin-bottom: 24px
+  min-height: auto
+
+  .cv-section-card
+    width: 100%
+    max-width: 480px
+    padding: 32px 24px
+    border-radius: 24px
+    background: var(--gradient-card)
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.22)
+    border: 1px solid var(--glass-border)
+
+    .cv-section-title
+      margin: 0 0 12px
+      font-size: 28px
+      line-height: 1.2
+      color: var(--text)
+
+    .cv-section-subtitle-container
+      margin-bottom: 24px
+
+      .cv-section-subtitle-txt
+        margin: 0
+        font-size: 16px
+        line-height: 1.5
+        color: var(--text-muted)
+
+    .cv-section-form
+      display: flex
+      flex-direction: column
+      gap: 16px
+
+      .cv-section-field
+        display: flex
+        flex-direction: column
+
+        .cv-section-password-wrapper
+          position: relative
+
+          .cv-section-toggle-password
+            position: absolute
+            top: 50%
+            right: 10px
+            transform: translateY(-50%)
+            border: none
+            background: transparent
+            color: var(--text)
+            font-size: 12px
+            cursor: pointer
+            padding: 0 4px
+            opacity: 0.7
+            transition: opacity 120ms ease
+
+            &:hover
+              opacity: 1
+
+        .cv-section-input
+          width: 100%
+          box-sizing: border-box
+          padding: 10px 14px
+          border-radius: 999px
+          border: 1px solid var(--border)
+          background-color: var(--surface)
+          color: var(--text)
+          font-family: inherit
+          font-size: 16px
+          outline: none
+
+          &:focus
+            border-color: var(--accent)
+            box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 40%, transparent)
+
+      .cv-section-error-toast
+        align-self: flex-start
+        padding: 8px 16px
+        border-radius: 999px
+        background-color: rgba(255, 85, 85, 0.12)
+        border: 1px solid rgba(255, 85, 85, 0.7)
+        animation: cv-section-toast-in 180ms ease-out
+
+        .cv-section-error-text
+          font-size: 14px
+
+      .cv-section-warning-toast
+        align-self: flex-start
+        margin-top: 4px
+        padding: 8px 16px
+        border-radius: 999px
+        background-color: color-mix(in srgb, var(--accent) 12%, transparent)
+        border: 1px solid color-mix(in srgb, var(--accent) 70%, transparent)
+        animation: cv-section-toast-in 180ms ease-out
+
+        .cv-section-warning-text
+          font-size: 14px
+
+      .cv-section-button-container
+        margin-top: 8px
+
+        .cv-section-btn
+          width: 100%
+          padding: 12px 24px
+          border-radius: 999px
+          border: none
+          background-color: rgba(255, 255, 255, 0.12)
+          color: var(--text)
+          font-family: inherit
+          font-size: 16px
+          font-weight: 500
+          cursor: not-allowed
+          transition: background-color 160ms ease, transform 160ms ease, box-shadow 160ms ease
+
+          &.cv-section-btn-valid
+            cursor: pointer
+            background-color: var(--accent)
+            box-shadow: 0 12px 30px color-mix(in srgb, var(--accent) 40%, transparent)
+
+            &:hover
+              transform: translateY(-1px)
+              box-shadow: 0 18px 40px color-mix(in srgb, var(--accent) 60%, transparent)
+
+            &:active
+              transform: translateY(0)
+              box-shadow: 0 10px 24px color-mix(in srgb, var(--accent) 45%, transparent)
+
+@keyframes cv-section-toast-in
+  from
+    opacity: 0
+    transform: translateY(4px)
+  to
+    opacity: 1
+    transform: translateY(0)
+

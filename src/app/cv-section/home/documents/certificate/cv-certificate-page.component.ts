@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './cv-certificate-page.component.html',
-  styleUrls: ['../cv-document-page.sass'],
+  styleUrls: ['./cv-certificate-page.component.sass'],
   encapsulation: ViewEncapsulation.None
 })
 export class CvCertificatePageComponent {}

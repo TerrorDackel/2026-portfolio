@@ -24,7 +24,7 @@ export class CvDocumentLinksComponent {
       id: 'resume',
       titleKey: 'CV_SECTION.DOC_RESUME_TITLE',
       descriptionKey: 'CV_SECTION.DOC_RESUME_DESC',
-      href: '/cv-section/cv/resume',
+      href: '/cv-section/home/resume',
       imgSrc: 'assets/img/resume.png',
       imgAltKey: 'CV_SECTION.DOC_RESUME_ALT'
     },
@@ -32,7 +32,7 @@ export class CvDocumentLinksComponent {
       id: 'certificate',
       titleKey: 'CV_SECTION.DOC_CERT_TITLE',
       descriptionKey: 'CV_SECTION.DOC_CERT_DESC',
-      href: '/cv-section/cv/certificate',
+      href: '/cv-section/home/certificate',
       imgSrc: 'assets/img/da-certificate.png',
       imgAltKey: 'CV_SECTION.DOC_CERT_ALT'
     }

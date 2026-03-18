@@ -1,0 +1,80 @@
+.cv-section-home
+  display: flex
+  justify-content: center
+  align-items: center
+  padding: 24px 16px
+  margin-top: 120px
+  margin-bottom: 24px
+
+  .cv-section-home-card
+    position: relative
+    width: 100%
+    max-width: 960px
+    border-radius: 32px
+    background: var(--gradient-card)
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.28)
+    overflow: hidden
+
+    .cv-section-logout-btn
+      position: absolute
+      top: 2rem
+      right: 2rem
+      padding: 10px 24px
+      border-radius: 999px
+      border: none
+      background-color: rgba(255, 255, 255, 0.12)
+      color: var(--text)
+      font-family: inherit
+      font-size: 16px
+      font-weight: 500
+      cursor: pointer
+      transition: background-color 160ms ease, transform 160ms ease, box-shadow 160ms ease
+
+      &:hover
+        background-color: var(--accent)
+        box-shadow: 0 12px 30px color-mix(in srgb, var(--accent) 40%, transparent)
+        transform: translateY(-1px)
+
+      &:active
+        transform: translateY(0)
+        box-shadow: 0 8px 24px color-mix(in srgb, var(--accent) 45%, transparent)
+
+    .cv-section-home-border
+      position: absolute
+      inset-inline-start: 0
+      inset-block-start: 0
+      height: 4px
+      width: 0
+      background: var(--gradient-accent)
+      animation: cv-section-border-grow 520ms ease-out forwards
+
+    .cv-section-home-content
+      padding: 32px 32px 40px
+
+      .cv-section-home-title
+        margin: 0 0 12px
+        font-size: 28px
+        line-height: 1.2
+        color: var(--text)
+
+      .cv-section-home-subtitle-container
+        margin-bottom: 24px
+
+        .cv-section-home-subtitle
+          margin: 0
+          font-size: 16px
+          line-height: 1.5
+          color: var(--text-muted)
+
+      .cv-section-home-placeholder
+        padding: 16px 20px
+        border-radius: 24px
+        background-color: var(--glass-bg)
+        border: 1px dashed var(--glass-border)
+
+        .cv-section-home-placeholder-text
+          margin: 0
+          font-size: 15px
+          line-height: 1.6
+          color: var(--text-muted)
+

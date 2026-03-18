@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './cv-resume-page.component.html',
-  styleUrls: ['../cv-document-page.sass'],
+  styleUrls: ['./cv-resume-page.component.sass'],
   encapsulation: ViewEncapsulation.None
 })
 export class CvResumePageComponent {}
