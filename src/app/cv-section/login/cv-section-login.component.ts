@@ -65,8 +65,8 @@ export class CvSectionLoginComponent implements OnInit, OnDestroy {
       this.showInactivityWarning = show;
     });
 
-    this.syncCompanyRequirement(this.loginForm.controls.name.value);
-    this.nameSub = this.loginForm.controls.name.valueChanges.subscribe((value) => {
+    this.syncCompanyRequirement(this.loginForm.controls['name'].value);
+    this.nameSub = this.loginForm.controls['name'].valueChanges.subscribe((value) => {
       this.syncCompanyRequirement(value);
     });
 
@@ -94,7 +94,7 @@ export class CvSectionLoginComponent implements OnInit, OnDestroy {
     const trimmed = String(nameValue ?? '').trim();
     const isAdminAttempt = trimmed === 'Admin';
 
-    const companyControl = this.loginForm.controls.company;
+    const companyControl = this.loginForm.controls['company'];
     companyControl.setValidators(isAdminAttempt ? [this.validateCompanyLetters] : [Validators.required, this.validateCompanyLetters]);
     companyControl.updateValueAndValidity({ emitEvent: false });
   }
