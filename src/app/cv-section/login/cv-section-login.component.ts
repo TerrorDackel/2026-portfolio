@@ -30,6 +30,20 @@ export class CvSectionLoginComponent implements OnInit, OnDestroy {
 
   private warningSub?: Subscription;
   private nameSub?: Subscription;
+  private passwordSub?: Subscription;
+
+  private readonly validateName = (
+    control: AbstractControl
+  ): { invalidName: true; nameTooShort?: true; nameIncomplete?: true } | null => {
+    const trimmed = String(control.value ?? '').trim();
+    if (!trimmed) return null;
+    if (trimmed === 'Admin') return null;
+    const parts = trimmed.split(/\s+/);
+    if (parts.length < 2) return { invalidName: true, nameIncomplete: true };
+    if (parts.some((part) => !/^[A-Za-zÄÖÜäöüß]+$/.test(part))) return { invalidName: true };
+    if (parts.some((part) => part.length < 3)) return { invalidName: true, nameTooShort: true };
+    return null;
+  };
 
   private readonly validateCompanyLetters = (control: AbstractControl): { invalidCompany: true } | null => {
     const raw = String(control.value ?? '');
@@ -46,7 +60,7 @@ export class CvSectionLoginComponent implements OnInit, OnDestroy {
   };
 
   loginForm: FormGroup = this.fb.group({
-    name: ['', [Validators.required]],
+    name: ['', [Validators.required, this.validateName]],
     // Requirement ist dynamisch:
     // - bei Admin (Name == "Admin") ist Firma optional
     // - bei allen anderen (CV-Zugang) ist Firma Pflicht
@@ -55,6 +69,7 @@ export class CvSectionLoginComponent implements OnInit, OnDestroy {
   });
 
   isSubmitting = false;
+  submitAttempted = false;
   inlineErrorKey: string | null = null;
   showInlineError = false;
   showPassword = false;
@@ -66,6 +81,7 @@ export class CvSectionLoginComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.setupInactivityWarning();
     this.setupDynamicCompanyValidator();
+    this.setupPasswordErrorReset();
     this.handleTimeoutQueryParam();
   }
 
@@ -73,6 +89,7 @@ export class CvSectionLoginComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.warningSub?.unsubscribe();
     this.nameSub?.unsubscribe();
+    this.passwordSub?.unsubscribe();
   }
 
   /**
@@ -96,7 +113,11 @@ export class CvSectionLoginComponent implements OnInit, OnDestroy {
 
   /** Handles the submit action from the login form. */
   onSubmit(): void {
-    if (!this.canSubmit()) return;
+    this.submitAttempted = true;
+    if (!this.canSubmit()) {
+      this.markFormTouched();
+      return;
+    }
     this.startSubmitState();
 
     const payload = this.buildLoginPayload();
@@ -109,6 +130,11 @@ export class CvSectionLoginComponent implements OnInit, OnDestroy {
   /** Returns true if we are allowed to submit the form. */
   private canSubmit(): boolean {
     return !this.isSubmitting && this.loginForm.valid;
+  }
+
+  /** Marks all login controls as touched to reveal validation hints. */
+  private markFormTouched(): void {
+    this.loginForm.markAllAsTouched();
   }
 
   /** Applies a submitting UI state. */
@@ -141,6 +167,7 @@ export class CvSectionLoginComponent implements OnInit, OnDestroy {
   /** Applies the error UI state after a failed login. */
   private handleLoginError(error: unknown): void {
     this.finishSubmitState();
+    if (this.applyPasswordErrorIfNeeded(error)) return;
     this.inlineErrorKey = this.mapLoginErrorToKey(error);
     this.showInlineError = true;
     setTimeout(() => (this.showInlineError = false), 3000);
@@ -155,10 +182,35 @@ export class CvSectionLoginComponent implements OnInit, OnDestroy {
   private mapLoginErrorToKey(error: unknown): string {
     const typedError = error as { error?: { error?: string } } | null;
     const code = typedError?.error?.error;
+    if (code === 'MISSING_CREDENTIALS') return 'CV_SECTION.ERROR_PASSWORD_REQUIRED';
     if (code === 'INVALID_PASSWORD') return 'CV_SECTION.ERROR_INVALID_PASSWORD';
     if (code === 'INVALID_NAME') return 'CV_SECTION.ERROR_INVALID_NAME';
     if (code === 'INVALID_COMPANY') return 'CV_SECTION.ERROR_INVALID_COMPANY';
     return 'CV_SECTION.ERROR_GENERIC';
+  }
+
+  /** Extracts the backend error code from an unknown HTTP error object. */
+  private getLoginErrorCode(error: unknown): string | null {
+    const typedError = error as { error?: { error?: string } } | null;
+    return typedError?.error?.error ?? null;
+  }
+
+  /** Shows invalid password as field error instead of toast. */
+  private applyPasswordErrorIfNeeded(error: unknown): boolean {
+    const code = this.getLoginErrorCode(error);
+    if (code !== 'INVALID_PASSWORD') return false;
+
+    const passwordControl = this.loginForm.controls['password'];
+    const currentErrors = passwordControl.errors ?? {};
+    passwordControl.setErrors({ ...currentErrors, invalidPassword: true });
+    passwordControl.markAsTouched();
+    return true;
+  }
+
+  /** Returns whether a field should display inline validation feedback. */
+  shouldShowFieldError(controlName: 'name' | 'company' | 'password'): boolean {
+    const control = this.loginForm.controls[controlName];
+    return Boolean(control?.invalid && (control.touched || this.submitAttempted));
   }
 
   /** Subscribes to inactivity warnings shown by the session service. */
@@ -173,6 +225,21 @@ export class CvSectionLoginComponent implements OnInit, OnDestroy {
     const nameControl = this.loginForm.controls['name'];
     this.syncCompanyRequirement(nameControl.value);
     this.nameSub = nameControl.valueChanges.subscribe((value) => this.syncCompanyRequirement(value));
+  }
+
+  /** Removes backend password error as soon as the user edits the password. */
+  private setupPasswordErrorReset(): void {
+    const passwordControl = this.loginForm.controls['password'];
+    this.passwordSub = passwordControl.valueChanges.subscribe(() => this.clearInvalidPasswordError(passwordControl));
+  }
+
+  /** Clears only the invalidPassword error while keeping other errors intact. */
+  private clearInvalidPasswordError(control: AbstractControl): void {
+    const errors = control.errors;
+    if (!errors?.['invalidPassword']) return;
+    const { invalidPassword, ...rest } = errors;
+    void invalidPassword;
+    control.setErrors(Object.keys(rest).length ? rest : null);
   }
 
   /** Shows an inline error if the login page was opened after session timeout. */

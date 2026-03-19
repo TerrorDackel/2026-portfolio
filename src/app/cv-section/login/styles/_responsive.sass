@@ -4,6 +4,30 @@
       padding: 24px 16px
       border-radius: 20px
 
+  @media (max-width: 345px)
+    .cv-section-card
+      .cv-section-form
+        .cv-section-field-password
+          grid-template-rows: 42px 56px
+
+          .cv-section-field-error
+            min-height: 56px
+
+  @media (max-width: 330px)
+    .cv-section-card
+      .cv-section-form
+        .cv-section-field
+          grid-template-rows: 42px 27px
+
+          .cv-section-field-error
+            min-height: 27px
+
+        .cv-section-field-password
+          grid-template-rows: 42px 56px
+
+          .cv-section-field-error
+            min-height: 56px
+
   @media (min-width: 1024px)
     min-height: calc(100vh - 117px - 240px)
 

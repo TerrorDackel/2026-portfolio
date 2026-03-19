@@ -47,11 +47,17 @@
         border: 0
 
       .cv-section-field
-        display: flex
-        flex-direction: column
+        display: grid
+        grid-template-rows: 42px 18px
+        gap: 6px
+
+        .cv-section-input-row
+          position: relative
+          height: 42px
 
         .cv-section-input
           width: 100%
+          height: 42px
           box-sizing: border-box
           padding: 10px 14px
           border-radius: 999px
@@ -67,12 +73,31 @@
             outline: 2px solid var(--accent)
             outline-offset: 2px
 
+        .cv-section-field-error
+          margin: 0 12px
+          min-height: 18px
+          font-size: 12px
+          line-height: 1.4
+          color: #ff8a8a
+          overflow: hidden
+          text-overflow: ellipsis
+          white-space: nowrap
+
+      .cv-section-field-password
+        grid-template-rows: 42px 42px
+
+        .cv-section-field-error
+          min-height: 42px
+          white-space: normal
+          text-overflow: clip
+
       // The password wrapper is the SAME element as .cv-section-field in template
       // (classes: "cv-section-field cv-section-password-wrapper").
       // Use the direct selector so positioning can't break during refactors.
       .cv-section-password-wrapper
         position: relative !important
         display: block
+        height: 42px
 
         .cv-section-input
           padding-right: 16px
@@ -80,9 +105,9 @@
         .cv-section-toggle-password
           position: absolute !important
           right: 6px
-          top: 2px
-          bottom: 2px
-          transform: none
+          top: 50%
+          bottom: auto
+          transform: translateY(-50%)
           z-index: 2
           border: none
           background: transparent
@@ -133,9 +158,12 @@
 
       .cv-section-button-container
         margin-top: 8px
+        display: flex
+        justify-content: center
 
         .cv-section-btn
-          width: 100%
+          width: auto
+          min-width: 140px
           padding: 12px 24px
           border-radius: 999px
           border: none

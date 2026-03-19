@@ -21,61 +21,106 @@
         <label class="visually-hidden" for="cv-section-name">
           {{ 'CV_SECTION.PLACEHOLDER_NAME' | translate }}
         </label>
-        <input
-          type="text"
-          class="cv-section-input"
-          id="cv-section-name"
-          formControlName="name"
-          name="username"
-          autocomplete="username"
-          [placeholder]="'CV_SECTION.PLACEHOLDER_NAME' | translate"
-        />
+        <div class="cv-section-input-row">
+          <input
+            type="text"
+            class="cv-section-input"
+            id="cv-section-name"
+            formControlName="name"
+            name="username"
+            autocomplete="username"
+            [placeholder]="'CV_SECTION.PLACEHOLDER_NAME' | translate"
+          />
+        </div>
+        <small class="cv-section-field-error">
+          @if (shouldShowFieldError('name')) {
+            @if (loginForm.controls['name'].errors?.['required']) {
+              {{ 'CV_SECTION.ERROR_NAME_REQUIRED' | translate }}
+            } @else if (loginForm.controls['name'].errors?.['nameIncomplete']) {
+              {{ 'CV_SECTION.ERROR_NAME_INCOMPLETE' | translate }}
+            } @else if (loginForm.controls['name'].errors?.['nameTooShort']) {
+              {{ 'CV_SECTION.ERROR_NAME_TOO_SHORT' | translate }}
+            } @else {
+              {{ 'CV_SECTION.ERROR_INVALID_NAME' | translate }}
+            }
+          } @else {
+            &nbsp;
+          }
+        </small>
       </div>
 
       <div class="cv-section-field">
         <label class="visually-hidden" for="cv-section-company">
           {{ 'CV_SECTION.PLACEHOLDER_COMPANY' | translate }}
         </label>
-        <input
-          type="text"
-          class="cv-section-input"
-          id="cv-section-company"
-          formControlName="company"
-          name="organization"
-          autocomplete="organization"
-          [placeholder]="'CV_SECTION.PLACEHOLDER_COMPANY' | translate"
-        />
+        <div class="cv-section-input-row">
+          <input
+            type="text"
+            class="cv-section-input"
+            id="cv-section-company"
+            formControlName="company"
+            name="organization"
+            autocomplete="organization"
+            [placeholder]="'CV_SECTION.PLACEHOLDER_COMPANY' | translate"
+          />
+        </div>
+        <small class="cv-section-field-error">
+          @if (shouldShowFieldError('company')) {
+            @if (loginForm.controls['company'].errors?.['required']) {
+              {{ 'CV_SECTION.ERROR_COMPANY_REQUIRED' | translate }}
+            } @else {
+              {{ 'CV_SECTION.ERROR_INVALID_COMPANY' | translate }}
+            }
+          } @else {
+            &nbsp;
+          }
+        </small>
       </div>
 
-      <div class="cv-section-field cv-section-password-wrapper">
+      <div class="cv-section-field cv-section-field-password">
         <label class="visually-hidden" for="cv-section-password">
           {{ 'CV_SECTION.PLACEHOLDER_PASSWORD' | translate }}
         </label>
-        <input
-          [type]="showPassword ? 'text' : 'password'"
-          class="cv-section-input"
-          id="cv-section-password"
-          formControlName="password"
-          name="current-password"
-          autocomplete="current-password"
-          [placeholder]="'CV_SECTION.PLACEHOLDER_PASSWORD' | translate"
-        />
-        <button
-          type="button"
-          class="cv-section-toggle-password"
-          (click)="togglePasswordVisibility()"
-          [attr.aria-label]="
-            (showPassword ? 'CV_SECTION.HIDE_PASSWORD' : 'CV_SECTION.SHOW_PASSWORD') | translate
-          "
-        >
-          <img
-            class="cv-section-toggle-icon"
-            [src]="showPassword ? 'assets/img/icon/17.png' : 'assets/img/icon/21.png'"
-            alt=""
-            [attr.title]="(showPassword ? 'CV_SECTION.HIDE_PASSWORD' : 'CV_SECTION.SHOW_PASSWORD') | translate"
-            aria-hidden="true"
+        <div class="cv-section-input-row cv-section-password-wrapper">
+          <input
+            [type]="showPassword ? 'text' : 'password'"
+            class="cv-section-input"
+            id="cv-section-password"
+            formControlName="password"
+            name="current-password"
+            autocomplete="current-password"
+            [placeholder]="'CV_SECTION.PLACEHOLDER_PASSWORD' | translate"
           />
-        </button>
+          <button
+            type="button"
+            class="cv-section-toggle-password"
+            (click)="togglePasswordVisibility()"
+            [attr.aria-label]="
+              (showPassword ? 'CV_SECTION.HIDE_PASSWORD' : 'CV_SECTION.SHOW_PASSWORD') | translate
+            "
+          >
+            <img
+              class="cv-section-toggle-icon"
+              [src]="showPassword ? 'assets/img/icon/17.png' : 'assets/img/icon/21.png'"
+              alt=""
+              [attr.title]="(showPassword ? 'CV_SECTION.HIDE_PASSWORD' : 'CV_SECTION.SHOW_PASSWORD') | translate"
+              aria-hidden="true"
+            />
+          </button>
+        </div>
+        <small class="cv-section-field-error">
+          @if (shouldShowFieldError('password')) {
+            @if (loginForm.controls['password'].errors?.['required']) {
+              {{ 'CV_SECTION.ERROR_PASSWORD_REQUIRED' | translate }}
+            } @else if (loginForm.controls['password'].errors?.['invalidPassword']) {
+              {{ 'CV_SECTION.ERROR_INVALID_PASSWORD' | translate }}
+            } @else {
+              {{ 'CV_SECTION.ERROR_PASSWORD_REQUIRED' | translate }}
+            }
+          } @else {
+            &nbsp;
+          }
+        </small>
       </div>
 
       @if (showInlineError && inlineErrorKey) {
