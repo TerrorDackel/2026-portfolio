@@ -4,8 +4,14 @@
 
 @media (max-width: 720px)
   .cv-header-inner
-    flex-direction: column-reverse
     align-items: flex-start
+
+  .cv-header-top
+    flex-direction: row
+    align-items: flex-start
+
+  .cv-actions
+    flex-wrap: wrap
 
   .cv-main
     padding: 24px 16px 40px
@@ -54,6 +60,9 @@
   .cv-section
     break-inside: avoid
     page-break-inside: avoid
+
+  .cv-actions
+    display: none !important
 
   .cv-card,
   .cv-project

@@ -91,7 +91,29 @@ a
 
 .cv-actions
   flex: 0 0 auto
-  margin-top: 1rem
+  margin-top: 0
+  display: flex
+  gap: 12px
+  align-items: center
+  flex-wrap: nowrap
+
+.cv-back-button
+  appearance: none
+  border: none
+  background-color: var(--primary)
+  color: var(--on-primary)
+  padding: 10px 14px
+  border-radius: 999px
+  font-weight: 600
+  font-size: 0.9rem
+  cursor: pointer
+  transition: background-color 140ms ease, transform 80ms ease
+
+  &:hover
+    background: var(--primary-hover)
+
+  &:active
+    transform: translateY(1px)
 
 .cv-print-button
   appearance: none
