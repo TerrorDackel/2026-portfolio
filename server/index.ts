@@ -27,6 +27,11 @@ type ParsedLogEntry = {
   rawLine: string;
 };
 
+/** Checks if a parsed role is part of the supported CV roles. */
+const isParsedRole = (role: string): role is ParsedLogEntry['role'] => {
+  return role === 'ROLE_ADMIN' || role === 'ROLE_CV_ACCESS';
+};
+
 /**
  * Extracts non-empty log lines from raw file content.
  */
@@ -49,7 +54,7 @@ const parseSingleLogLine = (line: string): ParsedLogEntry | null => {
   const company = parts[3] ?? '';
   const timestampMs = Date.parse(timestampIso);
 
-  if (!timestampIso || !role || !name || Number.isNaN(timestampMs)) return null;
+  if (!timestampIso || !name || Number.isNaN(timestampMs) || !isParsedRole(role)) return null;
   return { timestampIso, timestampMs, role, name, company, rawLine: line };
 };
 
@@ -106,10 +111,6 @@ type AdminStats = {
 };
 
 /**
- * Computes the admin statistics from already parsed log entries.
- * The unique CV-access user count is calculated relative to the previous admin login.
- */
-/**
  * Filters admin log entries and sorts them newest-first.
  */
 const getSortedAdminEntries = (entries: ParsedLogEntry[]): ParsedLogEntry[] => {
@@ -148,6 +149,10 @@ const countUniqueCvAccessNames = (entries: ParsedLogEntry[]): number => {
   return new Set(entries.map((e) => e.name)).size;
 };
 
+/**
+ * Computes the admin statistics from parsed log entries.
+ * The unique CV-access user count is relative to previous admin login.
+ */
 const computeAdminStats = (entries: ParsedLogEntry[]): AdminStats => {
   const adminEntries = getSortedAdminEntries(entries);
   const bounds = pickAdminBounds(adminEntries);

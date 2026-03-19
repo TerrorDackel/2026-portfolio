@@ -16,6 +16,16 @@ const LOG_FILE_PATH = path.join(__dirname, 'logs', 'cv-logins.log');
 const LOG_RETENTION_DAYS = 30;
 
 /**
+ * Checks if a parsed role belongs to supported CV roles.
+ *
+ * @param {string} role
+ * @returns {boolean}
+ */
+const isParsedRole = (role) => {
+  return role === 'ROLE_ADMIN' || role === 'ROLE_CV_ACCESS';
+};
+
+/**
  * Extracts non-empty log lines from raw file content.
  *
  * @param {string} content
@@ -43,7 +53,7 @@ const parseSingleLogLine = (line) => {
   const company = parts[3] ?? '';
   const timestampMs = Date.parse(timestampIso);
 
-  if (!timestampIso || !role || !name || Number.isNaN(timestampMs)) return null;
+  if (!timestampIso || !name || Number.isNaN(timestampMs) || !isParsedRole(role)) return null;
   return { timestampIso, timestampMs, role, name, company, rawLine: line };
 };
 
@@ -316,6 +326,47 @@ const validateCompanyForRole = (role, company) => {
 };
 
 /**
+ * Validates login request data and returns a result object.
+ *
+ * @param {{ password?: string, name?: string, company?: string }} body
+ * @returns {Promise<{ ok: true, data: { name: string, role: CvSectionRole, company: string } } | { ok: false, error: { statusCode: number, errorKey: string } }>}
+ */
+const validateLoginRequest = async (body) => {
+  const password = body?.password;
+  const name = body?.name;
+  const company = body?.company;
+
+  if (!password || !name) return { ok: false, error: { statusCode: 400, errorKey: 'MISSING_CREDENTIALS' } };
+
+  const role = await getRoleFromPassword(password);
+  if (!role) return { ok: false, error: { statusCode: 401, errorKey: 'INVALID_PASSWORD' } };
+  if (!isValidName(name, role)) return { ok: false, error: { statusCode: 400, errorKey: 'INVALID_NAME' } };
+
+  const normalizedCompany = normalizeCompanyForRole(role, company);
+  if (!validateCompanyForRole(role, normalizedCompany)) {
+    return { ok: false, error: { statusCode: 400, errorKey: 'INVALID_COMPANY' } };
+  }
+
+  return { ok: true, data: { name, role, company: normalizedCompany } };
+};
+
+/**
+ * Signs the JWT and stores it in a secure cookie.
+ *
+ * @param {import('express').Response} res
+ * @param {{ name: string, role: CvSectionRole, company: string }} data
+ */
+const issueJwtCookie = (res, data) => {
+  const token = jwt.sign(data, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN_SECONDS });
+  res.cookie('cv_section_token', token, {
+    httpOnly: true,
+    secure: true,
+    sameSite: 'strict',
+    maxAge: JWT_EXPIRES_IN_SECONDS * 1000
+  });
+};
+
+/**
  * Sends an error response in the format expected by the frontend.
  *
  * @param {import('express').Response} res
@@ -326,39 +377,29 @@ const sendLoginError = (res, statusCode, errorKey) => {
   res.status(statusCode).json({ error: errorKey });
 };
 
-// Login-Endpoint für cv-section
-app.post('/api/cv-section/login', async (req, res) => {
-  const { password, name, company } = req.body || {};
-
-  if (!password || !name) return sendLoginError(res, 400, 'MISSING_CREDENTIALS');
-
-  const role = await getRoleFromPassword(password);
-  if (!role) return sendLoginError(res, 401, 'INVALID_PASSWORD');
-  if (!isValidName(name, role)) return sendLoginError(res, 400, 'INVALID_NAME');
-
-  const normalizedCompany = normalizeCompanyForRole(role, company);
-  if (!validateCompanyForRole(role, normalizedCompany)) {
-    return sendLoginError(res, 400, 'INVALID_COMPANY');
-  }
-
-  const payload = { name, role, company: normalizedCompany };
-  const token = jwt.sign(payload, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN_SECONDS });
-
-  res.cookie('cv_section_token', token, {
-    httpOnly: true,
-    secure: true,
-    sameSite: 'strict',
-    maxAge: JWT_EXPIRES_IN_SECONDS * 1000
-  });
-
-  appendLoginLog(name, normalizedCompany, role);
-
+/**
+ * Sends the successful login payload expected by the frontend.
+ *
+ * @param {import('express').Response} res
+ * @param {{ name: string, role: CvSectionRole, company: string }} data
+ */
+const sendLoginSuccess = (res, data) => {
   res.json({
-    name,
-    company: normalizedCompany,
-    role,
+    name: data.name,
+    company: data.company,
+    role: data.role,
     expiresInSeconds: JWT_EXPIRES_IN_SECONDS
   });
+};
+
+// Login-Endpoint für cv-section
+app.post('/api/cv-section/login', async (req, res) => {
+  const result = await validateLoginRequest(req.body || {});
+  if (!result.ok) return sendLoginError(res, result.error.statusCode, result.error.errorKey);
+
+  issueJwtCookie(res, result.data);
+  appendLoginLog(result.data.name, result.data.company, result.data.role);
+  return sendLoginSuccess(res, result.data);
 });
 
 // Me-Endpoint, um Login-Status abzufragen
