@@ -26,9 +26,9 @@ a
   // Header-Links sollen unabhängig vom Accent-Switch immer weiß bleiben.
   .cv-links
     a
-      color: #ffffff !important
+      color: #ffffff
       &:hover
-        color: #ffffff !important
+        color: var(--link-hover)
 
 .cv-header-inner
   max-width: 960px
@@ -83,8 +83,9 @@ a
 
 .cv-main
   max-width: 960px
-  margin: 32px auto 40px
-  padding: 0 24px
+  margin: 0 auto
+  padding: 32px 24px 40px
+  background: var(--bg)
 
 .cv-section
   margin-bottom: 24px
@@ -103,6 +104,9 @@ a
     margin: 0 0 8px
     font-size: 0.95rem
     line-height: 1.55
+
+  #cv-cert
+    color: #e0f2fe
 
 .cv-two-columns
   display: grid

@@ -8,25 +8,29 @@
     .cv-section-card
       .cv-section-form
         .cv-section-field-password
-          grid-template-rows: 42px 56px
+          grid-template-rows: 42px 64px
 
           .cv-section-field-error
-            min-height: 56px
+            min-height: 64px
 
   @media (max-width: 330px)
     .cv-section-card
       .cv-section-form
         .cv-section-field
-          grid-template-rows: 42px 27px
+          grid-template-rows: 42px 42px
 
           .cv-section-field-error
-            min-height: 27px
+            min-height: 42px
+            white-space: normal
+            text-overflow: clip
+            overflow-wrap: anywhere
+            word-break: break-word
 
         .cv-section-field-password
-          grid-template-rows: 42px 56px
+          grid-template-rows: 42px 72px
 
           .cv-section-field-error
-            min-height: 56px
+            min-height: 72px
 
   @media (min-width: 1024px)
     min-height: calc(100vh - 117px - 240px)
