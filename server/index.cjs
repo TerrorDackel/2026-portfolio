@@ -98,34 +98,78 @@ const cleanupOldLoginLogs = () => {
 };
 
 /**
- * Computes admin statistics from already parsed log entries.
- * CV-access unique user count is calculated relative to the previous admin login.
+ * Filters admin entries and sorts them newest-first.
+ *
+ * @param {Array<{ timestampMs: number, role: string }>} entries
+ * @returns {Array}
+ */
+const getSortedAdminEntries = (entries) => {
+  return entries.filter((e) => e.role === 'ROLE_ADMIN').sort((a, b) => b.timestampMs - a.timestampMs);
+};
+
+/**
+ * Picks current and previous admin entries.
+ *
+ * @param {Array} adminEntries
+ * @returns {{ currentAdmin: any | null, previousAdmin: any | null }}
+ */
+const pickAdminBounds = (adminEntries) => {
+  return { currentAdmin: adminEntries[0] ?? null, previousAdmin: adminEntries[1] ?? null };
+};
+
+/**
+ * Filters CV-access entries for the valid time window.
+ *
+ * @param {Array} entries
+ * @param {{ currentAdmin: any | null, previousAdmin: any | null }} bounds
+ * @returns {Array}
+ */
+const filterCvAccessForBounds = (entries, bounds) => {
+  const { currentAdmin, previousAdmin } = bounds;
+  if (!previousAdmin) return entries.filter((e) => e.role === 'ROLE_CV_ACCESS');
+
+  return entries.filter(
+    (e) =>
+      e.role === 'ROLE_CV_ACCESS' &&
+      e.timestampMs > previousAdmin.timestampMs &&
+      (!currentAdmin || e.timestampMs <= currentAdmin.timestampMs)
+  );
+};
+
+/**
+ * Counts unique CV-access user names.
+ *
+ * @param {Array<{ name: string }>} entries
+ * @returns {number}
+ */
+const countUniqueCvAccessNames = (entries) => {
+  return new Set(entries.map((e) => e.name)).size;
+};
+
+/**
+ * Computes admin statistics from parsed log entries.
+ * The unique CV-access user count is relative to previous admin login.
  *
  * @param {Array<{ timestampMs: number, role: string, name: string, timestampIso: string }>} entries
  * @returns {{ lastAdminLogin: string | null, cvAccessUniqueUsersSinceLastAdmin: number }}
  */
 const computeAdminStats = (entries) => {
-  const adminEntries = entries
-    .filter((e) => e.role === 'ROLE_ADMIN')
-    .sort((a, b) => b.timestampMs - a.timestampMs);
+  const adminEntries = getSortedAdminEntries(entries);
+  const bounds = pickAdminBounds(adminEntries);
+  const relevantCvAccess = filterCvAccessForBounds(entries, bounds);
 
-  const currentAdmin = adminEntries[0] ?? null;
-  const previousAdmin = adminEntries[1] ?? null;
-
-  const relevantCvAccess = previousAdmin
-    ? entries.filter(
-        (e) =>
-          e.role === 'ROLE_CV_ACCESS' &&
-          e.timestampMs > previousAdmin.timestampMs &&
-          (!currentAdmin || e.timestampMs <= currentAdmin.timestampMs)
-      )
-    : entries.filter((e) => e.role === 'ROLE_CV_ACCESS');
-
-  const uniqueNames = new Set(relevantCvAccess.map((e) => e.name));
-  return { lastAdminLogin: previousAdmin ? previousAdmin.timestampIso : null, cvAccessUniqueUsersSinceLastAdmin: uniqueNames.size };
+  return {
+    lastAdminLogin: bounds.previousAdmin ? bounds.previousAdmin.timestampIso : null,
+    cvAccessUniqueUsersSinceLastAdmin: countUniqueCvAccessNames(relevantCvAccess)
+  };
 };
 
 /** @typedef {'ROLE_ADMIN' | 'ROLE_CV_ACCESS'} CvSectionRole */
+
+const ADMIN_PASSWORD_HASH =
+  '$2b$10$Rcjeyk/EiyCC9iC7olc.U.iRGeexM8NCjWC31jETWk/vv/G5pVJlu';
+const CV_ACCESS_PASSWORD_HASH =
+  '$2b$10$vK6sPZiBN76H3Mppd8FqZuNf3DqlE3FTnSn/KUledHkYWVcx55oZO';
 
 /**
  * @param {string} name
@@ -231,49 +275,70 @@ const authorizeRole = (role) => {
   };
 };
 
+/**
+ * Returns the role based on the provided password.
+ *
+ * @param {string} password
+ * @returns {Promise<CvSectionRole | null>}
+ */
+const getRoleFromPassword = async (password) => {
+  const normalizedPassword = String(password).trim();
+  const isAdminPassword = await bcrypt.compare(normalizedPassword, ADMIN_PASSWORD_HASH);
+  if (isAdminPassword) return 'ROLE_ADMIN';
+
+  const isCvPassword = await bcrypt.compare(normalizedPassword, CV_ACCESS_PASSWORD_HASH);
+  if (isCvPassword) return 'ROLE_CV_ACCESS';
+  return null;
+};
+
+/**
+ * Normalizes company by role. Admin can keep it empty.
+ *
+ * @param {CvSectionRole} role
+ * @param {unknown} company
+ * @returns {string}
+ */
+const normalizeCompanyForRole = (role, company) => {
+  if (role === 'ROLE_ADMIN') return '';
+  return String(company ?? '').trim();
+};
+
+/**
+ * Validates company by role. Admin does not require a company.
+ *
+ * @param {CvSectionRole} role
+ * @param {string} company
+ * @returns {boolean}
+ */
+const validateCompanyForRole = (role, company) => {
+  if (role === 'ROLE_ADMIN') return true;
+  return isValidCompany(company);
+};
+
+/**
+ * Sends an error response in the format expected by the frontend.
+ *
+ * @param {import('express').Response} res
+ * @param {number} statusCode
+ * @param {string} errorKey
+ */
+const sendLoginError = (res, statusCode, errorKey) => {
+  res.status(statusCode).json({ error: errorKey });
+};
+
 // Login-Endpoint für cv-section
 app.post('/api/cv-section/login', async (req, res) => {
   const { password, name, company } = req.body || {};
 
-  if (!password || !name) {
-    res.status(400).json({ error: 'MISSING_CREDENTIALS' });
-    return;
-  }
+  if (!password || !name) return sendLoginError(res, 400, 'MISSING_CREDENTIALS');
 
-  /** @type {CvSectionRole | null} */
-  let role = null;
+  const role = await getRoleFromPassword(password);
+  if (!role) return sendLoginError(res, 401, 'INVALID_PASSWORD');
+  if (!isValidName(name, role)) return sendLoginError(res, 400, 'INVALID_NAME');
 
-  const ADMIN_PASSWORD_HASH =
-    '$2b$10$Rcjeyk/EiyCC9iC7olc.U.iRGeexM8NCjWC31jETWk/vv/G5pVJlu';
-  const CV_ACCESS_PASSWORD_HASH =
-    '$2b$10$vK6sPZiBN76H3Mppd8FqZuNf3DqlE3FTnSn/KUledHkYWVcx55oZO';
-
-  const normalizedPassword = String(password).trim();
-
-  const isAdminPassword = await bcrypt.compare(normalizedPassword, ADMIN_PASSWORD_HASH);
-  if (isAdminPassword) {
-    role = 'ROLE_ADMIN';
-  } else {
-    const isCvPassword = await bcrypt.compare(normalizedPassword, CV_ACCESS_PASSWORD_HASH);
-    if (isCvPassword) {
-      role = 'ROLE_CV_ACCESS';
-    }
-  }
-
-  if (!role) {
-    res.status(401).json({ error: 'INVALID_PASSWORD' });
-    return;
-  }
-
-  if (!isValidName(name, role)) {
-    res.status(400).json({ error: 'INVALID_NAME' });
-    return;
-  }
-
-  const normalizedCompany = role === 'ROLE_CV_ACCESS' ? String(company ?? '').trim() : '';
-  if (role === 'ROLE_CV_ACCESS' && !isValidCompany(normalizedCompany)) {
-    res.status(400).json({ error: 'INVALID_COMPANY' });
-    return;
+  const normalizedCompany = normalizeCompanyForRole(role, company);
+  if (!validateCompanyForRole(role, normalizedCompany)) {
+    return sendLoginError(res, 400, 'INVALID_COMPANY');
   }
 
   const payload = { name, role, company: normalizedCompany };

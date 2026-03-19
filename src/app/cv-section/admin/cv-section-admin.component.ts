@@ -85,14 +85,18 @@ export class CvSectionAdminComponent implements OnInit {
 
   /** Splits raw text into valid log entries. */
   private parseLogsRaw(raw: string): CvSectionAdminLogEntry[] {
-    const lines = String(raw ?? '')
-      .split('\n')
-      .map((l) => l.trim())
-      .filter(Boolean);
-
+    const lines = this.getRawLogLines(raw);
     return lines
       .map((line) => this.parseSingleLogLine(line))
       .filter((e): e is CvSectionAdminLogEntry => Boolean(e));
+  }
+
+  /** Converts raw log text into non-empty lines. */
+  private getRawLogLines(raw: string): string[] {
+    return String(raw ?? '')
+      .split('\n')
+      .map((l) => l.trim())
+      .filter(Boolean);
   }
 
   /** Parses a single log line into an entry object. */
