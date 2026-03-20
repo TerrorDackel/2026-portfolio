@@ -152,7 +152,8 @@ export class CvSectionLoginComponent implements OnInit, OnDestroy {
 
   /** Requests the login endpoint and returns an observable. */
   private requestLogin(payload: { name: string; company: string; password: string }) {
-    return this.http.post<CvSectionMeResponse>('/api/cv-section/login', payload, { withCredentials: true });
+    // Use trailing slash to avoid server redirects (POST -> GET), which would break JSON body parsing.
+    return this.http.post<CvSectionMeResponse>('/api/cv-section/login/', payload, { withCredentials: true });
   }
 
   /** Handles the successful login response. */

@@ -1,12 +1,14 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
+import { RouterLink } from '@angular/router';
 
 interface CvDocumentLink {
   id: string;
   titleKey: string;
   descriptionKey: string;
-  href: string;
+  routerLink: string[];
+  queryParams: Record<string, string>;
   imgSrc: string;
   imgAltKey: string;
 }
@@ -14,7 +16,7 @@ interface CvDocumentLink {
 @Component({
   selector: 'app-cv-document-links',
   standalone: true,
-  imports: [CommonModule, TranslateModule],
+  imports: [CommonModule, TranslateModule, RouterLink],
   templateUrl: './cv-document-links.component.html',
   styleUrls: ['./cv-document-links.component.sass']
 })
@@ -24,7 +26,8 @@ export class CvDocumentLinksComponent {
       id: 'resume',
       titleKey: 'CV_SECTION.DOC_RESUME_TITLE',
       descriptionKey: 'CV_SECTION.DOC_RESUME_DESC',
-      href: '/cv-section/home/resume?returnTo=home',
+      routerLink: ['/cv-section/home/resume'],
+      queryParams: { returnTo: 'home' },
       imgSrc: 'assets/img/resume.png',
       imgAltKey: 'CV_SECTION.DOC_RESUME_ALT'
     },
@@ -32,7 +35,8 @@ export class CvDocumentLinksComponent {
       id: 'certificate',
       titleKey: 'CV_SECTION.DOC_CERT_TITLE',
       descriptionKey: 'CV_SECTION.DOC_CERT_DESC',
-      href: '/cv-section/home/certificate?returnTo=home',
+      routerLink: ['/cv-section/home/certificate'],
+      queryParams: { returnTo: 'home' },
       imgSrc: 'assets/img/da-certificate.png',
       imgAltKey: 'CV_SECTION.DOC_CERT_ALT'
     }

@@ -8,7 +8,8 @@
       <article class="cv-doc-card">
         <a
           class="cv-doc-card-inner"
-          [href]="doc.href"
+          [routerLink]="doc.routerLink"
+          [queryParams]="doc.queryParams"
           [attr.aria-label]="doc.titleKey | translate"
         >
           <div class="cv-doc-image-wrapper">

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { CvSectionSessionService } from '../cv-section-session.service';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { catchError, of } from 'rxjs';
 
 interface CvSectionAdminLogEntry {
@@ -16,7 +16,7 @@ interface CvSectionAdminLogEntry {
 @Component({
   selector: 'app-cv-section-admin',
   standalone: true,
-  imports: [CommonModule, TranslateModule],
+  imports: [CommonModule, TranslateModule, RouterLink],
   templateUrl: './cv-section-admin.component.html',
   styleUrls: ['./cv-section-admin.component.sass']
 })
@@ -178,7 +178,7 @@ export class CvSectionAdminComponent implements OnInit {
     this.clearLogsErrorKey = null;
 
     this.http
-      .post('/api/cv-section/admin/logs/clear', {}, { withCredentials: true, responseType: 'text' })
+      .post('/api/cv-section/admin/logs/clear/', {}, { withCredentials: true, responseType: 'text' })
       .subscribe({
         next: () => this.onClearLogsSuccess(),
         error: () => this.onClearLogsError()
@@ -200,7 +200,7 @@ export class CvSectionAdminComponent implements OnInit {
 
   onLogoutClick(): void {
     this.http
-      .post('/api/cv-section/logout', {}, { withCredentials: true })
+      .post('/api/cv-section/logout/', {}, { withCredentials: true })
       .subscribe({
         next: () => this.logoutAndNavigate(),
         error: () => this.logoutAndNavigate()

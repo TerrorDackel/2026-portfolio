@@ -47,14 +47,16 @@
         <div class="cv-admin-links">
           <p>
             <a
-              href="/cv-section/home/resume?returnTo=admin"
+              [routerLink]="['/cv-section/home/resume']"
+              [queryParams]="{ returnTo: 'admin' }"
             >
               {{ 'CV_SECTION.DOC_RESUME_TITLE' | translate }}
             </a>
           </p>
           <p>
             <a
-              href="/cv-section/home/certificate?returnTo=admin"
+              [routerLink]="['/cv-section/home/certificate']"
+              [queryParams]="{ returnTo: 'admin' }"
             >
               {{ 'CV_SECTION.DOC_CERT_TITLE' | translate }}
             </a>

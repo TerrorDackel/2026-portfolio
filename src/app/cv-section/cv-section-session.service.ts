@@ -100,7 +100,7 @@ export class CvSectionSessionService {
 
   private handleAutoLogout(): void {
     this.http
-      .post('/api/cv-section/logout', {}, { withCredentials: true })
+      .post('/api/cv-section/logout/', {}, { withCredentials: true })
       .subscribe({
         next: () => {
           this.stop();
