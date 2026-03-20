@@ -28,6 +28,12 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
+              "src/.htaccess",
+              {
+                "glob": "**/*.php",
+                "input": "src/cv-section-api",
+                "output": "api"
+              },
               "src/robots.txt",
               "src/sitemap.xml"
             ],
