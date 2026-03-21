@@ -1,52 +1,77 @@
-import { Component, ViewEncapsulation, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
+/** Layout variant for one timeline row under “Werdegang” (matches original HTML semantics). */
+type WerdegangLayout = 'paragraphSubtitle' | 'divSubtitleAndBody' | 'divSubtitleOnly';
+
+/**
+ * Standalone printable résumé view under the CV-section.
+ *
+ * Responsibilities:
+ * - Render résumé copy from `assets/i18n` keys under `CV_SECTION` (e.g. `RESUME_*`, `DOC_*`).
+ * - {@link CvResumePageComponent.print} delegates to `window.print()`.
+ * - {@link CvResumePageComponent.onBack} respects the `returnTo` query param.
+ */
 @Component({
   selector: 'app-cv-resume-page',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TranslateModule],
   templateUrl: './cv-resume-page.component.html',
-  styleUrls: ['./cv-resume-page.component.sass'],
-  encapsulation: ViewEncapsulation.None
+  styleUrl: './cv-resume-page.component.sass'
 })
 export class CvResumePageComponent {
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
 
   /**
-   * Opens the browser print dialog for this CV page.
+   * Drives the Werdegang `@for` loop; `id` maps to keys `RESUME_WG{{id}}_*`.
    */
+  readonly werdegangSegments: { id: string; layout: WerdegangLayout }[] = [
+    { id: '01', layout: 'paragraphSubtitle' },
+    { id: '02', layout: 'divSubtitleAndBody' },
+    { id: '03', layout: 'divSubtitleAndBody' },
+    { id: '04', layout: 'divSubtitleAndBody' },
+    { id: '05', layout: 'divSubtitleAndBody' },
+    { id: '06', layout: 'divSubtitleAndBody' },
+    { id: '07', layout: 'divSubtitleAndBody' },
+    { id: '08', layout: 'divSubtitleOnly' },
+    { id: '09', layout: 'divSubtitleAndBody' },
+    { id: '10', layout: 'divSubtitleAndBody' },
+    { id: '11', layout: 'divSubtitleAndBody' },
+    { id: '12', layout: 'divSubtitleOnly' },
+    { id: '13', layout: 'divSubtitleOnly' },
+    { id: '14', layout: 'divSubtitleOnly' }
+  ];
+
+  /**
+   * Builds an ngx-translate key under `CV_SECTION` (same pattern as `CONTACT.TITLE` → `CV_SECTION.RESUME_ABOUT_TITLE`).
+   */
+  cvSection(key: string): string {
+    return `CV_SECTION.${key}`;
+  }
+
+  /** Opens the browser print dialog for this CV page. */
   print(): void {
     window.print();
   }
 
   /**
-   * Navigates back to either the Home CV entry or the Admin area.
-   *
-   * The target is determined by the `returnTo` query parameter:
-   * - `returnTo=admin` -> `/cv-section/admin`
-   * - otherwise -> `/cv-section/home`
+   * Navigates back to Home or Admin depending on `returnTo`:
+   * - `returnTo=admin` → `/cv-section/admin`
+   * - otherwise → `/cv-section/home`
    */
   onBack(): void {
     const returnTo = this.route.snapshot.queryParamMap.get('returnTo');
-    const targetUrl = this.resolveBackUrl(returnTo);
-    void this.router.navigateByUrl(targetUrl);
+    void this.router.navigateByUrl(this.resolveBackUrl(returnTo));
   }
 
   /**
-   * Resolves the back target URL from the `returnTo` query parameter.
-   *
-   * @param returnTo Query param value from the current URL.
-   * @returns A full Angular URL for navigation.
+   * @param returnTo Query param from the current URL.
+   * @returns Target URL for {@link onBack}.
    */
   private resolveBackUrl(returnTo: string | null): string {
-    if (returnTo === 'admin') {
-      return '/cv-section/admin';
-    }
-
-    return '/cv-section/home';
+    return returnTo === 'admin' ? '/cv-section/admin' : '/cv-section/home';
   }
 }
-
-

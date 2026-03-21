@@ -1,83 +1,83 @@
-<div class="cv-documents-page">
-  <div class="cv-documents-bg" aria-hidden="true"></div>
-  <div class="cv-documents-content">
-    <header class="cv-header">
-  <div class="cv-header-inner">
-    <div class="cv-header-top">
-      <div class="cv-header-text">
-        <h1 class="cv-name">Jennifer Thomas</h1>
-        <p class="cv-role">Frontend Developer</p>
-      </div>
-      <div class="cv-actions" aria-label="Dokument-Aktionen">
-        <button type="button" class="cv-back-button" (click)="onBack()">
-          Zurück
-        </button>
-      </div>
-    </div>
-    <div class="cv-meta">
-      <div class="cv-contact">
-        <a href="mailto:contact&#64;jennifer-thomas.de">contact&#64;jennifer-thomas.de</a>
-        <span class="cv-separator">•</span>
-        <a href="tel:+4915128833550">+49&nbsp;151&nbsp;/&nbsp;2&nbsp;88&nbsp;33&nbsp;55&nbsp;0</a>
-        <span>Pilsting, Bayern</span>
-      </div>
-      <div class="cv-links">
-        <a href="https://www.jennifer-thomas.de" target="_blank" rel="noopener noreferrer">Portfolio</a>
-        <span class="cv-separator">•</span>
-        <a href="https://github.com/TerrorDackel?tab=repositories" target="_blank" rel="noopener noreferrer">
-          GitHub
-        </a>
-        <span class="cv-separator">•</span>
-        <a
-          href="https://www.linkedin.com/in/jennifer-thomas-595735360/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          LinkedIn
-        </a>
-      </div>
-    </div>
-  </div>
-</header>
-
-<main class="cv-main">
-  <section class="cv-section" aria-labelledby="cv-cert">
-    <h2 id="cv-cert">Zertifikat</h2>
-    <div class="cv-block cv-card cv-media-card">
-      <div class="cv-pdf-frame" aria-label="Abschlusszertifikat der Developer Akademie GmbH (PDF)">
-        <object
-          class="cv-pdf"
-          data="assets/img/da-certificate1-rotated-left.pdf#pagemode=none&zoom=page-fit"
-          type="application/pdf"
-        >
-          <p class="cv-pdf-fallback">
-            Ihr Browser kann das PDF nicht direkt anzeigen.
+<div class="cv-section-document">
+  <div class="cv-section-document-bg" aria-hidden="true"></div>
+  <div class="cv-section-document-inner">
+    <header class="cv-section-document-header">
+      <div class="cv-section-document-header-inner">
+        <div class="cv-section-document-header-top">
+          <div class="cv-section-document-header-text">
+            <h1 class="cv-section-document-title">{{ cvSection('RESUME_HEADER_NAME') | translate }}</h1>
+            <p class="cv-section-document-subtitle">{{ cvSection('RESUME_HEADER_ROLE') | translate }}</p>
+          </div>
+          <div
+            class="cv-section-document-actions"
+            [attr.aria-label]="cvSection('DOC_ARIA_DOCUMENT_ACTIONS') | translate"
+          >
+            <button type="button" class="cv-section-document-btn-back" (click)="onBack()">
+              {{ cvSection('DOC_BUTTON_BACK') | translate }}
+            </button>
+          </div>
+        </div>
+        <div class="cv-section-document-meta">
+          <div class="cv-section-document-contact">
+            <a href="mailto:contact&#64;jennifer-thomas.de">contact&#64;jennifer-thomas.de</a>
+            <span class="cv-section-document-separator">•</span>
+            <a href="tel:+4915128833550">+49&nbsp;151&nbsp;/&nbsp;2&nbsp;88&nbsp;33&nbsp;55&nbsp;0</a>
+            <span>{{ cvSection('RESUME_LOCATION') | translate }}</span>
+          </div>
+          <div class="cv-section-document-links">
+            <a href="https://www.jennifer-thomas.de" target="_blank" rel="noopener noreferrer">Portfolio</a>
+            <span class="cv-section-document-separator">•</span>
+            <a href="https://github.com/TerrorDackel?tab=repositories" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <span class="cv-section-document-separator">•</span>
             <a
-              href="assets/img/da-certificate1-rotated-left.pdf#pagemode=none&zoom=page-fit"
+              href="https://www.linkedin.com/in/jennifer-thomas-595735360/"
               target="_blank"
               rel="noopener noreferrer"
             >
-              PDF in neuem Tab öffnen
+              LinkedIn
             </a>
-          </p>
-        </object>
+          </div>
+        </div>
       </div>
-    </div>
+    </header>
 
-    <div class="cv-block cv-card cv-cert-intro-card">
-      <div class="cv-cert-intro-grid">
-        <p>
-          Dieses Dokument bestätigt den erfolgreichen Abschluss der Aus- und Weiterbildung zur Front-End Developerin bei
-          der Developer Akademie GmbH.
-        </p>
-        <p>
-          Zeitraum: 10/2024 – 10/2025<br />
-          Abschluss: Zertifikat Front-End Developer
-        </p>
-      </div>
-    </div>
-  </section>
-</main>
+    <main class="cv-section-document-main">
+      <section class="cv-section-document-segment" aria-labelledby="cv-section-cert-heading">
+        <h2 id="cv-section-cert-heading">{{ cvSection('DOC_CERT_HEADING') | translate }}</h2>
+        <div class="cv-section-document-block cv-section-document-card cv-section-document-media-card">
+          <div
+            class="cv-section-document-pdf-frame"
+            [attr.aria-label]="cvSection('DOC_CERT_PDF_ARIA_LABEL') | translate"
+          >
+            <object
+              class="cv-section-document-pdf"
+              data="assets/img/da-certificate1-rotated-left.pdf#pagemode=none&zoom=page-fit"
+              type="application/pdf"
+            >
+              <p class="cv-section-document-pdf-fallback">
+                {{ cvSection('DOC_CERT_PDF_FALLBACK') | translate }}
+                <a
+                  href="assets/img/da-certificate1-rotated-left.pdf#pagemode=none&zoom=page-fit"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {{ cvSection('DOC_CERT_PDF_OPEN_NEW_TAB') | translate }}
+                </a>
+              </p>
+            </object>
+          </div>
+        </div>
+
+        <div class="cv-section-document-block cv-section-document-card cv-section-document-cert-intro">
+          <div class="cv-section-document-cert-intro-grid">
+            <p>{{ cvSection('DOC_CERT_INTRO_P1') | translate }}</p>
+            <p>
+              {{ cvSection('DOC_CERT_INTRO_STATS_LINE1') | translate }}<br />
+              {{ cvSection('DOC_CERT_INTRO_STATS_LINE2') | translate }}
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
   </div>
 </div>
-

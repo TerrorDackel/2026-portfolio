@@ -1,11 +1,14 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { CvSectionSessionService } from '../cv-section-session.service';
 import { HttpClient } from '@angular/common/http';
 import { Router, RouterLink } from '@angular/router';
 import { catchError, of } from 'rxjs';
 
+/**
+ * One parsed row from the plain-text CV-section access log (`ROLE | name | company` columns after timestamp).
+ */
 interface CvSectionAdminLogEntry {
   timestamp: string;
   role: string;
@@ -13,29 +16,59 @@ interface CvSectionAdminLogEntry {
   company: string;
 }
 
+/**
+ * CV-section admin landing page: stats, log tail, document shortcuts, and maintenance actions.
+ *
+ * Responsibilities:
+ * - GET `/api/cv-section/admin/logs` as **text**, parse lines, keep only `ROLE_CV_ACCESS`, show newest 200.
+ * - GET `/api/cv-section/admin/stats` for “unique CV visitors since last admin login” counter.
+ * - POST `/api/cv-section/admin/logs/clear/` to wipe logs (with browser `confirm` guard).
+ * - Logout: same pattern as home — POST `/api/cv-section/logout/`, {@link CvSectionSessionService.stop}, navigate to login.
+ *
+ * Notes:
+ * - Log parsing is defensive: malformed lines are dropped rather than breaking the view.
+ * - {@link CvSectionAdminComponent.formatTimestamp} uses `de-DE` locale for display consistency.
+ */
 @Component({
   selector: 'app-cv-section-admin',
   standalone: true,
   imports: [CommonModule, TranslateModule, RouterLink],
   templateUrl: './cv-section-admin.component.html',
-  styleUrls: ['./cv-section-admin.component.sass']
+  styleUrl: './cv-section-admin.component.sass'
 })
 export class CvSectionAdminComponent implements OnInit {
   private readonly sessionService = inject(CvSectionSessionService);
   private readonly http = inject(HttpClient);
   private readonly router = inject(Router);
+  private readonly translate = inject(TranslateService);
 
+  /** True while the clear-logs POST is running. */
   protected isClearingLogs = false;
+
+  /** Translation key when log deletion fails; `null` when no error banner. */
   protected clearLogsErrorKey: string | null = null;
 
+  /** Shown until the first successful `/admin/logs` response (or hard failure). */
   protected isLoadingLogs = true;
+
+  /** i18n token when logs could not be loaded (template maps to a message). */
   protected logFetchError: string | null = null;
+
+  /** Newest-first slice of CV-access rows for the table UI. */
   protected visibleLogs: CvSectionAdminLogEntry[] = [];
 
+  /** Shown until `/admin/stats` returns or errors. */
   protected isLoadingStats = true;
+
+  /** i18n token when stats could not be loaded. */
   protected statsFetchError: string | null = null;
+
+  /** Backend counter; `null` only before first successful stats load. */
   protected cvAccessUniqueUsersSinceLastAdmin: number | null = null;
 
+  /**
+   * Triggers parallel loads for logs and stats.
+   */
   ngOnInit(): void {
     this.loadLogs();
     this.loadStats();
@@ -153,14 +186,21 @@ export class CvSectionAdminComponent implements OnInit {
     this.cvAccessUniqueUsersSinceLastAdmin = stats.cvAccessUniqueUsersSinceLastAdmin ?? 0;
   }
 
-  /** Formats the ISO timestamp into a readable German date/time string. */
+  /**
+   * Formats an ISO-8601 timestamp for the logs table using German locale conventions.
+   *
+   * @param iso Raw timestamp string from the log line.
+   * @returns Human-readable date/time, or the original string if parsing fails.
+   */
   protected formatTimestamp(iso: string): string {
     const d = new Date(iso);
     if (Number.isNaN(d.getTime())) return iso;
     return d.toLocaleString('de-DE', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' });
   }
 
-  /** Clears all login logs after confirmation. */
+  /**
+   * User gesture: asks for confirmation, then clears server-side CV logs.
+   */
   onClearLogsClick(): void {
     if (this.isClearingLogs) return;
     if (!this.confirmClearLogs()) return;
@@ -169,7 +209,7 @@ export class CvSectionAdminComponent implements OnInit {
 
   /** Shows a confirmation dialog for destructive actions. */
   private confirmClearLogs(): boolean {
-    return window.confirm('Willst du wirklich alle Login-Logs löschen?');
+    return window.confirm(this.translate.instant('CV_SECTION.ADMIN_CONFIRM_CLEAR_LOGS'));
   }
 
   /** Calls the backend endpoint to clear logs and refreshes UI afterwards. */
@@ -198,6 +238,9 @@ export class CvSectionAdminComponent implements OnInit {
     this.clearLogsErrorKey = 'CV_SECTION.CLEAR_LOGS_FAILED';
   }
 
+  /**
+   * Logs the admin out and returns to the CV login route.
+   */
   onLogoutClick(): void {
     this.http
       .post('/api/cv-section/logout/', {}, { withCredentials: true })

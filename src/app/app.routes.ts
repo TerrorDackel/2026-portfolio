@@ -16,6 +16,11 @@ import { CvCertificatePageComponent } from './cv-section/home/documents/certific
  *
  * Routes:
  * - ''               -> Main content/landing page
+ * - 'cv-section/login'           -> CV-area login (session cookie after POST)
+ * - 'cv-section/home'            -> CV visitor hub after login
+ * - 'cv-section/home/resume'     -> Printable résumé (`returnTo` query: `home` | `admin` for back navigation)
+ * - 'cv-section/home/certificate' -> Certificate + PDF embed (same `returnTo` convention)
+ * - 'cv-section/admin'         -> Admin dashboard (logs, stats, document links)
  * - 'legal-notice'   -> Legal notice / imprint page
  * - 'privacy-policy' -> Privacy policy page
  * - '**'             -> Fallback (redirect to home)

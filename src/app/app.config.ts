@@ -6,12 +6,9 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { routes } from './app.routes';
 
 /**
- * Factory function used by ngx-translate to create an HTTP-based translation loader.
+ * Factory for ngx-translate: loads `assets/i18n/<lang>.json` (includes all `CV_SECTION.*` strings).
  *
- * Loads translation JSON files from the configured assets path.
- *
- * @param http Angular HttpClient instance used to fetch translation files.
- * @returns A TranslateHttpLoader configured for this application's i18n files.
+ * @param http HttpClient used to fetch translation JSON.
  */
 const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader => {
   return new TranslateHttpLoader(http, '../assets/i18n/', '.json');

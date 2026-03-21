@@ -1,281 +1,193 @@
-<div class="cv-documents-page">
-  <div class="cv-documents-bg" aria-hidden="true"></div>
-  <div class="cv-documents-content">
-    <header class="cv-header">
-  <div class="cv-header-inner">
-    <div class="cv-header-top">
-      <div class="cv-header-text">
-        <h1 class="cv-name">Jennifer Thomas</h1>
-        <p class="cv-role">Frontend Developer</p>
+<div class="cv-section-document">
+  <div class="cv-section-document-bg" aria-hidden="true"></div>
+  <div class="cv-section-document-inner">
+    <header class="cv-section-document-header">
+      <div class="cv-section-document-header-inner">
+        <div class="cv-section-document-header-top">
+          <div class="cv-section-document-header-text">
+            <h1 class="cv-section-document-title">{{ cvSection('RESUME_HEADER_NAME') | translate }}</h1>
+            <p class="cv-section-document-subtitle">{{ cvSection('RESUME_HEADER_ROLE') | translate }}</p>
+          </div>
+          <div
+            class="cv-section-document-actions"
+            [attr.aria-label]="cvSection('DOC_ARIA_DOCUMENT_ACTIONS') | translate"
+          >
+            <button type="button" class="cv-section-document-btn-back" (click)="onBack()">
+              {{ cvSection('DOC_BUTTON_BACK') | translate }}
+            </button>
+            <button type="button" class="cv-section-document-btn-print" (click)="print()">
+              {{ cvSection('DOC_BUTTON_PRINT') | translate }}
+            </button>
+          </div>
+        </div>
+        <div class="cv-section-document-meta">
+          <div class="cv-section-document-contact">
+            <a href="mailto:contact&#64;jennifer-thomas.de">contact&#64;jennifer-thomas.de</a>
+            <span class="cv-section-document-separator">•</span>
+            <a href="tel:+4915128833550">+49&nbsp;151&nbsp;/&nbsp;2&nbsp;88&nbsp;33&nbsp;55&nbsp;0</a>
+            <span>{{ cvSection('RESUME_LOCATION') | translate }}</span>
+          </div>
+          <div class="cv-section-document-links">
+            <a href="https://www.jennifer-thomas.de" target="_blank" rel="noopener noreferrer">Portfolio</a>
+            <span class="cv-section-document-separator">•</span>
+            <a href="https://github.com/TerrorDackel?tab=repositories" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <span class="cv-section-document-separator">•</span>
+            <a
+              href="https://www.linkedin.com/in/jennifer-thomas-595735360/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              LinkedIn
+            </a>
+          </div>
+        </div>
       </div>
-      <div class="cv-actions" aria-label="Dokument-Aktionen">
-        <button type="button" class="cv-back-button" (click)="onBack()">
-          Zurück
-        </button>
-        <button type="button" class="cv-print-button" (click)="print()">Drucken</button>
-      </div>
-    </div>
-    <div class="cv-meta">
-      <div class="cv-contact">
-        <a href="mailto:contact&#64;jennifer-thomas.de">contact&#64;jennifer-thomas.de</a>
-        <span class="cv-separator">•</span>
-        <a href="tel:+4915128833550">+49&nbsp;151&nbsp;/&nbsp;2&nbsp;88&nbsp;33&nbsp;55&nbsp;0</a>
-        <span>Pilsting, Bayern</span>
-      </div>
-      <div class="cv-links">
-        <a href="https://www.jennifer-thomas.de" target="_blank" rel="noopener noreferrer">Portfolio</a>
-        <span class="cv-separator">•</span>
-        <a href="https://github.com/TerrorDackel?tab=repositories" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <span class="cv-separator">•</span>
-        <a href="https://www.linkedin.com/in/jennifer-thomas-595735360/" target="_blank" rel="noopener noreferrer">
-          LinkedIn
-        </a>
-      </div>
-    </div>
-  </div>
-</header>
+    </header>
 
-<main class="cv-main">
-  <section class="cv-section" aria-labelledby="cv-ueber-mich">
-    <div class="cv-block cv-card">
-      <h2 id="cv-ueber-mich">Über mich</h2>
-      <p>
-        Als Frontend Entwicklerin mit Fokus auf moderne Webanwendungen kombiniere ich klare Code-Strukturen mit
-        nutzerfreundlichen Interfaces. In Projekten wie meinem Angular-Kanban-Board, dem JavaScript-Game „El Pollo Loco"
-        und der API-basierten Pokedex-App plane ich Komponenten, Zustände und Datenflüsse bewusst, damit neue Features
-        sauber eingebettet und langfristig wartbar bleiben.
-      </p>
-      <p>
-        Ich arbeite gerne strukturiert und in enger Abstimmung mit dem Team: Bevor ich code, kläre ich Anforderungen
-        und Domäne, skizziere Architekturideen und nutze moderne Developer-Tools und Assistenten, um Varianten zu
-        vergleichen. Debugging mit Browser-DevTools, sinnvolle Fehlerbehandlung und wiederholbares Testen im Browser
-        gehören für mich selbstverständlich zum Entwicklungsprozess dazu.
-      </p>
-    </div>
-  </section>
+    <main class="cv-section-document-main">
+      <section class="cv-section-document-segment" aria-labelledby="cv-section-resume-heading-about">
+        <div class="cv-section-document-block cv-section-document-card">
+          <h2 id="cv-section-resume-heading-about">{{ cvSection('RESUME_ABOUT_TITLE') | translate }}</h2>
+          <p>{{ cvSection('RESUME_ABOUT_P1') | translate }}</p>
+          <p>{{ cvSection('RESUME_ABOUT_P2') | translate }}</p>
+        </div>
+      </section>
 
-  <section class="cv-section cv-two-columns" aria-labelledby="cv-skills">
-    <div class="cv-column">
-      <div class="cv-block cv-card">
-        <h2>Technische Fähigkeiten</h2>
-        <ul class="cv-list">
-          <li>Angular, TypeScript, JavaScript</li>
-          <li>HTML5, CSS/Sass, Responsive Design</li>
-          <li>Firebase, REST-APIs</li>
-          <li>Git, GitHub, npm</li>
-          <li>Unit- und Browser-Tests (Jasmine/Karma, manuelle E2E-Checks)</li>
-        </ul>
-        <h3>Arbeitsweise</h3>
-        <ul class="cv-list">
-          <li>Architekturdenken für Komponenten, Zustände und Datenflüsse</li>
-          <li>Klarheit vor Code: Anforderungen und Use-Cases zuerst</li>
-          <li>Gezielter Einsatz moderner Developer-Tools und Assistenten</li>
-          <li>Debugging-Fokus und saubere Fehlerbehandlung</li>
-          <li>Nutzerzentrierte, gut verständliche UI-Gestaltung</li>
-        </ul>
-      </div>
-    </div>
-    <div class="cv-column">
-      <div class="cv-block cv-card">
-        <h2>
-          Berufserfahrung <span class="cv-item-period">2025 – 2026</span>
-        </h2>
-        <div class="cv-item">
-          <div class="cv-item-header">
-            <div class="cv-item-title">
-              Junior Frontend Developer (Projekte)
+      <section
+        class="cv-section-document-segment cv-section-document-columns"
+        aria-labelledby="cv-section-resume-heading-skills"
+      >
+        <div class="cv-section-document-column">
+          <div class="cv-section-document-block cv-section-document-card">
+            <h2 id="cv-section-resume-heading-skills">{{ cvSection('RESUME_SKILLS_TITLE') | translate }}</h2>
+            <ul class="cv-section-document-list">
+              <li>{{ cvSection('RESUME_SKILLS_L1') | translate }}</li>
+              <li>{{ cvSection('RESUME_SKILLS_L2') | translate }}</li>
+              <li>{{ cvSection('RESUME_SKILLS_L3') | translate }}</li>
+              <li>{{ cvSection('RESUME_SKILLS_L4') | translate }}</li>
+              <li>{{ cvSection('RESUME_SKILLS_L5') | translate }}</li>
+            </ul>
+            <h3>{{ cvSection('RESUME_WORKSTYLE_TITLE') | translate }}</h3>
+            <ul class="cv-section-document-list">
+              <li>{{ cvSection('RESUME_WORKSTYLE_L1') | translate }}</li>
+              <li>{{ cvSection('RESUME_WORKSTYLE_L2') | translate }}</li>
+              <li>{{ cvSection('RESUME_WORKSTYLE_L3') | translate }}</li>
+              <li>{{ cvSection('RESUME_WORKSTYLE_L4') | translate }}</li>
+              <li>{{ cvSection('RESUME_WORKSTYLE_L5') | translate }}</li>
+            </ul>
+          </div>
+        </div>
+        <div class="cv-section-document-column">
+          <div class="cv-section-document-block cv-section-document-card">
+            <h2>
+              {{ cvSection('RESUME_EXP_TITLE') | translate }}
+              <span class="cv-section-document-item-period">{{ cvSection('RESUME_EXP_PERIOD') | translate }}</span>
+            </h2>
+            <div class="cv-section-document-item">
+              <div class="cv-section-document-item-header">
+                <div class="cv-section-document-item-title">
+                  {{ cvSection('RESUME_JUNIOR_TITLE') | translate }}
+                </div>
+              </div>
+              <div class="cv-section-document-item-subtitle">{{ cvSection('RESUME_JUNIOR_SUB') | translate }}</div>
+              <ul class="cv-section-document-list">
+                <li>{{ cvSection('RESUME_JUNIOR_L1') | translate }}</li>
+                <li>{{ cvSection('RESUME_JUNIOR_L2') | translate }}</li>
+                <li>{{ cvSection('RESUME_JUNIOR_L3') | translate }}</li>
+                <li>{{ cvSection('RESUME_JUNIOR_L4') | translate }}</li>
+              </ul>
             </div>
           </div>
-          <div class="cv-item-subtitle">Eigenständige und Teamprojekte, remote</div>
-          <ul class="cv-list">
-            <li>Entwicklung eines Kanban-Taskmanagers „Join" mit Angular, TypeScript und Firebase.</li>
-            <li>Umsetzung eines 2D-Jump'n'Run-Spiels „El Pollo Loco" mit objektorientiertem JavaScript.</li>
-            <li>Aufbau einer Pokedex-Single-Page-App auf Basis der PokéAPI.</li>
-            <li>Erstellung und Pflege meines Angular-Portfolio-Frontends.</li>
-          </ul>
-        </div>
-      </div>
-      <div class="cv-block cv-card">
-        <h2>
-          Ausbildung <span class="cv-item-period">2024 – 2025</span>
-        </h2>
-        <div class="cv-item">
-          <div class="cv-item-header">
-            <div class="cv-item-title">Aus- und Weiterbildung Front-End Developer</div>
-          </div>
-          <p class="cv-item-subtitle">
-            Developer Akademie GmbH · München/Remote – Erfolgreich abgeschlossen mit Abschlusszertifikat.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="cv-section" aria-labelledby="cv-projekte">
-    <h2 id="cv-projekte">Ausgewählte Projekte</h2>
-    <div class="cv-projects">
-      <div class="cv-project">
-        <div class="cv-item-header">
-          <div class="cv-item-title"><span class="cv-project-name">Join</span> – Kanban Taskmanager</div>
-          <div class="cv-item-period">Angular, TypeScript, Firebase</div>
-        </div>
-        <p>
-          Team-basierter Taskmanager mit Drag-and-Drop-Board, Nutzerzuweisung und Kategorien. Fokus auf
-          Komponenten-Architektur, Formularlogik und Integration eines Cloud-Backends.
-        </p>
-      </div>
-      <div class="cv-project">
-        <div class="cv-item-header">
-          <div class="cv-item-title"><span class="cv-project-name">El Pollo Loco</span> – JS Game</div>
-          <div class="cv-item-period">JavaScript, HTML, CSS</div>
-        </div>
-        <p>
-          Side-Scrolling Jump'n'Run mit Game-Loop, Animationen, Kollisionserkennung und Tastatursteuerung.
-          Stärkt meine Fähigkeit, komplexe Logik im Browser strukturiert abzubilden.
-        </p>
-      </div>
-      <div class="cv-project">
-        <div class="cv-item-header">
-          <div class="cv-item-title"><span class="cv-project-name">Pokedex</span> – API-basierte SPA</div>
-          <div class="cv-item-period">JavaScript, HTML, CSS, PokéAPI</div>
-        </div>
-        <p>
-          Anzeige und Detailansicht von Pokémon-Daten mit Such- und Ladezuständen. Übung in API-Integration,
-          Fehlerbehandlung und responsivem UI-Design.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <section class="cv-section" aria-labelledby="cv-sprachen">
-    <h2 id="cv-sprachen">Sprachkenntnisse</h2>
-    <div class="cv-block cv-card">
-      <dl class="cv-languages">
-        <dt>Deutsch</dt>
-        <dd>Muttersprache</dd>
-        <dt>Englisch</dt>
-        <dd>Verhandlungssicher</dd>
-      </dl>
-    </div>
-  </section>
-
-  <section class="cv-section" aria-labelledby="cv-werdegang">
-    <h2 id="cv-werdegang">Werdegang</h2>
-    <div class="cv-block cv-card">
-      <div class="cv-werdegang-item">
-        <div class="cv-item-header">
-          <div class="cv-item-title">
-            Aus- und Weiterbildung Front-End Developer
-            <span class="cv-item-period">2024 – 2025</span>
+          <div class="cv-section-document-block cv-section-document-card">
+            <h2>
+              {{ cvSection('RESUME_EDU_TITLE') | translate }}
+              <span class="cv-section-document-item-period">{{ cvSection('RESUME_EDU_PERIOD') | translate }}</span>
+            </h2>
+            <div class="cv-section-document-item">
+              <div class="cv-section-document-item-header">
+                <div class="cv-section-document-item-title">{{ cvSection('RESUME_EDU_DEGREE_TITLE') | translate }}</div>
+              </div>
+              <p class="cv-section-document-item-subtitle">{{ cvSection('RESUME_EDU_DEGREE_DESC') | translate }}</p>
+            </div>
           </div>
         </div>
-        <p class="cv-item-subtitle">
-          Developer Akademie GmbH · München/Remote – Erfolgreich abgeschlossen mit Abschlusszertifikat.
-        </p>
-      </div>
-      <div class="cv-werdegang-item">
-        <div class="cv-item-header">
-          <div class="cv-item-title">Verkehrsplanerin</div>
-          <div class="cv-item-period">03/2021 – 07/2024</div>
+      </section>
+
+      <section class="cv-section-document-segment" aria-labelledby="cv-section-resume-heading-projects">
+        <h2 id="cv-section-resume-heading-projects">{{ cvSection('RESUME_PROJECTS_TITLE') | translate }}</h2>
+        <div class="cv-section-document-projects">
+          <div class="cv-section-document-project">
+            <div class="cv-section-document-item-header">
+              <div class="cv-section-document-item-title">
+                <span class="cv-section-document-project-name">{{ cvSection('RESUME_PROJ_JOIN_TITLE') | translate }}</span>
+                {{ cvSection('RESUME_PROJ_JOIN_SUFFIX') | translate }}
+              </div>
+              <div class="cv-section-document-item-period">{{ cvSection('RESUME_PROJ_JOIN_META') | translate }}</div>
+            </div>
+            <p>{{ cvSection('RESUME_PROJ_JOIN_DESC') | translate }}</p>
+          </div>
+          <div class="cv-section-document-project">
+            <div class="cv-section-document-item-header">
+              <div class="cv-section-document-item-title">
+                <span class="cv-section-document-project-name">{{ cvSection('RESUME_PROJ_POLLO_TITLE') | translate }}</span>
+                {{ cvSection('RESUME_PROJ_POLLO_SUFFIX') | translate }}
+              </div>
+              <div class="cv-section-document-item-period">{{ cvSection('RESUME_PROJ_POLLO_META') | translate }}</div>
+            </div>
+            <p>{{ cvSection('RESUME_PROJ_POLLO_DESC') | translate }}</p>
+          </div>
+          <div class="cv-section-document-project">
+            <div class="cv-section-document-item-header">
+              <div class="cv-section-document-item-title">
+                <span class="cv-section-document-project-name">{{ cvSection('RESUME_PROJ_POKEDEX_TITLE') | translate }}</span>
+                {{ cvSection('RESUME_PROJ_POKEDEX_SUFFIX') | translate }}
+              </div>
+              <div class="cv-section-document-item-period">{{ cvSection('RESUME_PROJ_POKEDEX_META') | translate }}</div>
+            </div>
+            <p>{{ cvSection('RESUME_PROJ_POKEDEX_DESC') | translate }}</p>
+          </div>
         </div>
-        <div class="cv-item-subtitle">ARIFI GmbH · München/Remote</div>
-        <p>Erstellen von Verkehrszeichenplänen nach RSA 21 und Beantragen von VAO.</p>
-      </div>
-      <div class="cv-werdegang-item">
-        <div class="cv-item-header">
-          <div class="cv-item-title">Elektrikerin Energie- und Gebäudetechnik</div>
-          <div class="cv-item-period">03/2012 – 03/2020</div>
+      </section>
+
+      <section class="cv-section-document-segment" aria-labelledby="cv-section-resume-heading-lang">
+        <h2 id="cv-section-resume-heading-lang">{{ cvSection('RESUME_LANG_TITLE') | translate }}</h2>
+        <div class="cv-section-document-block cv-section-document-card">
+          <dl class="cv-section-document-languages">
+            <dt>{{ cvSection('RESUME_LANG_DE') | translate }}</dt>
+            <dd>{{ cvSection('RESUME_LANG_DE_LEVEL') | translate }}</dd>
+            <dt>{{ cvSection('RESUME_LANG_EN') | translate }}</dt>
+            <dd>{{ cvSection('RESUME_LANG_EN_LEVEL') | translate }}</dd>
+          </dl>
         </div>
-        <div class="cv-item-subtitle">Freiberger Energie und Gebäudetechnik GmbH</div>
-        <p>Tätigkeit in allen Bereichen des Berufsbildes.</p>
-      </div>
-      <div class="cv-werdegang-item">
-        <div class="cv-item-header">
-          <div class="cv-item-title">Photovoltaikinstallateurin</div>
-          <div class="cv-item-period">03/2011 – 01/2012</div>
+      </section>
+
+      <section class="cv-section-document-segment" aria-labelledby="cv-section-resume-heading-career">
+        <h2 id="cv-section-resume-heading-career">{{ cvSection('RESUME_CAREER_TITLE') | translate }}</h2>
+        <div class="cv-section-document-block cv-section-document-card">
+          @for (seg of werdegangSegments; track seg.id) {
+            <div class="cv-section-document-timeline-item">
+              <div class="cv-section-document-item-header">
+                <div class="cv-section-document-item-title">
+                  {{ cvSection('RESUME_WG' + seg.id + '_TITLE') | translate }}
+                  <span class="cv-section-document-item-period">{{ cvSection('RESUME_WG' + seg.id + '_PERIOD') | translate }}</span>
+                </div>
+              </div>
+              @switch (seg.layout) {
+                @case ('paragraphSubtitle') {
+                  <p class="cv-section-document-item-subtitle">{{ cvSection('RESUME_WG' + seg.id + '_SUB') | translate }}</p>
+                }
+                @case ('divSubtitleAndBody') {
+                  <div class="cv-section-document-item-subtitle">{{ cvSection('RESUME_WG' + seg.id + '_SUB') | translate }}</div>
+                  <p>{{ cvSection('RESUME_WG' + seg.id + '_P') | translate }}</p>
+                }
+                @case ('divSubtitleOnly') {
+                  <div class="cv-section-document-item-subtitle">{{ cvSection('RESUME_WG' + seg.id + '_SUB') | translate }}</div>
+                }
+              }
+            </div>
+          }
         </div>
-        <div class="cv-item-subtitle">Patrick Prettner · Wallersdorf</div>
-        <p>Installation von Photovoltaikanlagen inkl. Wartung.</p>
-      </div>
-      <div class="cv-werdegang-item">
-        <div class="cv-item-header">
-          <div class="cv-item-title">Auszubildende zur Elektronikerin – Energie- und Gebäudetechnik</div>
-          <div class="cv-item-period">09/2007 – 03/2011</div>
-        </div>
-        <div class="cv-item-subtitle">EST Energie- und Solartechnik GmbH · Wallersdorf</div>
-        <p>Erfolgreich abgeschlossen.</p>
-      </div>
-      <div class="cv-werdegang-item">
-        <div class="cv-item-header">
-          <div class="cv-item-title">Technische Zeichnerin für Photovoltaikparks</div>
-          <div class="cv-item-period">09/2006 – 09/2007</div>
-        </div>
-        <div class="cv-item-subtitle">EST Energie- und Solartechnik GmbH · Wallersdorf</div>
-        <p>Erstellen von technischen Zeichnungen von Solarparks.</p>
-      </div>
-      <div class="cv-werdegang-item">
-        <div class="cv-item-header">
-          <div class="cv-item-title">Auszubildende zur Pferdewirtin Z+H Westernpferde</div>
-          <div class="cv-item-period">02/2005 – 07/2006</div>
-        </div>
-        <div class="cv-item-subtitle">Petra Dürr · Neufinsing</div>
-        <p>Erfolgreich abgeschlossen.</p>
-      </div>
-      <div class="cv-werdegang-item">
-        <div class="cv-item-header">
-          <div class="cv-item-title">Auszubildende zur Pferdewirtin Z+H Westernpferde</div>
-          <div class="cv-item-period">09/2003 – 02/2005</div>
-        </div>
-        <div class="cv-item-subtitle">Sommerholz-Ranch, Ascherl Max · Angelbrechting</div>
-      </div>
-      <div class="cv-werdegang-item">
-        <div class="cv-item-header">
-          <div class="cv-item-title">Praktikum Pferdewirtin</div>
-          <div class="cv-item-period">07/2003 – 09/2003</div>
-        </div>
-        <div class="cv-item-subtitle">Sommerholz-Ranch, Ascherl Max · Angelbrechting</div>
-        <p>Erfolgreich abgeschlossen.</p>
-      </div>
-      <div class="cv-werdegang-item">
-        <div class="cv-item-header">
-          <div class="cv-item-title">Ausbildung zur Technischen Zeichnerin Maschinen- und Anlagentechnik</div>
-          <div class="cv-item-period">09/1999 – 03/2003</div>
-        </div>
-        <div class="cv-item-subtitle">remaplan Anlagenbau GmbH · Landau an der Isar</div>
-        <p>Erfolgreich abgeschlossen.</p>
-      </div>
-      <div class="cv-werdegang-item">
-        <div class="cv-item-header">
-          <div class="cv-item-title">Mittlere Reife (F10)</div>
-          <div class="cv-item-period">09/1998 – 07/1999</div>
-        </div>
-        <div class="cv-item-subtitle">Hauptschule Dingolfing</div>
-        <p>Erfolgreich abgeschlossen.</p>
-      </div>
-      <div class="cv-werdegang-item">
-        <div class="cv-item-header">
-          <div class="cv-item-title">Qualifizierender Hauptschulabschluss</div>
-          <div class="cv-item-period">09/1997 – 07/1998</div>
-        </div>
-        <div class="cv-item-subtitle">Hans-Carossa-Grund- und Hauptschule · Pilsting</div>
-      </div>
-      <div class="cv-werdegang-item">
-        <div class="cv-item-header">
-          <div class="cv-item-title">Grund- und Hauptschule</div>
-          <div class="cv-item-period">06/1992 – 07/1997</div>
-        </div>
-        <div class="cv-item-subtitle">Hans-Carossa-Grund- und Hauptschule · Pilsting/Deutschland</div>
-      </div>
-      <div class="cv-werdegang-item">
-        <div class="cv-item-header">
-          <div class="cv-item-title">Grundschule</div>
-          <div class="cv-item-period">09/1989 – 05/1992</div>
-        </div>
-        <div class="cv-item-subtitle">Deutsche Schule Tripolis · Tripolis/Libyen</div>
-      </div>
-    </div>
-  </section>
-</main>
+      </section>
+    </main>
   </div>
 </div>
-

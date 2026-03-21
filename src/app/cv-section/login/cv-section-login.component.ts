@@ -4,21 +4,42 @@ import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validator
 import { HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subscription, firstValueFrom } from 'rxjs';
 import { CvSectionSessionService } from '../cv-section-session.service';
 
+/** Successful login response from `/api/cv-section/login/`. */
 interface CvSectionMeResponse {
   name: string;
   company: string;
   role: 'ROLE_ADMIN' | 'ROLE_CV_ACCESS';
 }
 
+/**
+ * CV-section login screen: dual flow for site admin vs. CV-only visitors.
+ *
+ * Responsibilities:
+ * - Build and validate a reactive form (`name`, `company`, `password`).
+ * - Apply **dynamic** rules: company is optional when name is exactly `Admin`, otherwise required.
+ * - POST credentials to `/api/cv-section/login/` (trailing slash avoids redirect/body issues).
+ * - On success: {@link CvSectionSessionService.start}, route to `/cv-section/admin` or `/cv-section/home` by role.
+ * - Map backend error codes to translation keys; surface `INVALID_PASSWORD` on the password control.
+ * - Subscribe to {@link CvSectionSessionService.warning$} for the idle banner while staying on this page.
+ * - Read `?reason=timeout` to show a friendly “session expired” toast once.
+ *
+ * Validation highlights:
+ * - Non-admin names must be **two tokens** (e.g. first + last), each ≥3 letters, Latin letters only (incl. German umlauts).
+ * - Company (when validated) must be letters/spaces with ≥3 letters total.
+ *
+ * Notes:
+ * - Uses `withCredentials: true` on all CV-section HTTP calls for cookie sessions.
+ * - Inline error toasts auto-hide after a few seconds; password errors persist until the user edits the field.
+ */
 @Component({
   selector: 'app-cv-section-login',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, TranslateModule],
   templateUrl: './cv-section-login.component.html',
-  styleUrls: ['./cv-section-login.component.sass']
+  styleUrl: './cv-section-login.component.sass'
 })
 export class CvSectionLoginComponent implements OnInit, OnDestroy {
   private readonly http = inject(HttpClient);
@@ -28,10 +49,20 @@ export class CvSectionLoginComponent implements OnInit, OnDestroy {
   private readonly router = inject(Router);
   private readonly sessionService = inject(CvSectionSessionService);
 
+  /** Subscription to {@link CvSectionSessionService.warning$}. */
   private warningSub?: Subscription;
+
+  /** Keeps company `Validators.required` in sync with the name field. */
   private nameSub?: Subscription;
+
+  /** Clears server-side password error when the user types again. */
   private passwordSub?: Subscription;
 
+  /**
+   * Custom validator for the name field (non-admin users).
+   *
+   * @returns `null` if empty (let `Validators.required` handle it), valid, or `Admin`; otherwise structured errors.
+   */
   private readonly validateName = (
     control: AbstractControl
   ): { invalidName: true; nameTooShort?: true; nameIncomplete?: true } | null => {
@@ -59,20 +90,36 @@ export class CvSectionLoginComponent implements OnInit, OnDestroy {
     return null;
   };
 
+  /**
+   * Root form group for the login template.
+   *
+   * Company validators are patched at runtime via {@link syncCompanyRequirement}.
+   */
   loginForm: FormGroup = this.fb.group({
     name: ['', [Validators.required, this.validateName]],
-    // Requirement ist dynamisch:
-    // - bei Admin (Name == "Admin") ist Firma optional
-    // - bei allen anderen (CV-Zugang) ist Firma Pflicht
+    // Company requirement is dynamic:
+    // - optional when the name is "Admin"
+    // - required for all other CV-access users
     company: ['', [this.validateCompanyLetters]],
     password: ['', [Validators.required]]
   });
 
+  /** True while the login POST is in flight (disables submit UI). */
   isSubmitting = false;
+
+  /** After first submit attempt, invalid fields may show messages even if still pristine. */
   submitAttempted = false;
+
+  /** ngx-translate key for the floating error toast, or `null` when hidden. */
   inlineErrorKey: string | null = null;
+
+  /** Controls visibility of the generic inline error toast. */
   showInlineError = false;
+
+  /** Toggles password field between `password` and `text`. */
   showPassword = false;
+
+  /** Mirrors {@link CvSectionSessionService.warning$} for the yellow idle banner. */
   showInactivityWarning = false;
 
   /**
@@ -93,8 +140,9 @@ export class CvSectionLoginComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Makes the company field required only for CV-access users.
-   * Admin attempts are detected by the special name "Admin".
+   * Adds or removes `Validators.required` on `company` based on whether the user is attempting admin login.
+   *
+   * @param nameValue Current or latest `name` control value.
    */
   private syncCompanyRequirement(nameValue: string | null | undefined): void {
     const trimmed = String(nameValue ?? '').trim();
@@ -158,7 +206,7 @@ export class CvSectionLoginComponent implements OnInit, OnDestroy {
 
   /** Handles the successful login response. */
   private handleLoginSuccess(response: CvSectionMeResponse): void {
-    void this.translate.get('CV_SECTION.LOGIN_SUCCESS', { name: response.name }).toPromise();
+    void firstValueFrom(this.translate.get('CV_SECTION.LOGIN_SUCCESS', { name: response.name })).catch(() => undefined);
     this.finishSubmitState();
     this.sessionService.start();
     const route = response.role === 'ROLE_ADMIN' ? '/cv-section/admin' : '/cv-section/home';
@@ -208,7 +256,12 @@ export class CvSectionLoginComponent implements OnInit, OnDestroy {
     return true;
   }
 
-  /** Returns whether a field should display inline validation feedback. */
+  /**
+   * Whether the template should show Angular validation messages under a field.
+   *
+   * @param controlName Reactive control key.
+   * @returns `true` when invalid and (touched or {@link submitAttempted}).
+   */
   shouldShowFieldError(controlName: 'name' | 'company' | 'password'): boolean {
     const control = this.loginForm.controls[controlName];
     return Boolean(control?.invalid && (control.touched || this.submitAttempted));

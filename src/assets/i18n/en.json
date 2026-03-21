@@ -75,32 +75,32 @@
     },
     "PROJECTS": {
         "JOIN": {
-        "DESCRIPTION": "Task manager inspired by the Kanban system. Create and organize tasks using drag-and-drop and assign users and categories."
+            "DESCRIPTION": "Task manager inspired by the Kanban system. Create and organize tasks using drag-and-drop and assign users and categories."
         },
         "POLLO": {
-        "DESCRIPTION": "Jump’n’Run game with throwing mechanics. Help Pepe collect coins and Tabasco to fight the crazy chicken."
+            "DESCRIPTION": "Jump’n’Run game with throwing mechanics. Help Pepe collect coins and Tabasco to fight the crazy chicken."
         },
         "POKEDEX": {
-        "DESCRIPTION": "Based on the PokéAPI – a simple library to display and catalog Pokémon data."
+            "DESCRIPTION": "Based on the PokéAPI – a simple library to display and catalog Pokémon data."
         }
     },
     "REF_SECTION": {
         "TEAMPLAYER": "Need a teamplayer?",
         "COLLEAGUES": "This is what my colleagues say about our collaboration:",
         "CATALINA": {
-        "COMMIT": "Jenny and I worked together on the Kochwelt project. I was positively impressed by her independent work style as well as her friendly and helpful nature. She brought strong frontend skills to the table and was always eager to learn new things. I would gladly work with Jenny again anytime."
+            "COMMIT": "Jenny and I worked together on the Kochwelt project. I was positively impressed by her independent work style as well as her friendly and helpful nature. She brought strong frontend skills to the table and was always eager to learn new things. I would gladly work with Jenny again anytime."
         },
         "CARYEN": {
-        "COMMIT": "Jenny carried out all tasks entrusted to her with great reliability and care. Her strong determination, deep interest, and remarkable diligence stood out. Working with her was extremely pleasant and enriching. I am confident that she will be a valuable asset in any future project as well."
+            "COMMIT": "Jenny carried out all tasks entrusted to her with great reliability and care. Her strong determination, deep interest, and remarkable diligence stood out. Working with her was extremely pleasant and enriching. I am confident that she will be a valuable asset in any future project as well."
         },
         "PATRICK": {
-        "COMMIT": "Jennifer was very independent and always focused – while bringing just the right touch of humor. The atmosphere within the team was relaxed and warm, which made working together truly enjoyable."
+            "COMMIT": "Jennifer was very independent and always focused – while bringing just the right touch of humor. The atmosphere within the team was relaxed and warm, which made working together truly enjoyable."
         },
         "STEPHIE": {
-        "COMMIT": "Jenny brought an incredible amount of joy and positive energy to the project. She was always reliable and enriched the team with her open and approachable nature. What impressed me most was how often she helped us move forward with fresh, unconventional ideas whenever we were stuck on a challenge. Her support was consistently dependable and motivating. Working with Jenny was truly a pleasure – thank you!"
+            "COMMIT": "Jenny brought an incredible amount of joy and positive energy to the project. She was always reliable and enriched the team with her open and approachable nature. What impressed me most was how often she helped us move forward with fresh, unconventional ideas whenever we were stuck on a challenge. Her support was consistently dependable and motivating. Working with Jenny was truly a pleasure – thank you!"
         },
         "JON": {
-        "COMMIT": "Jennifer Thomas was a great asset to our final project at the Developer Akademie. She quickly found her footing, demonstrated strong technical skills, asked insightful questions, and maintained a clear overview even in challenging situations. Her positive attitude, sense of humor, and clear communication made her a highly valued team member. A wholehearted recommendation – both professionally and personally."
+            "COMMIT": "Jennifer Thomas was a great asset to our final project at the Developer Akademie. She quickly found her footing, demonstrated strong technical skills, asked insightful questions, and maintained a clear overview even in challenging situations. Her positive attitude, sense of humor, and clear communication made her a highly valued team member. A wholehearted recommendation – both professionally and personally."
         }
     },
     "HERO": {
@@ -165,7 +165,118 @@
         "DOC_RESUME_ALT": "Preview of the résumé of Jennifer Thomas.",
         "DOC_CERT_TITLE": "Certificates",
         "DOC_CERT_DESC": "Graduation certificate and additional proof.",
-        "DOC_CERT_ALT": "Preview of the graduation certificate of Developer Akademie GmbH for Jennifer Thomas."
+        "DOC_CERT_ALT": "Preview of the graduation certificate of Developer Akademie GmbH for Jennifer Thomas.",
+        "ADMIN_CONFIRM_CLEAR_LOGS": "Do you really want to delete all login logs?",
+        "DOC_ARIA_DOCUMENT_ACTIONS": "Document actions",
+        "DOC_BUTTON_BACK": "Back",
+        "DOC_BUTTON_PRINT": "Print",
+        "DOC_CERT_HEADING": "Certificate",
+        "DOC_CERT_PDF_ARIA_LABEL": "Graduation certificate from Developer Akademie GmbH (PDF)",
+        "DOC_CERT_PDF_FALLBACK": "Your browser cannot display the PDF inline.",
+        "DOC_CERT_PDF_OPEN_NEW_TAB": "Open PDF in a new tab",
+        "DOC_CERT_INTRO_P1": "This document confirms the successful completion of training as a front-end developer at Developer Akademie GmbH.",
+        "DOC_CERT_INTRO_STATS_LINE1": "Period: Oct 2024 – Oct 2025",
+        "DOC_CERT_INTRO_STATS_LINE2": "Credential: Front-End Developer certificate",
+        "RESUME_HEADER_NAME": "Jennifer Thomas",
+        "RESUME_HEADER_ROLE": "Front-end developer",
+        "RESUME_LOCATION": "Pilsting, Bavaria, Germany",
+        "RESUME_ABOUT_TITLE": "About me",
+        "RESUME_ABOUT_P1": "As a front-end developer focused on modern web applications, I combine clear code structure with user-friendly interfaces. In projects such as my Angular Kanban board, the JavaScript game “El Pollo Loco”, and the PokéAPI-based Pokédex app, I deliberately plan components, state, and data flow so new features integrate cleanly and stay maintainable.",
+        "RESUME_ABOUT_P2": "I enjoy working in a structured way and in close alignment with the team: before I write code, I clarify requirements and domain, sketch architecture ideas, and use modern developer tooling to compare options. Debugging with browser dev tools, sensible error handling, and repeatable browser testing are a natural part of my workflow.",
+        "RESUME_SKILLS_TITLE": "Technical skills",
+        "RESUME_SKILLS_L1": "Angular, TypeScript, JavaScript",
+        "RESUME_SKILLS_L2": "HTML5, CSS/Sass, responsive design",
+        "RESUME_SKILLS_L3": "Firebase, REST APIs",
+        "RESUME_SKILLS_L4": "Git, GitHub, npm",
+        "RESUME_SKILLS_L5": "Unit and browser tests (Jasmine/Karma, manual E2E checks)",
+        "RESUME_WORKSTYLE_TITLE": "Working style",
+        "RESUME_WORKSTYLE_L1": "Architecture thinking for components, state, and data flow",
+        "RESUME_WORKSTYLE_L2": "Clarity before code: requirements and use cases first",
+        "RESUME_WORKSTYLE_L3": "Targeted use of modern developer tools and assistants",
+        "RESUME_WORKSTYLE_L4": "Debugging focus and clean error handling",
+        "RESUME_WORKSTYLE_L5": "User-centred, easy-to-understand UI design",
+        "RESUME_EXP_TITLE": "Professional experience",
+        "RESUME_EXP_PERIOD": "2025 – 2026",
+        "RESUME_JUNIOR_TITLE": "Junior front-end developer (projects)",
+        "RESUME_JUNIOR_SUB": "Independent and team projects, remote",
+        "RESUME_JUNIOR_L1": "Built the Kanban task manager “Join” with Angular, TypeScript, and Firebase.",
+        "RESUME_JUNIOR_L2": "Implemented a 2D jump-’n’-run game “El Pollo Loco” with object-oriented JavaScript.",
+        "RESUME_JUNIOR_L3": "Built a Pokédex single-page app on top of the PokéAPI.",
+        "RESUME_JUNIOR_L4": "Created and maintain the Angular portfolio front end.",
+        "RESUME_EDU_TITLE": "Education",
+        "RESUME_EDU_PERIOD": "2024 – 2025",
+        "RESUME_EDU_DEGREE_TITLE": "Further training: front-end developer",
+        "RESUME_EDU_DEGREE_DESC": "Developer Akademie GmbH · Munich/remote — completed successfully with a graduation certificate.",
+        "RESUME_PROJECTS_TITLE": "Selected projects",
+        "RESUME_PROJ_JOIN_TITLE": "Join",
+        "RESUME_PROJ_JOIN_SUFFIX": "– Kanban task manager",
+        "RESUME_PROJ_JOIN_META": "Angular, TypeScript, Firebase",
+        "RESUME_PROJ_JOIN_DESC": "Team-based task manager with drag-and-drop board, assignees, and categories. Focus on component architecture, form logic, and cloud backend integration.",
+        "RESUME_PROJ_POLLO_TITLE": "El Pollo Loco",
+        "RESUME_PROJ_POLLO_SUFFIX": "– JS game",
+        "RESUME_PROJ_POLLO_META": "JavaScript, HTML, CSS",
+        "RESUME_PROJ_POLLO_DESC": "Side-scrolling jump-’n’-run with a game loop, animations, collision detection, and keyboard controls. Strengthens my ability to structure complex browser-side logic.",
+        "RESUME_PROJ_POKEDEX_TITLE": "Pokédex",
+        "RESUME_PROJ_POKEDEX_SUFFIX": "– API-driven SPA",
+        "RESUME_PROJ_POKEDEX_META": "JavaScript, HTML, CSS, PokéAPI",
+        "RESUME_PROJ_POKEDEX_DESC": "List and detail views for Pokémon data with search and loading states. Practice in API integration, error handling, and responsive UI design.",
+        "RESUME_LANG_TITLE": "Languages",
+        "RESUME_LANG_DE": "German",
+        "RESUME_LANG_DE_LEVEL": "Native speaker",
+        "RESUME_LANG_EN": "English",
+        "RESUME_LANG_EN_LEVEL": "Fluent (business proficient)",
+        "RESUME_CAREER_TITLE": "Career history",
+        "RESUME_WG01_TITLE": "Further training: front-end developer",
+        "RESUME_WG01_PERIOD": "2024 – 2025",
+        "RESUME_WG01_SUB": "Developer Akademie GmbH · Munich/remote — completed successfully with a graduation certificate.",
+        "RESUME_WG02_TITLE": "Traffic planner",
+        "RESUME_WG02_PERIOD": "Mar 2021 – Jul 2024",
+        "RESUME_WG02_SUB": "ARIFI GmbH · Munich/remote",
+        "RESUME_WG02_P": "Prepared traffic signing plans per RSA 21 and applied for traffic orders (VAO).",
+        "RESUME_WG03_TITLE": "Electrician — building and energy systems",
+        "RESUME_WG03_PERIOD": "Mar 2012 – Mar 2020",
+        "RESUME_WG03_SUB": "Freiberger Energie und Gebäudetechnik GmbH",
+        "RESUME_WG03_P": "Work across all areas of the trade.",
+        "RESUME_WG04_TITLE": "Photovoltaic installer",
+        "RESUME_WG04_PERIOD": "Mar 2011 – Jan 2012",
+        "RESUME_WG04_SUB": "Patrick Prettner · Wallersdorf",
+        "RESUME_WG04_P": "Installation of PV systems including maintenance.",
+        "RESUME_WG05_TITLE": "Apprenticeship — electrician, building and energy systems",
+        "RESUME_WG05_PERIOD": "Sep 2007 – Mar 2011",
+        "RESUME_WG05_SUB": "EST Energie- und Solartechnik GmbH · Wallersdorf",
+        "RESUME_WG05_P": "Completed successfully.",
+        "RESUME_WG06_TITLE": "Technical drafter for PV parks",
+        "RESUME_WG06_PERIOD": "Sep 2006 – Sep 2007",
+        "RESUME_WG06_SUB": "EST Energie- und Solartechnik GmbH · Wallersdorf",
+        "RESUME_WG06_P": "Prepared technical drawings for solar parks.",
+        "RESUME_WG07_TITLE": "Apprenticeship — horse management (Western riding)",
+        "RESUME_WG07_PERIOD": "Feb 2005 – Jul 2006",
+        "RESUME_WG07_SUB": "Petra Dürr · Neufinsing",
+        "RESUME_WG07_P": "Completed successfully.",
+        "RESUME_WG08_TITLE": "Apprenticeship — horse management (Western riding)",
+        "RESUME_WG08_PERIOD": "Sep 2003 – Feb 2005",
+        "RESUME_WG08_SUB": "Sommerholz-Ranch, Ascherl Max · Angelbrechting",
+        "RESUME_WG09_TITLE": "Internship — horse management",
+        "RESUME_WG09_PERIOD": "Jul 2003 – Sep 2003",
+        "RESUME_WG09_SUB": "Sommerholz-Ranch, Ascherl Max · Angelbrechting",
+        "RESUME_WG09_P": "Completed successfully.",
+        "RESUME_WG10_TITLE": "Training — technical drafter, mechanical/plant engineering",
+        "RESUME_WG10_PERIOD": "Sep 1999 – Mar 2003",
+        "RESUME_WG10_SUB": "remaplan Anlagenbau GmbH · Landau an der Isar",
+        "RESUME_WG10_P": "Completed successfully.",
+        "RESUME_WG11_TITLE": "Secondary school certificate (Mittlere Reife)",
+        "RESUME_WG11_PERIOD": "Sep 1998 – Jul 1999",
+        "RESUME_WG11_SUB": "Hauptschule Dingolfing",
+        "RESUME_WG11_P": "Completed successfully.",
+        "RESUME_WG12_TITLE": "Qualifying lower secondary certificate",
+        "RESUME_WG12_PERIOD": "Sep 1997 – Jul 1998",
+        "RESUME_WG12_SUB": "Hans-Carossa primary and secondary school · Pilsting",
+        "RESUME_WG13_TITLE": "Primary and lower secondary school",
+        "RESUME_WG13_PERIOD": "Jun 1992 – Jul 1997",
+        "RESUME_WG13_SUB": "Hans-Carossa primary and secondary school · Pilsting, Germany",
+        "RESUME_WG14_TITLE": "Primary school",
+        "RESUME_WG14_PERIOD": "Sep 1989 – May 1992",
+        "RESUME_WG14_SUB": "German School Tripoli · Tripoli/Libya"
     },
     "ACCENT": {
         "LABEL": "Accent color",

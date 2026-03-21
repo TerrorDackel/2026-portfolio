@@ -1,287 +1,116 @@
-@use 'sass:math'
+// Résumé document body: section layout, cards, and lists (tokens + portfolio mixins).
+@use '../../cv-documents-shared'
+@use '../../../../../../styles/mixins' as *
 
-*
-  box-sizing: border-box
-
-html,
-body
-  margin: 0
-  padding: 0
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif
-  color: #0f172a
-  background-color: #f9fafb
-
-a
-  color: #e0f2fe
-  text-decoration: none
-
-  &:hover
-    text-decoration: underline
-
-.cv-header
-  background: linear-gradient(135deg, #1d4ed8, #2563eb)
-  color: #e0f2fe
-  padding: calc(32px + 72px + 1rem) 40px 32px
-  position: relative
-  z-index: 2
-
-  // Header-Links sollen unabhängig vom Accent-Switch immer weiß bleiben.
-  .cv-links
-    a
-      color: #ffffff
-      &:hover
-        color: var(--link-hover)
-
-.cv-header-inner
-  max-width: 960px
-  margin: 0 auto
-  display: flex
-  flex-direction: column
-  align-items: stretch
-  gap: 10px
-
-.cv-header-text
-  flex: 1 1 auto
-
-.cv-header-top
-  display: flex
-  align-items: flex-start
-  justify-content: space-between
-  gap: 24px
-
-.cv-role
-  font-size: 0.9rem
-  text-transform: uppercase
-  letter-spacing: 0.12em
-  font-weight: 600
-  opacity: 0.95
-  margin: 0 0 12px
-
-.cv-name
-  margin: 4px 0 12px
-  font-size: 2.2rem
-  font-weight: 700
-
-.cv-contact,
-.cv-links
-  display: flex
-  flex-wrap: wrap
-  gap: 8px
-  align-items: center
-  font-size: 0.9rem
-
-.cv-contact span:last-child
-  margin-left: auto
-
-.cv-meta
-  display: flex
-  justify-content: space-between
-  align-items: flex-start
-  gap: 16px
-
-  .cv-contact,
-  .cv-links
-    flex: 1 1 auto
-
-  .cv-links
-    justify-content: flex-end
-
-.cv-separator
-  opacity: 0.7
-
-.cv-actions
-  flex: 0 0 auto
-  margin-top: 1.5rem
-  display: flex
-  gap: 12px
-  align-items: center
-  flex-wrap: nowrap
-
-.cv-back-button
-  appearance: none
-  border: none
-  background-color: var(--primary)
-  color: var(--on-primary)
-  padding: 10px 14px
-  border-radius: 999px
-  font-weight: 600
-  font-size: 0.9rem
-  cursor: pointer
-  transition: background-color 140ms ease, transform 80ms ease
-
-  &:hover
-    background: var(--primary-hover)
-
-  &:active
-    transform: translateY(1px)
-
-.cv-print-button
-  appearance: none
-  border: 1px solid rgba(224, 242, 254, 0.55)
-  background: var(--primary)
-  border-color: var(--primary)
-  color: var(--on-primary)
-  padding: 10px 14px
-  border-radius: 999px
-  font-weight: 600
-  font-size: 0.9rem
-  cursor: pointer
-  transition: background-color 140ms ease, border-color 140ms ease, transform 80ms ease
-
-  &:hover
-    background: var(--primary-hover)
-    border-color: var(--primary-hover)
-
-  &:active
-    transform: translateY(1px)
-
-// Volle Breite: var(--bg) bis zum Rand; Text zentriert über .cv-header-inner + .cv-main (je 960px)
-.cv-documents-page
-  position: relative
-  width: 100%
-  max-width: 100%
-  margin: 0
-  overflow-x: hidden
-  min-height: 100svh
-  background: var(--bg)
-  z-index: 1
-
-.cv-documents-bg
-  display: none
-
-.cv-documents-content
-  position: relative
-  z-index: 2
-
-.cv-main
-  max-width: 960px
-  margin: 0 auto
-  padding: 32px 24px 40px
-  background: transparent
-  position: relative
-  z-index: 2
-
-.cv-section
+.cv-section-document-segment
   margin-bottom: 24px
 
   h2
-    font-size: 1rem
-    font-weight: 700
-    text-transform: uppercase
-    letter-spacing: 0.12em
-    color: #1d4ed8
     margin: 0 0 12px
     padding-bottom: 6px
-    border-bottom: 2px solid rgba(29, 78, 216, 0.2)
-    
-    // Jahreszahlen in der h2-Zeile sollen nicht die h2-letter-spacing/uppercase übernehmen.
-    .cv-item-period
+    border-bottom: 2px solid color-mix(in srgb, var(--primary) 22%, transparent)
+    text-transform: uppercase
+    @include font-f-s-c-w-lh-ls-a('Montserrat', 1rem, var(--primary), 700, null, 0.12em, null)
+
+    // Period text in the same line as the h2 should not inherit uppercase / wide tracking.
+    .cv-section-document-item-period
       letter-spacing: normal
       text-transform: none
 
   p
     margin: 0 0 8px
-    font-size: 0.95rem
-    line-height: 1.55
+    @include font-f-s-c-w-lh-ls-a(null, 0.95rem, var(--text), null, 1.55, null, null)
 
-  // Im ersten Abschnitt "Über mich" soll der letzte Absatz bündig mit der Card-Unterkante abschließen.
-  &:first-of-type .cv-card p:last-child
+  // In the first "About" block, align the last paragraph flush with the card bottom.
+  &:first-of-type .cv-section-document-card p:last-child
     margin-bottom: 0
 
-.cv-two-columns
+.cv-section-document-columns
   display: grid
   grid-template-columns: 1.1fr 1.3fr
   gap: 24px
 
-.cv-column
+.cv-section-document-column
   h2
     margin-top: 0
 
   h3
     margin: 16px 0 8px
-    font-size: 1rem
-    color: #0f172a
+    @include font-f-s-c-w-lh-ls-a(null, 1rem, var(--text), null, null, null, null)
 
-.cv-list
+.cv-section-document-list
   margin: 0 0 8px 18px
   padding: 0
-  font-size: 0.95rem
+  @include font-f-s-c-w-lh-ls-a(null, 0.95rem, var(--text), null, null, null, null)
 
   li
     margin-bottom: 4px
 
-.cv-item
+.cv-section-document-item
   margin-bottom: 14px
 
-.cv-item-header
-  display: flex
-  justify-content: space-between
-  align-items: baseline
-  gap: 8px
-  font-size: 0.95rem
+.cv-section-document-item-header
+  @include flex-d-j-a-g(row, space-between, baseline, 8px)
+  @include font-f-s-c-w-lh-ls-a(null, 0.95rem, var(--text), null, null, null, null)
 
-.cv-item-title
+.cv-section-document-item-title
   font-weight: 600
 
-.cv-item-period
-  font-size: 0.8rem
-  color: #64748b
+.cv-section-document-item-period
+  @include font-f-s-c-w-lh-ls-a(null, 0.8rem, var(--text-muted), null, null, null, null)
 
-.cv-item-subtitle
-  font-size: 0.9rem
-  color: #0f172a
+.cv-section-document-item-subtitle
   margin-bottom: 4px
+  @include font-f-s-c-w-lh-ls-a(null, 0.9rem, var(--text), null, null, null, null)
 
-.cv-projects
+.cv-section-document-projects
   display: grid
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr))
   gap: 16px
 
-.cv-project
+.cv-section-document-project
   padding: 12px 14px
   border-radius: 10px
-  background-color: #ffffff
-  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.06)
+  background-color: var(--surface)
+  border: 1px solid var(--border-muted)
+  box-shadow: var(--shadow-1)
 
-  .cv-item-header
-    flex-direction: column
-    align-items: flex-start
-    justify-content: flex-start
-    gap: 2px
+  .cv-section-document-item-header
+    @include flex-d-j-a-g(column, flex-start, flex-start, 2px)
     padding-bottom: 1rem
 
-  .cv-item-title
+  .cv-section-document-item-title
     font-weight: 600
-    color: #0f172a
+    color: var(--text)
 
-    .cv-project-name
+    .cv-section-document-project-name
       font-weight: 900
-      color: #1d4ed8
-      text-shadow: 0 1px 0 rgba(15, 23, 42, 0.06)
+      color: var(--primary)
+      text-shadow: 0 1px 0 color-mix(in srgb, var(--text) 6%, transparent)
 
-  .cv-item-period
+  .cv-section-document-item-period
     font-size: 0.85rem
 
   p
-    font-size: 0.9rem
+    @include font-f-s-c-w-lh-ls-a(null, 0.9rem, var(--text), null, null, null, null)
 
-.cv-block
+.cv-section-document-block
   margin-bottom: 20px
 
   &:last-child
     margin-bottom: 0
 
-.cv-card
+.cv-section-document-card
   padding: 1.25rem 1.5rem
   border-radius: 12px
-  background-color: #ffffff
-  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06)
-  border: 1px solid rgba(30, 58, 138, 0.08)
+  background-color: var(--surface)
+  border: 1px solid var(--border-muted)
+  box-shadow: var(--shadow-1)
 
-.cv-werdegang-item
+.cv-section-document-timeline-item
   margin-bottom: 16px
   padding-bottom: 16px
-  border-bottom: 1px solid #e2e8f0
+  border-bottom: 1px solid var(--border)
 
   &:last-child
     border-bottom: none
@@ -291,12 +120,12 @@ a
   p
     margin: 0 0 4px
 
-.cv-languages
+.cv-section-document-languages
   display: grid
   grid-template-columns: auto 1fr
   gap: 4px 24px
   margin: 0
-  font-size: 0.95rem
+  @include font-f-s-c-w-lh-ls-a(null, 0.95rem, var(--text), null, null, null, null)
 
   dt
     font-weight: 600
@@ -304,14 +133,11 @@ a
   dd
     margin: 0
 
-.cv-media-card
-  display: flex
-  justify-content: center
-  align-items: center
+.cv-section-document-media-card
+  @include flex-d-j-a-g(row, center, center, null)
 
-.cv-media
+.cv-section-document-media
   display: block
   max-width: 100%
   height: auto
   border-radius: 10px
-

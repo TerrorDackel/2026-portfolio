@@ -1,44 +1,34 @@
-import { Component, ViewEncapsulation, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
+/**
+ * Certificate viewer within the CV-section (PDF + intro copy).
+ *
+ * Copy uses flat `CV_SECTION.*` keys in `de.json` / `en.json` (e.g. `DOC_CERT_HEADING`, `RESUME_LOCATION`).
+ */
 @Component({
   selector: 'app-cv-certificate-page',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TranslateModule],
   templateUrl: './cv-certificate-page.component.html',
-  styleUrls: ['./cv-certificate-page.component.sass'],
-  encapsulation: ViewEncapsulation.None
+  styleUrl: './cv-certificate-page.component.sass'
 })
 export class CvCertificatePageComponent {
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
 
+  /** ngx-translate key under `CV_SECTION` (aligned with {@link CvResumePageComponent.cvSection}). */
+  cvSection(key: string): string {
+    return `CV_SECTION.${key}`;
+  }
+
   /**
-   * Navigates back to either the Home CV entry or the Admin area.
-   *
-   * The target is determined by the `returnTo` query parameter:
-   * - `returnTo=admin` -> `/cv-section/admin`
-   * - otherwise -> `/cv-section/home`
+   * Navigates back to Home or Admin depending on `returnTo`.
    */
   onBack(): void {
     const returnTo = this.route.snapshot.queryParamMap.get('returnTo');
-    const targetUrl = this.resolveBackUrl(returnTo);
-    void this.router.navigateByUrl(targetUrl);
-  }
-
-  /**
-   * Resolves the back target URL from the `returnTo` query parameter.
-   *
-   * @param returnTo Query param value from the current URL.
-   * @returns A full Angular URL for navigation.
-   */
-  private resolveBackUrl(returnTo: string | null): string {
-    if (returnTo === 'admin') {
-      return '/cv-section/admin';
-    }
-
-    return '/cv-section/home';
+    void this.router.navigateByUrl(returnTo === 'admin' ? '/cv-section/admin' : '/cv-section/home');
   }
 }
-

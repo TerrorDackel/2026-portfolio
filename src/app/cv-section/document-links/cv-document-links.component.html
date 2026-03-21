@@ -1,20 +1,20 @@
-<section class="cv-doc-links" aria-labelledby="cv-doc-links-heading">
-  <h3 id="cv-doc-links-heading" class="cv-doc-links-title">
+<section class="cv-section-doc-links" aria-labelledby="cv-section-doc-heading">
+  <h3 id="cv-section-doc-heading" class="cv-section-doc-title">
     {{ 'CV_SECTION.DOC_SECTION_TITLE' | translate }}
   </h3>
 
-  <div class="cv-doc-links-grid">
+  <div class="cv-section-doc-grid">
     @for (doc of documents; track doc.id) {
-      <article class="cv-doc-card">
+      <article class="cv-section-doc-card">
         <a
-          class="cv-doc-card-inner"
+          class="cv-section-doc-card-link"
           [routerLink]="doc.routerLink"
           [queryParams]="doc.queryParams"
           [attr.aria-label]="doc.titleKey | translate"
         >
-          <div class="cv-doc-image-wrapper">
+          <div class="cv-section-doc-image-wrap">
             <img
-              class="cv-doc-image"
+              class="cv-section-doc-image"
               [src]="doc.imgSrc"
               alt="{{ doc.imgAltKey | translate }}"
               title="{{ doc.titleKey | translate }}"
@@ -22,8 +22,8 @@
             />
           </div>
 
-          <div class="cv-doc-text">
-            <p class="cv-doc-description">
+          <div class="cv-section-doc-text">
+            <p class="cv-section-doc-description">
               {{ doc.descriptionKey | translate }}
             </p>
           </div>

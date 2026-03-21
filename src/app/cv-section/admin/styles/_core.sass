@@ -1,7 +1,7 @@
+@use '../../../../styles/mixins' as *
+
 .cv-section-admin
-  display: flex
-  justify-content: center
-  align-items: center
+  @include flex-d-j-a-g(row, center, center, null)
   padding: 24px 16px
   margin-top: 120px
   margin-bottom: 24px
@@ -142,11 +142,8 @@
           font-size: 14px
 
         .cv-admin-links
-          display: flex
-          flex-direction: row
-          justify-content: center
+          @include flex-d-j-a-g(row, center, stretch, 16px)
           width: 100%
-          gap: 16px
           margin-top: 12px
 
           p
@@ -155,6 +152,5 @@
 
         @media (max-width: 600px)
           .cv-admin-links
-            flex-direction: column
-            align-items: center
+            @include flex-d-j-a-g(column, flex-start, center, 16px)
 
