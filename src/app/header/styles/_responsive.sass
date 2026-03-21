@@ -6,31 +6,37 @@
       .navbar-mobile
         display: none
         flex-direction: column
-        width: 100%
+        justify-content: center
+        align-items: flex-end
+        width: auto
+        min-width: 0
         height: 60px
         margin-top: 0px
         z-index: 10
 
         .navbar-mobile-burger-icon
-          @include flex-d-j-a-g($dir: row, $justify: flex-end, $align: flex-start)
-          width: 100%
-          height: auto
+          @include flex-d-j-a-g($dir: row, $justify: flex-end, $align: center)
+          width: auto
+          height: 100%
+          min-height: 60px
           cursor: pointer
           border: none
           background: transparent
           padding: 0
 
           .burger-menu-img
-            position: fixed
-            top: 30px
-            right: 0px
-            display: flex
-            justify-content: flex-end
-            align-content: center
-            @include size-w-h($w: 32px, $h: 28px)
-            margin-right: 30px
-            background: var(--gradient-accent)
+            // Im Fluss mit Logo-Zeile (60px) — nicht fixed/top:30px, sonst versetzt und optisch kleiner
+            position: relative
+            top: auto
+            right: auto
+            flex-shrink: 0
+            display: block
+            box-sizing: border-box
+            @include size-w-h(64px, 69px)
             padding: 1rem
+            margin-right: 1rem
+            object-fit: contain
+            background: var(--gradient-accent)
             border-radius: 0.5rem
 
         .navbar-mobile-links-container
@@ -142,47 +148,19 @@
     option[value="white"]
       display: none
 
-@media (max-width: 915px)
+@media (max-width: 1010px)
   .header-section
     .header-container
+      align-items: center
+
       .header-navbar-container
+        display: flex
+        align-items: center
+        justify-content: flex-end
+        height: 100%
+
         .navbar-desktop
           display: none
 
         .navbar-mobile
           display: flex
-
-@media (max-width: 430px)
-  .header-section
-    .header-container
-      flex-direction: row
-      align-items: center
-      justify-content: space-between
-
-      .header-logo-container
-        width: 100%
-        height: 100%
-
-        .header-img-container
-          position: fixed
-          top: 30px
-          left: 0px
-          display: flex
-          justify-content: flex-start
-          align-content: center
-          @include size-w-h($w: 33px, $h: 28px)
-          margin-left: 30px
-          padding: 1rem
-          border-radius: 0.5rem
-
-          .logo-button
-            @include size-w-h($w: 33px, $h: 28px)
-
-            .logo-img
-              @include size-w-h($w: 33px, $h: 28px)
-              margin: 0.5rem
-              border-radius: 0.5rem
-
-
-    .header-navbar-container
-      width: 100%!important

@@ -1,8 +1,10 @@
 :host
-  width: 100dvw
+  width: 100%
+  max-width: 100%
   display: flex
   flex-direction: column
-  align-items: center
+  // stretch: Header/Router/Footer volle Breite (center würde Router-Inhalt schmal zentrieren → weiße Ränder)
+  align-items: stretch
   min-height: 100svh
 
 .header
@@ -18,8 +20,11 @@
 
 .router-outlet-content
   width: 100%
+  min-width: 0
   display: flex
-  justify-content: center
+  flex-direction: column
+  align-items: stretch
+  justify-content: flex-start
   flex-grow: 1
   flex-shrink: 1
   flex-basis: auto

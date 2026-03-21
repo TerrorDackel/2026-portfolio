@@ -94,7 +94,7 @@ a
   display: flex
   gap: 12px
   align-items: center
-  margin-top: 0
+  margin-top: 1.5rem
   flex-wrap: nowrap
 
 .cv-back-button
@@ -115,10 +115,12 @@ a
   &:active
     transform: translateY(1px)
 
+// Volle Breite: var(--bg) bis zum Rand; Text zentriert über .cv-header-inner + .cv-main (je 960px)
 .cv-documents-page
   position: relative
-  width: 100dvw
+  width: 100%
   max-width: 100%
+  margin: 0
   overflow-x: hidden
   min-height: 100svh
   background: var(--bg)

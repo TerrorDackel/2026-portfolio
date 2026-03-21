@@ -3,6 +3,23 @@
 
 :host
   display: block
+  // Volle Viewport-Breite trotz schmalem Eltern-Container; äußerer Streifen = Accent
   width: 100dvw
+  position: relative
+  left: 50%
+  transform: translateX(-50%)
+  max-width: 100dvw
+  box-sizing: border-box
+  overflow-x: hidden
+  min-height: 100svh
   background: var(--gradient-accent)
 
+@media print
+  :host
+    width: 100% !important
+    max-width: 100% !important
+    left: auto !important
+    transform: none !important
+    overflow-x: visible !important
+    min-height: 0 !important
+    background: transparent !important

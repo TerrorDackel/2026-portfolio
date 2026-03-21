@@ -1,7 +1,8 @@
 @use '../../../styles/mixins' as *
 
 :host
-  @include boxsize-w-h-minw-minh-maxw-maxh(100dvw)
+  // 100% statt 100dvw: vermeidet Scrollbar-/Overflow-Konflikte mit app-root; volle Breite über Eltern (.header)
+  @include boxsize-w-h-minw-minh-maxw-maxh(100%)
   @include flex-d-j-a-g(row, center, center)
   margin-left: 0
   margin-right: 0
@@ -26,7 +27,7 @@ a:hover
 
 .header-section
   @include flex-d-j-a-g(row, center, center)
-  @include boxsize-w-h-minw-minh-maxw-maxh(100dvw, 117px)
+  @include boxsize-w-h-minw-minh-maxw-maxh(100%, 117px)
   position: fixed
   top: 0
   right: 0
@@ -44,10 +45,14 @@ a:hover
 
     .header-logo-container
       @include flex-d-j-a-g(row, center, center)
+      flex-shrink: 0
 
       .header-img-container
         @include flex-d-j-a-g(row, center, center)
         @include size-w-h(64px, 69px)
+        flex-shrink: 0
+        min-width: 64px
+        min-height: 69px
         margin: 0 0 0 2rem
 
         .logo-button
@@ -58,9 +63,15 @@ a:hover
           background: transparent
           padding: 0
           cursor: pointer
+          flex-shrink: 0
 
         .logo-img
           @include size-w-h(40px, 42px)
+          flex-shrink: 0
+          min-width: 40px
+          min-height: 42px
+          max-width: none
+          object-fit: contain
           background: var(--gradient-accent)
           padding: 1rem
           border-radius: 1rem
@@ -69,9 +80,12 @@ a:hover
             cursor: pointer
 
     .header-navbar-container
-      @include flex-d-j-a-g(row, center, center)
+      // flex-end: Nav-Bereich bleibt am rechten Rand (nicht in der freien Fläche zentriert)
+      @include flex-d-j-a-g(row, flex-end, center)
       width: auto
       height: auto
+      min-width: 0
+      flex: 1 1 auto
 
       .navbar-desktop
         @include flex-d-j-a-g(row, flex-end, center)
