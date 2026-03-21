@@ -1,0 +1,15 @@
+---
+description: Git commit messages must be written in English
+alwaysApply: true
+---
+
+# Git commits (English only)
+
+- Write **all commit messages in English** (subject line and body).
+- Use conventional style when it fits the repo, e.g. `feat:`, `fix:`, `refactor:`, `docs:`.
+- Do **not** use German (or other languages) in commit messages unless quoting user-facing copy.
+
+Examples:
+
+- `feat(cv-section): merge CV i18n into main locale files`
+- `fix: correct header link contrast on document pages`
