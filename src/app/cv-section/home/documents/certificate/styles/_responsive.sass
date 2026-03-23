@@ -1,5 +1,16 @@
 @use '../../../../../../styles/mixins' as *
 
+@media (max-width: 930px)
+  .cv-section-document-contact
+    @include flex-d-j-a-g(column, flex-start, flex-start, 4px)
+    width: 100%
+
+    .cv-section-document-separator
+      display: none
+
+    span:last-child
+      margin-left: 0
+
 @media (max-width: 720px)
   .cv-section-document-header
     padding: calc(24px + 72px + 1rem) 20px 24px

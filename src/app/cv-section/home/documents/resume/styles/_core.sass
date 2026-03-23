@@ -69,14 +69,16 @@
   @include font-f-s-c-w-lh-ls-a('Montserrat', 0.9rem, null, null, null, null, null)
 
 .cv-section-document-contact span:last-child
-  margin-left: auto
+  margin-left: 0
 
 .cv-section-document-meta
   @include flex-d-j-a-g(row, space-between, flex-start, 16px)
 
-  .cv-section-document-contact,
+  .cv-section-document-contact
+    @include boxsize-w-h-minw-minh-maxw-maxh($w: 68%, $h: auto, $minw: null, $minh: null, $maxw: null, $maxh: null)
+
   .cv-section-document-links
-    @include boxsize-w-h-minw-minh-maxw-maxh($w: 100%, $h: auto, $minw: null, $minh: null, $maxw: null, $maxh: null)
+    @include boxsize-w-h-minw-minh-maxw-maxh($w: auto, $h: auto, $minw: null, $minh: null, $maxw: null, $maxh: null)
 
   .cv-section-document-links
     justify-content: flex-end
