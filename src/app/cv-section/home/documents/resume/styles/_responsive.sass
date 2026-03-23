@@ -157,8 +157,6 @@
   .cv-section-document-contact
     width: auto
 
-  // Header links are the main print overflow source.
-  // For a CV-like print layout: keep contact, hide the link row.
   .cv-section-document-links
     display: none !important
 
@@ -183,12 +181,10 @@
       break-after: avoid
       page-break-after: avoid
 
-  // Keep the two-column section to save vertical space.
   .cv-section-document-columns
     grid-template-columns: 1fr 1fr
     gap: 10px
 
-  // Print projects in a single column to avoid awkward splits.
   .cv-section-document-projects
     grid-template-columns: 1fr
     gap: 10px
@@ -198,7 +194,6 @@
     break-inside: auto
     page-break-inside: auto
 
-  // Reduce default vertical spacing from screen layout.
   .cv-section-document-block
     margin-bottom: 8px
 
@@ -239,7 +234,6 @@
     li
       margin-bottom: 2px
 
-  // Prefer keeping education on page 1 by allowing a split before it if needed.
   .cv-section-document-segment[aria-labelledby="cv-section-resume-heading-skills"] .cv-section-document-column:last-child .cv-section-document-block.cv-section-document-card:last-child
     break-before: avoid
     page-break-before: avoid
@@ -247,7 +241,6 @@
     break-inside: avoid
     page-break-inside: avoid
 
-  // Do not delay the timeline artificially; continue after languages when possible.
   .cv-section-document-segment[aria-labelledby="cv-section-resume-heading-career"]
     break-before: auto
     page-break-before: auto
