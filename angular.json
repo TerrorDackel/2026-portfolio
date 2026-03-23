@@ -17,7 +17,10 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/portfolio-jennifer-thomas",
+            "outputPath": {
+              "base": "dist/portfolio-jennifer-thomas",
+              "browser": "."
+            },
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
