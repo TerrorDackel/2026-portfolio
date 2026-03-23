@@ -11,6 +11,94 @@
     span:last-child
       margin-left: 0
 
+@media (max-width: 650px)
+  .cv-section-document-links
+    @include flex-d-j-a-g(column, flex-start, flex-end, 4px)
+
+    .cv-section-document-separator
+      display: none
+
+  .cv-section-document-meta
+    .cv-section-document-contact
+      width: 70%
+      min-width: 0
+      max-width: none
+
+    .cv-section-document-links
+      width: 30%
+      min-width: 0
+      max-width: none
+
+@media (max-width: 430px)
+  .cv-section-document-meta
+    .cv-section-document-contact
+      width: 80%
+      min-width: 0
+      max-width: none
+
+    .cv-section-document-links
+      width: 20%
+      min-width: 0
+      max-width: none
+
+@media (max-width: 550px)
+  .cv-section-document-meta
+    align-items: flex-end
+
+  .cv-section-document-links
+    margin-top: 1rem
+
+@media (max-width: 420px)
+  .cv-section-document-header-inner
+    max-width: 330px
+
+  .cv-section-document-meta
+    flex-direction: column
+    align-items: flex-start
+
+  .cv-section-document-contact
+    width: 100%
+    min-width: 0
+    max-width: none
+    a
+      min-width: 231px
+
+  .cv-section-document-links
+    width: 100%
+    min-width: 0
+    max-width: none
+    @include flex-d-j-a-g(column, flex-start, flex-end, 4px)
+    align-self: flex-end
+    text-align: right
+
+  .cv-section-document-actions
+    align-self: flex-end
+    justify-content: flex-end
+
+@media (max-width: 390px)
+  .cv-section-document-title
+    font-size: 1.8rem
+
+@media (max-width: 630px)
+  .cv-section-document-actions
+    flex-direction: column
+    align-items: flex-end
+
+@media (max-width: 515px)
+  .cv-section-document-header-top
+    flex-direction: column-reverse
+    align-items: flex-start
+
+  .cv-section-document-actions
+    flex-direction: row
+    align-items: center
+    align-self: flex-end
+    justify-content: flex-end
+
+@media (max-width: 750px)
+  .cv-section-document-actions
+    margin-top: 1rem
+
 @media print
   :host
     width: 100% !important
