@@ -3,20 +3,10 @@
 @media (max-width: 960px)
   .cv-section-document-segment[aria-labelledby="cv-section-resume-heading-career"]
     .cv-section-document-item-subtitle
-      width: calc(100% - 140px)
-      min-width: 0
-      max-width: none
+      @include boxsize-w-h-minw-minh-maxw-maxh($w: calc(100% - 150px), $h: auto, $minw: 0, $minh: null, $maxw: calc(100% - 150px), $maxh: null)
 
-    .cv-section-document-item-subtitle + p
-      width: calc(100% - 140px)
-      min-width: 0
-      max-width: none
-
-    .cv-section-document-item-header
-      p
-        width: calc(100% - 140px)
-        min-width: 0
-        max-width: none
+    .cv-section-document-item-body
+      @include boxsize-w-h-minw-minh-maxw-maxh($w: calc(100% - 150px), $h: auto, $minw: 0, $minh: null, $maxw: calc(100% - 150px), $maxh: null)
 
 @media (max-width: 930px)
   .cv-section-document-contact
