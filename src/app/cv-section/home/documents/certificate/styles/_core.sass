@@ -76,10 +76,11 @@
   @include flex-d-j-a-g(row, space-between, flex-start, 16px)
 
   .cv-section-document-contact
-    @include boxsize-w-h-minw-minh-maxw-maxh($w: 68%, $h: auto, $minw: null, $minh: null, $maxw: null, $maxh: null)
+    @include boxsize-w-h-minw-minh-maxw-maxh($w: calc(100% - 336px), $h: auto, $minw: null, $minh: null, $maxw: null, $maxh: null)
 
   .cv-section-document-links
-    @include boxsize-w-h-minw-minh-maxw-maxh($w: auto, $h: auto, $minw: null, $minh: null, $maxw: null, $maxh: null)
+    @include boxsize-w-h-minw-minh-maxw-maxh($w: 320px, $h: auto, $minw: 320px, $minh: null, $maxw: 320px, $maxh: null)
+    flex-wrap: nowrap
 
   .cv-section-document-links
     justify-content: flex-end
