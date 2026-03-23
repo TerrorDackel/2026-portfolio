@@ -169,3 +169,18 @@
           .cv-admin-links
             @include flex-d-j-a-g(column, flex-start, center, 16px)
 
+:host-context(html[data-accent="emerald"])
+  .cv-section-admin .cv-section-admin-card .cv-section-logout-btn
+    color: #0c1b15
+
+:host-context(html[data-accent="blue"]),
+:host-context(html[data-accent="purple"]),
+:host-context(html[data-accent="pink"]),
+:host-context(html[data-accent="black"])
+  .cv-section-admin .cv-section-admin-card .cv-section-logout-btn
+    color: #ffffff
+
+:host-context(html[data-accent="white"])
+  .cv-section-admin .cv-section-admin-card .cv-section-logout-btn
+    color: #111111
+

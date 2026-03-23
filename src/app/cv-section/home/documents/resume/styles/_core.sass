@@ -291,3 +291,21 @@
   max-width: 100%
   height: auto
   border-radius: 10px
+
+:host-context(html[data-accent="emerald"])
+  .cv-section-document-btn-back,
+  .cv-section-document-btn-print
+    color: #0c1b15
+
+:host-context(html[data-accent="blue"]),
+:host-context(html[data-accent="purple"]),
+:host-context(html[data-accent="pink"]),
+:host-context(html[data-accent="black"])
+  .cv-section-document-btn-back,
+  .cv-section-document-btn-print
+    color: #ffffff
+
+:host-context(html[data-accent="white"])
+  .cv-section-document-btn-back,
+  .cv-section-document-btn-print
+    color: #111111

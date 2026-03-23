@@ -94,3 +94,18 @@
           line-height: 1.6
           color: var(--text-muted)
 
+:host-context(html[data-accent="emerald"])
+  .cv-section-home .cv-section-home-card .cv-section-logout-btn
+    color: #0c1b15
+
+:host-context(html[data-accent="blue"]),
+:host-context(html[data-accent="purple"]),
+:host-context(html[data-accent="pink"]),
+:host-context(html[data-accent="black"])
+  .cv-section-home .cv-section-home-card .cv-section-logout-btn
+    color: #ffffff
+
+:host-context(html[data-accent="white"])
+  .cv-section-home .cv-section-home-card .cv-section-logout-btn
+    color: #111111
+
