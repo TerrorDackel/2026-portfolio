@@ -11,6 +11,10 @@
     span:last-child
       margin-left: 0
 
+@media (max-width: 860px)
+  .cv-section-document-projects
+    grid-template-columns: 1fr
+
 @media (max-width: 650px)
   .cv-section-document-links
     @include flex-d-j-a-g(column, flex-start, flex-end, 4px)
@@ -98,6 +102,13 @@
 @media (max-width: 750px)
   .cv-section-document-actions
     margin-top: 1rem
+
+@media (max-width: 660px)
+  .cv-section-document-columns
+    grid-template-columns: 1fr
+
+  .cv-section-document-projects
+    grid-template-columns: 1fr
 
 @media print
   :host

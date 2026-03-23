@@ -193,6 +193,22 @@
     margin: 16px 0 8px
     @include font-f-s-c-w-lh-ls-a(null, 1rem, var(--text), null, null, null, null)
 
+.cv-section-document-segment[aria-labelledby="cv-section-resume-heading-skills"]
+  h3
+    color: var(--primary)
+
+.cv-section-document-columns
+  .cv-section-document-column:last-child
+    .cv-section-document-block:first-of-type
+      .cv-section-document-item-header
+        align-items: center
+
+      .cv-section-document-item-title
+        color: var(--primary)
+
+      .cv-section-document-item-subtitle
+        text-align: left
+
 .cv-section-document-list
   margin: 0 0 8px 18px
   padding: 0
@@ -274,6 +290,13 @@
 
   p
     margin: 0 0 4px
+
+  .cv-section-document-item-title
+    width: 100%
+    @include flex-d-j-a-g(row, flex-start, baseline, 8px)
+
+  .cv-section-document-item-period
+    margin-left: auto
 
 .cv-section-document-languages
   display: grid

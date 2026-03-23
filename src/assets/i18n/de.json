@@ -207,7 +207,7 @@
         "RESUME_WORKSTYLE_L5": "Nutzerzentrierte, gut verständliche UI-Gestaltung",
         "RESUME_EXP_TITLE": "Berufserfahrung",
         "RESUME_EXP_PERIOD": "2025 – 2026",
-        "RESUME_JUNIOR_TITLE": "Junior Frontend Developer (Projekte)",
+        "RESUME_JUNIOR_TITLE": "Junior Frontend Developer",
         "RESUME_JUNIOR_SUB": "Eigenständige und Teamprojekte, remote",
         "RESUME_JUNIOR_L1": "Entwicklung eines Kanban-Taskmanagers „Join“ mit Angular, TypeScript und Firebase.",
         "RESUME_JUNIOR_L2": "Umsetzung eines 2D-Jump'n'Run-Spiels „El Pollo Loco“ mit objektorientiertem JavaScript.",
