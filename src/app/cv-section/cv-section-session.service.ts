@@ -3,6 +3,7 @@ import { Injectable, PLATFORM_ID, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, Subscription, timer } from 'rxjs';
+import { CV_SECTION_LOGIN_ROUTE } from './cv-section-navigation.util';
 
 /**
  * Wall-clock duration of inactivity (ms) after which the CV-section session is ended automatically.
@@ -117,6 +118,21 @@ export class CvSectionSessionService {
   }
 
   /**
+   * Performs server logout and always navigates to the CV login route.
+   *
+   * @remarks
+   * Success and error paths intentionally share the same client-side cleanup.
+   */
+  logoutToLogin(): void {
+    this.http
+      .post('/api/cv-section/logout/', {}, { withCredentials: true })
+      .subscribe({
+        next: () => this.stopAndNavigateToLogin(),
+        error: () => this.stopAndNavigateToLogin()
+      });
+  }
+
+  /**
    * Registers document-level activity listeners exactly once.
    */
   private attachActivityListeners(): void {
@@ -203,18 +219,13 @@ export class CvSectionSessionService {
     this.http
       .post('/api/cv-section/logout/', {}, { withCredentials: true })
       .subscribe({
-        next: () => {
-          this.stop();
-          void this.router.navigate(['/cv-section/login'], {
-            queryParams: { reason: 'timeout' }
-          });
-        },
-        error: () => {
-          this.stop();
-          void this.router.navigate(['/cv-section/login'], {
-            queryParams: { reason: 'timeout' }
-          });
-        }
+        next: () => this.stopAndNavigateToLogin({ reason: 'timeout' }),
+        error: () => this.stopAndNavigateToLogin({ reason: 'timeout' })
       });
+  }
+
+  private stopAndNavigateToLogin(queryParams?: { reason: 'timeout' }): void {
+    this.stop();
+    void this.router.navigate([CV_SECTION_LOGIN_ROUTE], { queryParams });
   }
 }

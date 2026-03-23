@@ -1,7 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
+import { resolveCvSectionBackRoute } from '../../../cv-section-navigation.util';
 
 /** Layout variant for one timeline row under “Werdegang” (matches original HTML semantics). */
 type WerdegangLayout = 'paragraphSubtitle' | 'divSubtitleAndBody' | 'divSubtitleOnly';
@@ -17,7 +18,7 @@ type WerdegangLayout = 'paragraphSubtitle' | 'divSubtitleAndBody' | 'divSubtitle
 @Component({
   selector: 'app-cv-resume-page',
   standalone: true,
-  imports: [CommonModule, TranslateModule],
+  imports: [CommonModule, TranslatePipe],
   templateUrl: './cv-resume-page.component.html',
   styleUrl: './cv-resume-page.component.sass'
 })
@@ -63,15 +64,6 @@ export class CvResumePageComponent {
    * - otherwise → `/cv-section/home`
    */
   onBack(): void {
-    const returnTo = this.route.snapshot.queryParamMap.get('returnTo');
-    void this.router.navigateByUrl(this.resolveBackUrl(returnTo));
-  }
-
-  /**
-   * @param returnTo Query param from the current URL.
-   * @returns Target URL for {@link onBack}.
-   */
-  private resolveBackUrl(returnTo: string | null): string {
-    return returnTo === 'admin' ? '/cv-section/admin' : '/cv-section/home';
+    void this.router.navigateByUrl(resolveCvSectionBackRoute(this.route.snapshot));
   }
 }

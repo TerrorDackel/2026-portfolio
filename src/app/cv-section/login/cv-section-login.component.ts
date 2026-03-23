@@ -1,17 +1,27 @@
 import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription, firstValueFrom } from 'rxjs';
 import { CvSectionSessionService } from '../cv-section-session.service';
+import {
+  CV_SECTION_ADMIN_ROUTE,
+  CV_SECTION_HOME_ROUTE
+} from '../cv-section-navigation.util';
 
 /** Successful login response from `/api/cv-section/login/`. */
 interface CvSectionMeResponse {
   name: string;
   company: string;
   role: 'ROLE_ADMIN' | 'ROLE_CV_ACCESS';
+}
+
+interface CvSectionLoginFormControls {
+  name: FormControl<string>;
+  company: FormControl<string>;
+  password: FormControl<string>;
 }
 
 /**
@@ -37,7 +47,7 @@ interface CvSectionMeResponse {
 @Component({
   selector: 'app-cv-section-login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, TranslateModule],
+  imports: [CommonModule, ReactiveFormsModule, TranslatePipe],
   templateUrl: './cv-section-login.component.html',
   styleUrl: './cv-section-login.component.sass'
 })
@@ -95,13 +105,13 @@ export class CvSectionLoginComponent implements OnInit, OnDestroy {
    *
    * Company validators are patched at runtime via {@link syncCompanyRequirement}.
    */
-  loginForm: FormGroup = this.fb.group({
-    name: ['', [Validators.required, this.validateName]],
+  loginForm: FormGroup<CvSectionLoginFormControls> = this.fb.nonNullable.group({
+    name: this.fb.nonNullable.control('', [Validators.required, this.validateName]),
     // Company requirement is dynamic:
     // - optional when the name is "Admin"
     // - required for all other CV-access users
-    company: ['', [this.validateCompanyLetters]],
-    password: ['', [Validators.required]]
+    company: this.fb.nonNullable.control('', [this.validateCompanyLetters]),
+    password: this.fb.nonNullable.control('', [Validators.required])
   });
 
   /** True while the login POST is in flight (disables submit UI). */
@@ -194,7 +204,7 @@ export class CvSectionLoginComponent implements OnInit, OnDestroy {
 
   /** Builds the backend payload from the reactive form. */
   private buildLoginPayload(): { name: string; company: string; password: string } {
-    const { name, company, password } = this.loginForm.value as { name: string; company: string; password: string };
+    const { name, company, password } = this.loginForm.getRawValue();
     return { name, company, password };
   }
 
@@ -209,7 +219,7 @@ export class CvSectionLoginComponent implements OnInit, OnDestroy {
     void firstValueFrom(this.translate.get('CV_SECTION.LOGIN_SUCCESS', { name: response.name })).catch(() => undefined);
     this.finishSubmitState();
     this.sessionService.start();
-    const route = response.role === 'ROLE_ADMIN' ? '/cv-section/admin' : '/cv-section/home';
+    const route = response.role === 'ROLE_ADMIN' ? CV_SECTION_ADMIN_ROUTE : CV_SECTION_HOME_ROUTE;
     void this.router.navigate([route]);
   }
 

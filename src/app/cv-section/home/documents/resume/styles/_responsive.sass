@@ -1,3 +1,5 @@
+@use '../../../../../../styles/mixins' as *
+
 @media (max-width: 720px)
   .cv-section-document-header
     padding: calc(24px + 72px + 1rem) 20px 24px
@@ -30,6 +32,15 @@
     padding: 1rem 1.25rem
 
 @media print
+  :host
+    width: 100% !important
+    max-width: 100% !important
+    left: auto !important
+    transform: none !important
+    overflow-x: visible !important
+    min-height: 0 !important
+    background: transparent !important
+
   @page
     size: A4
     margin: 10mm
@@ -76,11 +87,10 @@
     justify-content: flex-start
 
   .cv-section-document-contact
-    flex: 0 0 auto
     width: auto
 
-  // Links im Header sind im Print die Hauptquelle für Überlauf/komische Umbrüche.
-  // Für eine "CV-like" Druckversion: Kontakt ja, Link-Leiste nein.
+  // Header links are the main print overflow source.
+  // For a CV-like print layout: keep contact, hide the link row.
   .cv-section-document-links
     display: none !important
 
@@ -169,7 +179,7 @@
     break-inside: avoid
     page-break-inside: avoid
 
-  // Don't artificially delay the timeline; continue right after languages if there's room.
+  // Do not delay the timeline artificially; continue after languages when possible.
   .cv-section-document-segment[aria-labelledby="cv-section-resume-heading-career"]
     break-before: auto
     page-break-before: auto

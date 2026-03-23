@@ -1,6 +1,158 @@
-// Résumé document body: section layout, cards, and lists (tokens + portfolio mixins).
-@use '../../cv-documents-shared'
 @use '../../../../../../styles/mixins' as *
+
+:host
+  display: block
+  width: 100dvw
+  position: relative
+  left: 50%
+  transform: translateX(-50%)
+  max-width: 100dvw
+  box-sizing: border-box
+  overflow-x: hidden
+  min-height: 100svh
+  background: var(--gradient-accent)
+
+.cv-section-document,
+.cv-section-document *
+  box-sizing: border-box
+
+.cv-section-document-header
+  background: var(--gradient-accent)
+  color: var(--text-inverse)
+  padding: calc(32px + 72px + 1rem) 40px 32px
+  position: relative
+  z-index: 2
+  @include font-f-s-c-w-lh-ls-a('Montserrat', null, var(--text-inverse), null, null, null, null)
+
+  .cv-section-document-contact a,
+  .cv-section-document-links a
+    text-decoration: none
+    color: var(--text-inverse)
+
+    &:link,
+    &:visited
+      color: var(--text-inverse)
+
+    &:hover
+      color: var(--link-hover)
+      text-decoration: underline
+
+    &:focus-visible
+      outline: 2px solid var(--focus-ring)
+      outline-offset: 2px
+
+.cv-section-document-header-inner
+  max-width: 960px
+  margin: 0 auto
+  @include flex-d-j-a-g(column, flex-start, stretch, 10px)
+
+.cv-section-document-header-text
+  @include boxsize-w-h-minw-minh-maxw-maxh($w: 100%, $h: auto, $minw: null, $minh: null, $maxw: null, $maxh: null)
+
+.cv-section-document-header-top
+  @include flex-d-j-a-g(row, space-between, flex-start, 24px)
+
+.cv-section-document-subtitle
+  @include font-f-s-c-w-lh-ls-a('Montserrat', 0.9rem, null, 600, null, 0.12em, null)
+  text-transform: uppercase
+  opacity: 0.95
+  margin: 0 0 12px
+
+.cv-section-document-title
+  margin: 4px 0 12px
+  @include font-f-s-c-w-lh-ls-a('Montserrat', 2.2rem, null, 700, null, null, null)
+
+.cv-section-document-contact,
+.cv-section-document-links
+  @include flex-d-j-a-g(row, flex-start, center, 8px)
+  flex-wrap: wrap
+  @include font-f-s-c-w-lh-ls-a('Montserrat', 0.9rem, null, null, null, null, null)
+
+.cv-section-document-contact span:last-child
+  margin-left: auto
+
+.cv-section-document-meta
+  @include flex-d-j-a-g(row, space-between, flex-start, 16px)
+
+  .cv-section-document-contact,
+  .cv-section-document-links
+    @include boxsize-w-h-minw-minh-maxw-maxh($w: 100%, $h: auto, $minw: null, $minh: null, $maxw: null, $maxh: null)
+
+  .cv-section-document-links
+    justify-content: flex-end
+
+.cv-section-document-separator
+  opacity: 0.7
+
+.cv-section-document-actions
+  @include size-w-h($w: auto, $h: auto)
+  margin-top: 1.5rem
+  @include flex-d-j-a-g(row, flex-start, center, 12px)
+  flex-wrap: nowrap
+
+.cv-section-document-btn-back
+  appearance: none
+  border: none
+  background-color: var(--primary)
+  color: var(--on-primary)
+  padding: 10px 14px
+  border-radius: 999px
+  font-weight: 600
+  font-size: 0.9rem
+  cursor: pointer
+  transition: background-color 140ms ease, transform 80ms ease
+  @include font-f-s-c-w-lh-ls-a('Montserrat', 0.9rem, var(--on-primary), 600, null, null, null)
+
+  &:hover
+    background: var(--primary-hover)
+
+  &:active
+    transform: translateY(1px)
+
+.cv-section-document-btn-print
+  appearance: none
+  border: 1px solid var(--glass-border)
+  background: var(--primary)
+  border-color: var(--primary)
+  color: var(--on-primary)
+  padding: 10px 14px
+  border-radius: 999px
+  font-weight: 600
+  font-size: 0.9rem
+  cursor: pointer
+  transition: background-color 140ms ease, border-color 140ms ease, transform 80ms ease
+  @include font-f-s-c-w-lh-ls-a('Montserrat', 0.9rem, var(--on-primary), 600, null, null, null)
+
+  &:hover
+    background: var(--primary-hover)
+    border-color: var(--primary-hover)
+
+  &:active
+    transform: translateY(1px)
+
+.cv-section-document
+  position: relative
+  @include boxsize-w-h-minw-minh-maxw-maxh(100%, null, null, null, 100%)
+  margin: 0
+  overflow-x: hidden
+  min-height: 100svh
+  background: var(--bg)
+  z-index: 1
+
+.cv-section-document-bg
+  display: none
+
+.cv-section-document-inner
+  position: relative
+  z-index: 2
+
+.cv-section-document-main
+  max-width: 960px
+  margin: 0 auto
+  padding: 32px 24px 40px
+  background: transparent
+  position: relative
+  z-index: 2
 
 .cv-section-document-segment
   margin-bottom: 24px
@@ -12,7 +164,6 @@
     text-transform: uppercase
     @include font-f-s-c-w-lh-ls-a('Montserrat', 1rem, var(--primary), 700, null, 0.12em, null)
 
-    // Period text in the same line as the h2 should not inherit uppercase / wide tracking.
     .cv-section-document-item-period
       letter-spacing: normal
       text-transform: none
@@ -21,7 +172,6 @@
     margin: 0 0 8px
     @include font-f-s-c-w-lh-ls-a(null, 0.95rem, var(--text), null, 1.55, null, null)
 
-  // In the first "About" block, align the last paragraph flush with the card bottom.
   &:first-of-type .cv-section-document-card p:last-child
     margin-bottom: 0
 

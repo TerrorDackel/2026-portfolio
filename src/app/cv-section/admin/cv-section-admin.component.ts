@@ -1,10 +1,13 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { CvSectionSessionService } from '../cv-section-session.service';
 import { HttpClient } from '@angular/common/http';
-import { Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { catchError, of } from 'rxjs';
+import {
+  CV_SECTION_RETURN_TO_QUERY_PARAM
+} from '../cv-section-navigation.util';
 
 /**
  * One parsed row from the plain-text CV-section access log (`ROLE | name | company` columns after timestamp).
@@ -32,14 +35,13 @@ interface CvSectionAdminLogEntry {
 @Component({
   selector: 'app-cv-section-admin',
   standalone: true,
-  imports: [CommonModule, TranslateModule, RouterLink],
+  imports: [CommonModule, TranslatePipe, RouterLink],
   templateUrl: './cv-section-admin.component.html',
   styleUrl: './cv-section-admin.component.sass'
 })
 export class CvSectionAdminComponent implements OnInit {
   private readonly sessionService = inject(CvSectionSessionService);
   private readonly http = inject(HttpClient);
-  private readonly router = inject(Router);
   private readonly translate = inject(TranslateService);
 
   /** True while the clear-logs POST is running. */
@@ -65,6 +67,10 @@ export class CvSectionAdminComponent implements OnInit {
 
   /** Backend counter; `null` only before first successful stats load. */
   protected cvAccessUniqueUsersSinceLastAdmin: number | null = null;
+
+  protected readonly resumeRoute = ['/cv-section/home/resume'];
+  protected readonly certificateRoute = ['/cv-section/home/certificate'];
+  protected readonly adminReturnQueryParams = { [CV_SECTION_RETURN_TO_QUERY_PARAM]: 'admin' };
 
   /**
    * Triggers parallel loads for logs and stats.
@@ -242,18 +248,7 @@ export class CvSectionAdminComponent implements OnInit {
    * Logs the admin out and returns to the CV login route.
    */
   onLogoutClick(): void {
-    this.http
-      .post('/api/cv-section/logout/', {}, { withCredentials: true })
-      .subscribe({
-        next: () => this.logoutAndNavigate(),
-        error: () => this.logoutAndNavigate()
-      });
-  }
-
-  /** Stops local session tracking and navigates back to the login page. */
-  private logoutAndNavigate(): void {
-    this.sessionService.stop();
-    void this.router.navigate(['/cv-section/login']);
+    this.sessionService.logoutToLogin();
   }
 }
 

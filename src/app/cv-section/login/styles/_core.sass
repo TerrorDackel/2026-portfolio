@@ -1,5 +1,14 @@
 @use '../../../../styles/mixins' as *
 
+:host
+  display: block
+  width: 100%
+  max-width: 100%
+  background: var(--gradient-accent)
+  flex-grow: 1
+  flex-shrink: 1
+  flex-basis: auto
+
 .cv-section-login-container
   @include flex-d-j-a-g(row, center, center, null)
   padding: 24px 16px

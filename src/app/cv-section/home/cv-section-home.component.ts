@@ -1,9 +1,8 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { CvSectionSessionService } from '../cv-section-session.service';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
 import { CvDocumentLinksComponent } from '../document-links/cv-document-links.component';
 
 /** Shape of `/api/cv-section/me` used to personalize the greeting line. */
@@ -28,14 +27,13 @@ interface CvSectionMeResponse {
 @Component({
   selector: 'app-cv-section-home',
   standalone: true,
-  imports: [CommonModule, TranslateModule, CvDocumentLinksComponent],
+  imports: [CommonModule, TranslatePipe, CvDocumentLinksComponent],
   templateUrl: './cv-section-home.component.html',
   styleUrl: './cv-section-home.component.sass'
 })
 export class CvSectionHomeComponent implements OnInit {
   private readonly sessionService = inject(CvSectionSessionService);
   private readonly http = inject(HttpClient);
-  private readonly router = inject(Router);
 
   protected loggedInName = '—';
 
@@ -56,18 +54,7 @@ export class CvSectionHomeComponent implements OnInit {
    * Logs the user out server-side, stops idle timers, and returns to the CV login screen.
    */
   onLogoutClick(): void {
-    this.http
-      .post('/api/cv-section/logout/', {}, { withCredentials: true })
-      .subscribe({
-        next: () => {
-          this.sessionService.stop();
-          void this.router.navigate(['/cv-section/login']);
-        },
-        error: () => {
-          this.sessionService.stop();
-          void this.router.navigate(['/cv-section/login']);
-        }
-      });
+    this.sessionService.logoutToLogin();
   }
 }
 

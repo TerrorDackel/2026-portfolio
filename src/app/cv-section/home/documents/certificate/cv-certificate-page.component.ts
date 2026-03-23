@@ -1,7 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
+import { resolveCvSectionBackRoute } from '../../../cv-section-navigation.util';
 
 /**
  * Certificate viewer within the CV-section (PDF + intro copy).
@@ -11,7 +12,7 @@ import { TranslateModule } from '@ngx-translate/core';
 @Component({
   selector: 'app-cv-certificate-page',
   standalone: true,
-  imports: [CommonModule, TranslateModule],
+  imports: [CommonModule, TranslatePipe],
   templateUrl: './cv-certificate-page.component.html',
   styleUrl: './cv-certificate-page.component.sass'
 })
@@ -28,7 +29,6 @@ export class CvCertificatePageComponent {
    * Navigates back to Home or Admin depending on `returnTo`.
    */
   onBack(): void {
-    const returnTo = this.route.snapshot.queryParamMap.get('returnTo');
-    void this.router.navigateByUrl(returnTo === 'admin' ? '/cv-section/admin' : '/cv-section/home');
+    void this.router.navigateByUrl(resolveCvSectionBackRoute(this.route.snapshot));
   }
 }

@@ -1,25 +1,2 @@
-@use './styles/_core' as *
-@use './styles/_responsive' as *
-
-:host
-  display: block
-  // Break out of a narrow parent to full viewport width; outer band uses the accent gradient.
-  width: 100dvw
-  position: relative
-  left: 50%
-  transform: translateX(-50%)
-  max-width: 100dvw
-  box-sizing: border-box
-  overflow-x: hidden
-  min-height: 100svh
-  background: var(--gradient-accent)
-
-@media print
-  :host
-    width: 100% !important
-    max-width: 100% !important
-    left: auto !important
-    transform: none !important
-    overflow-x: visible !important
-    min-height: 0 !important
-    background: transparent !important
+@use './styles/core' as *
+@use './styles/responsive' as *

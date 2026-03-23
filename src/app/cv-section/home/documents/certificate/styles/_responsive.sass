@@ -1,8 +1,9 @@
-.cv-section-document-header
-  @media (max-width: 720px)
-    padding: calc(24px + 72px + 1rem) 20px 24px
+@use '../../../../../../styles/mixins' as *
 
 @media (max-width: 720px)
+  .cv-section-document-header
+    padding: calc(24px + 72px + 1rem) 20px 24px
+
   .cv-section-document-header-inner
     align-items: flex-start
 
@@ -34,6 +35,15 @@
     grid-template-columns: 1fr
 
 @media print
+  :host
+    width: 100% !important
+    max-width: 100% !important
+    left: auto !important
+    transform: none !important
+    overflow-x: visible !important
+    min-height: 0 !important
+    background: transparent !important
+
   html,
   body
     background-color: #ffffff
