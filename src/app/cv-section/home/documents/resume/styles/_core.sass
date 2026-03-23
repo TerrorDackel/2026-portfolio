@@ -307,6 +307,13 @@
   .cv-section-document-item-period
     margin-left: auto
 
+.cv-section-document-segment[aria-labelledby="cv-section-resume-heading-career"]
+  .cv-section-document-item-subtitle
+    @include boxsize-w-h-minw-minh-maxw-maxh($w: calc(100% - 150px), $h: auto, $minw: 0, $minh: null, $maxw: calc(100% - 150px), $maxh: null)
+
+  .cv-section-document-item-body
+    @include boxsize-w-h-minw-minh-maxw-maxh($w: calc(100% - 150px), $h: auto, $minw: 0, $minh: null, $maxw: calc(100% - 150px), $maxh: null)
+
 .cv-section-document-languages
   display: grid
   grid-template-columns: auto 1fr
