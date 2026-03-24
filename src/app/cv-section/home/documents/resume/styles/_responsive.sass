@@ -215,8 +215,12 @@
       page-break-after: avoid
 
   .cv-section-document-columns
-    grid-template-columns: 1fr 1fr
+    display: block
     gap: 10px
+
+  .cv-section-document-column
+    break-inside: auto
+    page-break-inside: auto
 
   .cv-section-document-projects
     grid-template-columns: 1fr
@@ -238,20 +242,20 @@
 
   .cv-section-document-project
     padding: 0.7rem 0.9rem
-    break-inside: avoid
-    page-break-inside: avoid
+    break-inside: auto
+    page-break-inside: auto
 
   .cv-section-document-item-header
-    break-inside: avoid
-    page-break-inside: avoid
+    break-inside: auto
+    page-break-inside: auto
     display: grid
     grid-template-columns: 1fr auto
     align-items: baseline
     gap: 6px
 
   .cv-section-document-item
-    break-inside: avoid
-    page-break-inside: avoid
+    break-inside: auto
+    page-break-inside: auto
 
   .cv-section-document-item-period
     white-space: nowrap
@@ -268,11 +272,11 @@
       margin-bottom: 2px
 
   .cv-section-document-segment[aria-labelledby="cv-section-resume-heading-skills"] .cv-section-document-column:last-child .cv-section-document-block.cv-section-document-card:last-child
-    break-before: avoid
-    page-break-before: avoid
+    break-before: auto
+    page-break-before: auto
 
-    break-inside: avoid
-    page-break-inside: avoid
+    break-inside: auto
+    page-break-inside: auto
 
   .cv-section-document-segment[aria-labelledby="cv-section-resume-heading-career"]
     break-before: auto
@@ -284,8 +288,8 @@
     widows: 3
 
   .cv-section-document-timeline-item
-    break-inside: avoid
-    page-break-inside: avoid
+    break-inside: auto
+    page-break-inside: auto
 
   .cv-section-document-actions
     display: flex !important
