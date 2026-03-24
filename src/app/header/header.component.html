@@ -43,8 +43,12 @@
                 <option value="emerald">{{ 'ACCENT.EMERALD' | translate }}</option>
                 <option value="purple">{{ 'ACCENT.PURPLE' | translate }}</option>
                 <option value="pink">{{ 'ACCENT.PINK' | translate }}</option>
-                <option value="black">{{ 'ACCENT.BLACK' | translate }}</option>
-                <option value="white">{{ 'ACCENT.WHITE' | translate }}</option>
+                @if (isAccentAllowed('black')) {
+                  <option value="black">{{ 'ACCENT.BLACK' | translate }}</option>
+                }
+                @if (isAccentAllowed('white')) {
+                  <option value="white">{{ 'ACCENT.WHITE' | translate }}</option>
+                }
               </select>
             </label>
           </div>
@@ -153,8 +157,12 @@
                   <option value="emerald">{{ 'ACCENT.EMERALD' | translate }}</option>
                   <option value="purple">{{ 'ACCENT.PURPLE' | translate }}</option>
                   <option value="pink">{{ 'ACCENT.PINK' | translate }}</option>
-                  <option value="black">{{ 'ACCENT.BLACK' | translate }}</option>
-                  <option value="white">{{ 'ACCENT.WHITE' | translate }}</option>
+                  @if (isAccentAllowed('black')) {
+                    <option value="black">{{ 'ACCENT.BLACK' | translate }}</option>
+                  }
+                  @if (isAccentAllowed('white')) {
+                    <option value="white">{{ 'ACCENT.WHITE' | translate }}</option>
+                  }
                 </select>
               </label>
             </div>

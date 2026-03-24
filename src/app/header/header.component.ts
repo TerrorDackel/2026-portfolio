@@ -46,13 +46,14 @@ export class HeaderComponent {
   menuIcon = 'bi bi-list';
   currentLanguage: 'en' | 'de';
   currentAccent = 'purple';
+  prefersDark = this.prefersDarkMedia.matches;
 
   constructor() {
     this.currentLanguage = this.getInitialLanguage();
     this.initLanguage(this.currentLanguage);
 
     this.setAccent(this.readStoredAccent());
-    this.applyAccentAvailability(this.prefersDarkMedia.matches);
+    this.syncAccentForColorScheme(this.prefersDark);
     this.attachDarkModeListener();
   }
 
@@ -95,7 +96,26 @@ export class HeaderComponent {
     const target = event.target as HTMLSelectElement | null;
     if (!target) return;
 
-    this.setAccent(target.value);
+    const requestedAccent = target.value;
+    if (!this.isAccentAllowed(requestedAccent)) {
+      this.setAccent('blue');
+      target.value = this.currentAccent;
+      return;
+    }
+
+    this.setAccent(requestedAccent);
+  }
+
+  /**
+   * Returns whether an accent is currently selectable for the active color scheme.
+   *
+   * @param accent Accent option value.
+   * @returns True if the accent is allowed for the current light/dark mode.
+   */
+  isAccentAllowed(accent: string): boolean {
+    if (this.prefersDark && accent === 'black') return false;
+    if (!this.prefersDark && accent === 'white') return false;
+    return true;
   }
 
   /**
@@ -201,25 +221,10 @@ export class HeaderComponent {
     return storedAccent ?? 'blue';
   }
 
-  /**
-   * Enables/disables accent options depending on whether the system prefers dark mode.
-   *
-   * Rules:
-   * - In dark mode: 'black' is unavailable, 'white' is allowed.
-   * - In light mode: 'white' is unavailable, 'black' is allowed.
-   *
-   * If the current accent becomes unavailable, the accent is reset to 'blue'.
-   *
-   * @param prefersDark Whether the system color scheme preference is dark.
-   */
-  private applyAccentAvailability(prefersDark: boolean): void {
-    const unavailableAccent = prefersDark ? 'black' : 'white';
-    const allowedAccent = prefersDark ? 'white' : 'black';
+  private syncAccentForColorScheme(prefersDark: boolean): void {
+    this.prefersDark = prefersDark;
 
-    this.disableAccentOption(unavailableAccent);
-    this.enableAccentOption(allowedAccent);
-
-    if (this.currentAccent === unavailableAccent) {
+    if (!this.isAccentAllowed(this.currentAccent)) {
       this.setAccent('blue');
     }
   }
@@ -232,14 +237,14 @@ export class HeaderComponent {
   private attachDarkModeListener(): void {
     if (typeof this.prefersDarkMedia.addEventListener === 'function') {
       this.prefersDarkMedia.addEventListener('change', event => {
-        this.applyAccentAvailability(event.matches);
+        this.syncAccentForColorScheme(event.matches);
       });
       return;
     }
 
     if (typeof this.prefersDarkMedia.addListener === 'function') {
       this.prefersDarkMedia.addListener(event => {
-        this.applyAccentAvailability(event.matches);
+        this.syncAccentForColorScheme(event.matches);
       });
     }
   }
@@ -287,44 +292,6 @@ export class HeaderComponent {
     );
 
     return allowed ? accent : 'blue';
-  }
-
-  /**
-   * Disables and hides the option element for a given accent.
-   *
-   * @param accent Accent option value to disable.
-   */
-  private disableAccentOption(accent: string): void {
-    const options = this.getAccentOptionNodes(accent);
-    options.forEach(option => {
-      option.disabled = true;
-      option.hidden = true;
-    });
-  }
-
-  /**
-   * Enables and shows the option element for a given accent.
-   *
-   * @param accent Accent option value to enable.
-   */
-  private enableAccentOption(accent: string): void {
-    const options = this.getAccentOptionNodes(accent);
-    options.forEach(option => {
-      option.disabled = false;
-      option.hidden = false;
-    });
-  }
-
-  /**
-   * Queries the DOM for option nodes matching a specific accent value.
-   *
-   * @param accent Accent option value to query.
-   * @returns Matching option nodes.
-   */
-  private getAccentOptionNodes(accent: string): NodeListOf<HTMLOptionElement> {
-    return document.querySelectorAll<HTMLOptionElement>(
-      `select.accent-select option[value="${accent}"]`
-    );
   }
 
   /**
