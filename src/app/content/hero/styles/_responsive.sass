@@ -1,5 +1,19 @@
 @use '../../../../styles/mixins' as *
 
+@media (max-width: 950px) and (prefers-color-scheme: dark)
+  :host-context(html[data-accent="white"])
+    .hero-section
+      .hero-container-mobile
+        .hero-header-scroll
+          .hero-header-scroll-container
+            .header-alignment
+              .header-txt-container
+                .header-txt-alignment
+                  .hero-txt-hallo,
+                  .hero-text-frontend,
+                  .hero-text-developer
+                    color: var(--surface)
+
 @media (max-width: 700px)
   .hero-section
     .hero-container-mobile

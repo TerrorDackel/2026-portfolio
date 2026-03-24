@@ -18,6 +18,14 @@
             <button type="button" class="cv-section-document-btn-print" (click)="print()">
               {{ cvSection('DOC_BUTTON_PRINT') | translate }}
             </button>
+            <a
+              class="cv-section-document-qr-link"
+              href="https://www.jennifer-thomas.de"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img class="cv-section-document-qr-image" src="assets/img/qr-code.png" alt="Portfolio QR code" />
+            </a>
           </div>
         </div>
         <div class="cv-section-document-meta">
@@ -29,8 +37,6 @@
             <span>{{ cvSection('RESUME_LOCATION') | translate }}</span>
           </div>
           <div class="cv-section-document-links">
-            <a href="https://www.jennifer-thomas.de" target="_blank" rel="noopener noreferrer">Portfolio</a>
-            <span class="cv-section-document-separator">•</span>
             <a href="https://github.com/TerrorDackel?tab=repositories" target="_blank" rel="noopener noreferrer">GitHub</a>
             <span class="cv-section-document-separator">•</span>
             <a
