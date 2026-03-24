@@ -368,3 +368,20 @@
   .cv-section-document-btn-back,
   .cv-section-document-btn-print
     color: #111111
+
+@media (prefers-color-scheme: dark)
+  :host-context(html[data-accent="white"])
+    .cv-section-document-header
+      color: var(--surface)
+
+      .cv-section-document-contact a,
+      .cv-section-document-links a
+        color: var(--surface)
+
+        &:link,
+        &:visited
+          color: var(--surface)
+
+    .cv-section-document-btn-back,
+    .cv-section-document-btn-print
+      color: var(--surface)
