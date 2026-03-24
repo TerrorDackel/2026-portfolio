@@ -183,10 +183,11 @@
             background-color: var(--primary)
             color: var(--on-primary)
             box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25)
+            transform-origin: center center
 
             &:hover
               background-color: var(--primary-hover)
-              transform: translateY(-1px)
+              transform: scale(1.03)
               box-shadow: 0 18px 40px rgba(0, 0, 0, 0.32)
 
             &:active
@@ -215,4 +216,36 @@
 :host-context(html[data-accent="white"])
   .cv-section-login-container .cv-section-card .cv-section-form .cv-section-button-container .cv-section-btn.cv-section-btn-valid
     color: #111111
+
+@media (prefers-color-scheme: light)
+  .cv-section-login-container
+    .cv-section-card
+      background-color: var(--primary)
+
+      .cv-section-title
+        color: #ffffff
+
+      .cv-section-subtitle-container
+        .cv-section-subtitle-txt
+          color: #ffffff
+
+      .cv-section-form
+        .cv-section-field
+          .cv-section-input-row
+            .cv-section-input
+              background-color: var(--primary)
+              color: #ffffff
+              caret-color: #ffffff
+
+              &::placeholder
+                color: rgba(255, 255, 255, 0.78)
+
+              &:-webkit-autofill,
+              &:-webkit-autofill:hover,
+              &:-webkit-autofill:focus,
+              &:-webkit-autofill:active
+                -webkit-text-fill-color: #ffffff
+                -webkit-box-shadow: 0 0 0 1000px var(--primary) inset
+                box-shadow: 0 0 0 1000px var(--primary) inset
+                caret-color: #ffffff
 
